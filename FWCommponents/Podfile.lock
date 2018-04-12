@@ -1,0 +1,24 @@
+PODS:
+  - FWCycleScrollView (2.0.2):
+    - Kingfisher
+  - FWPopupView (2.0.3)
+  - FWSegmentedControl (2.1.4)
+  - FWSideMenu (2.0.1)
+  - Kingfisher (4.7.0)
+
+DEPENDENCIES:
+  - FWCycleScrollView
+  - FWPopupView
+  - FWSegmentedControl
+  - FWSideMenu
+
+SPEC CHECKSUMS:
+  FWCycleScrollView: fa9414386886975f06c1fc5da829541ab7d3f97f
+  FWPopupView: 90b31f821f28b577f43ded9dd9d3da51f82195f4
+  FWSegmentedControl: 45ed4e4c43f2cc475f4a47136f258d27f0c667b2
+  FWSideMenu: bb55a6e34d5a1aff0527ccdaaa25ae02915dd273
+  Kingfisher: da6b005aa96d37698e3e4f1ccfe96a5b9bbf27d6
+
+PODFILE CHECKSUM: 871b1442e06cc7eefa5ab129c12040a312b9b908
+
+COCOAPODS: 1.4.0

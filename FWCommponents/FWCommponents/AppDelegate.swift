@@ -7,6 +7,18 @@
 //
 
 import UIKit
+import FWSideMenu
+
+/// 状态栏高度
+let kStatusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
+/// 导航栏高度
+let kNavBarHeight: CGFloat = 44.0
+/// 状态栏+导航栏的高度
+let kStatusAndNavBarHeight: CGFloat = (kStatusBarHeight + kNavBarHeight)
+/// 底部菜单栏高度
+let kTabBarHeight: CGFloat = (UIApplication.shared.statusBarFrame.size.height > 20.0 ? 83.0:49.0)
+
+let kMenuWidth = UIScreen.main.bounds.width * 0.82
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +28,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let menuContrainer = FWSideMenuContainerViewController.container(centerViewController: FWTabBarController(), leftMenuViewController: SideMenuViewController(), rightMenuViewController: SideMenuViewController())
+        menuContrainer.leftMenuWidth = kMenuWidth
+        menuContrainer.rightMenuWidth = kMenuWidth
+        
+        self.window?.rootViewController = menuContrainer
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
 
@@ -42,5 +64,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+
+extension AppDelegate {
+    
+    class func resizableImage(imageName: String, edgeInsets: UIEdgeInsets) -> UIImage? {
+        
+        let image = UIImage(named: imageName)
+        if image == nil {
+            return nil
+        }
+        let imageW = image!.size.width
+        let imageH = image!.size.height
+        
+        return image?.resizableImage(withCapInsets: UIEdgeInsetsMake(imageH * edgeInsets.top, imageW * edgeInsets.left, imageH * edgeInsets.bottom, imageW * edgeInsets.right), resizingMode: .stretch)
+    }
+    
+    /// 将颜色转换为图片
+    ///
+    /// - Parameter color: 颜色
+    /// - Returns: UIImage
+    class func getImageWithColor(color: UIColor) -> UIImage {
+        
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        context!.setFillColor(color.cgColor)
+        context!.fill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
 }
 

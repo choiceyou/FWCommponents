@@ -16,7 +16,7 @@ fileprivate let kBackgroundColor = UIColor(white: 0.98, alpha: 0.98)
 
 class SideMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let titleArray = ["了解会员特权", "QQ钱包", "个性装扮", "我的收藏", "我的相册", "我的文件", "免流量特权"]
+    let titleArray = ["核心动画 CoreAnimation", "QQ钱包", "个性装扮", "我的收藏", "我的相册", "我的文件", "免流量特权"]
     let imageArray = ["qq_setting_svip", "qq_setting_qianbao", "qq_setting_zhuangban", "qq_setting_shoucang", "qq_setting_xiangce", "qq_setting_wenjian", "qq_setting_freetraffic"]
     
     
@@ -93,7 +93,14 @@ extension SideMenuViewController {
         }
         
         if navigationController != nil {
-            navigationController!.pushViewController(SubViewController(), animated: true)
+            switch indexPath.row {
+            case 0:
+                navigationController!.pushViewController(AnimationListViewController(), animated: true)
+            default:
+                navigationController!.pushViewController(SubViewController(), animated: true)
+                break
+            }
+            
         }
         
         self.menuContainerViewController.setSideMenuState(state: .closed, completeBlock: nil)

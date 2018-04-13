@@ -76,11 +76,11 @@ class FWTabBar: UITabBar {
                     break
                 case 2:
                     self.animateImageView2.center = view.center
-                    self.animateImageView2.frame.origin.y -= 5
+                    self.animateImageView2.frame.origin.y -= 6
                     break
                 case 3:
                     self.animateImageView3.center = view.center
-                    self.animateImageView3.frame.origin.y -= 5
+                    self.animateImageView3.frame.origin.y -= 6
                     self.animateImageView3.image = nil
                     break
                 default:

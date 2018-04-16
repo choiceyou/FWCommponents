@@ -38,7 +38,7 @@ class AnimationListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            self.navigationController?.pushViewController(BaseAnimationViewController(), animated: true)
+            self.navigationController?.pushViewController(CommonAnimationViewController(), animated: true)
             break
         default:
             break

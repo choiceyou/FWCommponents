@@ -18,6 +18,12 @@ class RecentTableViewCell: UITableViewCell {
     
     @IBOutlet weak var tipLabel: UILabel!
     
+    override var frame: CGRect {
+        didSet {
+            
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         

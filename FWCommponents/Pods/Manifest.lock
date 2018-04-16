@@ -1,5 +1,5 @@
 PODS:
-  - FWCycleScrollView (2.0.2):
+  - FWCycleScrollView (2.0.4):
     - Kingfisher
   - FWPopupView (2.0.3)
   - FWSegmentedControl (2.1.4)
@@ -13,7 +13,7 @@ DEPENDENCIES:
   - FWSideMenu
 
 SPEC CHECKSUMS:
-  FWCycleScrollView: fa9414386886975f06c1fc5da829541ab7d3f97f
+  FWCycleScrollView: a23f2c33afc2bc36ad4205bb720b184ab725143f
   FWPopupView: 90b31f821f28b577f43ded9dd9d3da51f82195f4
   FWSegmentedControl: 45ed4e4c43f2cc475f4a47136f258d27f0c667b2
   FWSideMenu: bb55a6e34d5a1aff0527ccdaaa25ae02915dd273

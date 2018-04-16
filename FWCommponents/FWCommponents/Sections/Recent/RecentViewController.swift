@@ -13,7 +13,7 @@ class RecentViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     let imageArray = ["header_0", "header_1", "header_2", "header_3", "header_4", "header_5", "header_6", "header_7", "header_8", "header_9", "header_10"]
     let titleArray = ["服务号", "小甜", "怪蜀黍", "恶天使", "小鱼人", "我的其他QQ账号", "关联账号", "QQ直播", "QQ购物", "HI", "企鹅大叔"]
-    let decArray = ["QQ天气：【鼓楼】多云15°/28°，08:05更新~", "[图片]", "或者由于。。。", "你们怕吗？怕你？不存在的。。。", "喂鱼咯", "关联QQ号，代收其他账号好友消息。", "关联账号就是方便，随心所欲，想收就收~", "恭喜你获得10个春暖花开红包~", "前不够花？手机可随借1000-3000元！", "HI咯", "元宵快乐，来给好友们送上祝福吧！"]
+    let decArray = ["QQ天气：【鼓楼】多云15°/28°，08:05更新~", "[图片]", "或者由于。。。", "你们怕吗？怕你？不存在的。。。", "喂鱼咯", "关联QQ号，代收其他账号好友消息。", "关联账号就是方便，随心所欲，想收就收~", "恭喜你获得10个春暖花开红包~", "钱不够花？手机可随借1000-3000元！", "HI咯", "元宵快乐，来给好友们送上祝福吧！"]
     var timeArray: [String] = []
     
     

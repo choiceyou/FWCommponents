@@ -28,8 +28,7 @@ class FWNavigationController: UINavigationController {
         navigationBar.isTranslucent = false
         
         self.extendedLayoutIncludesOpaqueBars = false
-        let edgeOptions: UIRectEdge = [.left, .bottom, .right, .top] //注意位移多选枚举的使用
-        self.edgesForExtendedLayout = edgeOptions
+        self.edgesForExtendedLayout = []
         
     }
     

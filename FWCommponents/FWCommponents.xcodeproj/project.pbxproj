@@ -29,10 +29,13 @@
 		49229B02207F543F008049D8 /* RecentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49229AF9207F543F008049D8 /* RecentTableViewCell.xib */; };
 		49229B03207F543F008049D8 /* QworldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49229AFB207F543F008049D8 /* QworldViewController.swift */; };
 		49229B04207F543F008049D8 /* BuddyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49229AFD207F543F008049D8 /* BuddyViewController.swift */; };
-		49450AF720842AC300A4B7EA /* CommonAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450AF620842AC300A4B7EA /* CommonAnimationViewController.swift */; };
 		49450AF920842AE100A4B7EA /* AnimationBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450AF820842AE100A4B7EA /* AnimationBaseViewController.swift */; };
+		49450AFC2084753B00A4B7EA /* FWMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450AFB2084753B00A4B7EA /* FWMacro.swift */; };
+		49450B0220848EC900A4B7EA /* KeyframeAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450B0020848EC900A4B7EA /* KeyframeAnimationViewController.swift */; };
+		49450B0320848EC900A4B7EA /* CommonAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450B0120848EC900A4B7EA /* CommonAnimationViewController.swift */; };
 		497336FF20803E4100A602A6 /* AnimationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497336FE20803E4100A602A6 /* AnimationListViewController.swift */; };
 		49733707208047C000A602A6 /* FWBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49733706208047C000A602A6 /* FWBaseViewController.swift */; };
+		49D448CE2084908E00EB67C2 /* GroupAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D448CD2084908E00EB67C2 /* GroupAnimationViewController.swift */; };
 		FB641D43958E1DD157F06690 /* Pods_FWCommponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C398D060DB39EDA8B03B4D80 /* Pods_FWCommponents.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,10 +86,13 @@
 		49229AF9207F543F008049D8 /* RecentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecentTableViewCell.xib; sourceTree = "<group>"; };
 		49229AFB207F543F008049D8 /* QworldViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QworldViewController.swift; sourceTree = "<group>"; };
 		49229AFD207F543F008049D8 /* BuddyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuddyViewController.swift; sourceTree = "<group>"; };
-		49450AF620842AC300A4B7EA /* CommonAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonAnimationViewController.swift; sourceTree = "<group>"; };
 		49450AF820842AE100A4B7EA /* AnimationBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationBaseViewController.swift; sourceTree = "<group>"; };
+		49450AFB2084753B00A4B7EA /* FWMacro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWMacro.swift; sourceTree = "<group>"; };
+		49450B0020848EC900A4B7EA /* KeyframeAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyframeAnimationViewController.swift; sourceTree = "<group>"; };
+		49450B0120848EC900A4B7EA /* CommonAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonAnimationViewController.swift; sourceTree = "<group>"; };
 		497336FE20803E4100A602A6 /* AnimationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationListViewController.swift; sourceTree = "<group>"; };
 		49733706208047C000A602A6 /* FWBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWBaseViewController.swift; sourceTree = "<group>"; };
+		49D448CD2084908E00EB67C2 /* GroupAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupAnimationViewController.swift; sourceTree = "<group>"; };
 		53A254506FE8648AC1AACD6D /* Pods-FWCommponents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FWCommponents.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FWCommponents/Pods-FWCommponents.debug.xcconfig"; sourceTree = "<group>"; };
 		55BD1BF3F5A44BA7AE34DC97 /* Pods_FWCommponentsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FWCommponentsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C398D060DB39EDA8B03B4D80 /* Pods_FWCommponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FWCommponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -263,12 +269,12 @@
 			path = Buddy;
 			sourceTree = "<group>";
 		};
-		49450AF520842AC300A4B7EA /* CommonAnimation */ = {
+		49450AFA2084752C00A4B7EA /* Macro */ = {
 			isa = PBXGroup;
 			children = (
-				49450AF620842AC300A4B7EA /* CommonAnimationViewController.swift */,
+				49450AFB2084753B00A4B7EA /* FWMacro.swift */,
 			);
-			path = CommonAnimation;
+			path = Macro;
 			sourceTree = "<group>";
 		};
 		497336FC20803E1300A602A6 /* SectionsEx */ = {
@@ -282,9 +288,11 @@
 		497336FD20803E1300A602A6 /* CoreAnimation */ = {
 			isa = PBXGroup;
 			children = (
-				49450AF520842AC300A4B7EA /* CommonAnimation */,
 				497336FE20803E4100A602A6 /* AnimationListViewController.swift */,
 				49450AF820842AE100A4B7EA /* AnimationBaseViewController.swift */,
+				49450B0120848EC900A4B7EA /* CommonAnimationViewController.swift */,
+				49450B0020848EC900A4B7EA /* KeyframeAnimationViewController.swift */,
+				49D448CD2084908E00EB67C2 /* GroupAnimationViewController.swift */,
 			);
 			path = CoreAnimation;
 			sourceTree = "<group>";
@@ -292,6 +300,7 @@
 		497337032080479C00A602A6 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				49450AFA2084752C00A4B7EA /* Macro */,
 				497337042080479C00A602A6 /* Manager */,
 				497337052080479C00A602A6 /* Base */,
 			);
@@ -531,15 +540,18 @@
 				49733707208047C000A602A6 /* FWBaseViewController.swift in Sources */,
 				497336FF20803E4100A602A6 /* AnimationListViewController.swift in Sources */,
 				49229B01207F543F008049D8 /* RecentTableViewCell.swift in Sources */,
+				49450AFC2084753B00A4B7EA /* FWMacro.swift in Sources */,
 				49229B04207F543F008049D8 /* BuddyViewController.swift in Sources */,
 				49229AFE207F543F008049D8 /* SeeViewController.swift in Sources */,
+				49450B0320848EC900A4B7EA /* CommonAnimationViewController.swift in Sources */,
 				49229AED207F51D7008049D8 /* SideMenuViewController.swift in Sources */,
 				49450AF920842AE100A4B7EA /* AnimationBaseViewController.swift in Sources */,
 				49229B03207F543F008049D8 /* QworldViewController.swift in Sources */,
+				49D448CE2084908E00EB67C2 /* GroupAnimationViewController.swift in Sources */,
 				49229AA0207F4D7F008049D8 /* AppDelegate.swift in Sources */,
 				49229AEA207F51D7008049D8 /* FWTabBar.swift in Sources */,
-				49450AF720842AC300A4B7EA /* CommonAnimationViewController.swift in Sources */,
 				49229AFF207F543F008049D8 /* SubViewController.swift in Sources */,
+				49450B0220848EC900A4B7EA /* KeyframeAnimationViewController.swift in Sources */,
 				49229AEB207F51D7008049D8 /* SideMenuBottomView.swift in Sources */,
 				49229AEC207F51D7008049D8 /* SideMenuTableViewCell.swift in Sources */,
 			);

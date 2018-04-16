@@ -16,6 +16,14 @@ class AnimationBaseViewController: UIViewController {
     var cycleScrollViewY = 0
     var cycleScrollViewHeight = 100
     
+    var animateViewWidth: CGFloat = 100
+    
+    lazy var animateView: UIView = {
+        
+        let view = UIView(frame: CGRect(x: (kScreenW - animateViewWidth)/2, y: (self.view.frame.height - animateViewWidth)/2 - 50, width: animateViewWidth, height: animateViewWidth))
+        view.backgroundColor = UIColor.red
+        return view
+    }()
     
     lazy var cycleScrollView: FWCycleScrollView = {
         

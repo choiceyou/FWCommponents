@@ -40,6 +40,12 @@ class AnimationListViewController: UITableViewController {
         case 0:
             self.navigationController?.pushViewController(CommonAnimationViewController(), animated: true)
             break
+        case 1:
+            self.navigationController?.pushViewController(KeyframeAnimationViewController(), animated: true)
+            break
+        case 2:
+            self.navigationController?.pushViewController(GroupAnimationViewController(), animated: true)
+            break
         default:
             break
         }

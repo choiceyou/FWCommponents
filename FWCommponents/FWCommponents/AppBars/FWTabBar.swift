@@ -106,8 +106,7 @@ extension FWTabBar {
         
         for imageView in bar.subviews {
             if imageView.isKind(of: NSClassFromString("UITabBarSwappableImageView")!) {
-                let animation = CAKeyframeAnimation()
-                animation.keyPath = "transform.scale"
+                let animation = CAKeyframeAnimation(keyPath: "transform.scale")
                 animation.values = [1.0, 1.25, 1.0]
                 animation.duration = 0.2
                 animation.calculationMode = kCAAnimationCubic

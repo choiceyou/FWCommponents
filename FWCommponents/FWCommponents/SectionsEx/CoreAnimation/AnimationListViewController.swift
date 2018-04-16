@@ -11,7 +11,7 @@ import UIKit
 
 class AnimationListViewController: UITableViewController {
     
-    let animationArray = ["基础动画", "关键帧动画", "动画组", "过度动画", "组合变换效果", "动画案例"]
+    let animationArray = ["基础动画", "关键帧动画", "动画组", "过渡动画", "UIView仿射动画", "动画案例"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +45,12 @@ class AnimationListViewController: UITableViewController {
             break
         case 2:
             self.navigationController?.pushViewController(GroupAnimationViewController(), animated: true)
+            break
+        case 3:
+            self.navigationController?.pushViewController(TransitionViewController(), animated: true)
+            break
+        case 4:
+            self.navigationController?.pushViewController(UIViewAnimationViewController(), animated: true)
             break
         default:
             break

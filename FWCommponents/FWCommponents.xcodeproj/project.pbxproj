@@ -36,6 +36,8 @@
 		497336FF20803E4100A602A6 /* AnimationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497336FE20803E4100A602A6 /* AnimationListViewController.swift */; };
 		49733707208047C000A602A6 /* FWBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49733706208047C000A602A6 /* FWBaseViewController.swift */; };
 		49D448CE2084908E00EB67C2 /* GroupAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D448CD2084908E00EB67C2 /* GroupAnimationViewController.swift */; };
+		49D448DB2084C76300EB67C2 /* TransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D448DA2084C76300EB67C2 /* TransitionViewController.swift */; };
+		49D448DD2084CE1D00EB67C2 /* UIViewAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D448DC2084CE1D00EB67C2 /* UIViewAnimationViewController.swift */; };
 		FB641D43958E1DD157F06690 /* Pods_FWCommponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C398D060DB39EDA8B03B4D80 /* Pods_FWCommponents.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +95,8 @@
 		497336FE20803E4100A602A6 /* AnimationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationListViewController.swift; sourceTree = "<group>"; };
 		49733706208047C000A602A6 /* FWBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWBaseViewController.swift; sourceTree = "<group>"; };
 		49D448CD2084908E00EB67C2 /* GroupAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupAnimationViewController.swift; sourceTree = "<group>"; };
+		49D448DA2084C76300EB67C2 /* TransitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionViewController.swift; sourceTree = "<group>"; };
+		49D448DC2084CE1D00EB67C2 /* UIViewAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewAnimationViewController.swift; sourceTree = "<group>"; };
 		53A254506FE8648AC1AACD6D /* Pods-FWCommponents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FWCommponents.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FWCommponents/Pods-FWCommponents.debug.xcconfig"; sourceTree = "<group>"; };
 		55BD1BF3F5A44BA7AE34DC97 /* Pods_FWCommponentsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FWCommponentsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C398D060DB39EDA8B03B4D80 /* Pods_FWCommponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FWCommponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -293,6 +297,8 @@
 				49450B0120848EC900A4B7EA /* CommonAnimationViewController.swift */,
 				49450B0020848EC900A4B7EA /* KeyframeAnimationViewController.swift */,
 				49D448CD2084908E00EB67C2 /* GroupAnimationViewController.swift */,
+				49D448DA2084C76300EB67C2 /* TransitionViewController.swift */,
+				49D448DC2084CE1D00EB67C2 /* UIViewAnimationViewController.swift */,
 			);
 			path = CoreAnimation;
 			sourceTree = "<group>";
@@ -552,8 +558,10 @@
 				49229AEA207F51D7008049D8 /* FWTabBar.swift in Sources */,
 				49229AFF207F543F008049D8 /* SubViewController.swift in Sources */,
 				49450B0220848EC900A4B7EA /* KeyframeAnimationViewController.swift in Sources */,
+				49D448DB2084C76300EB67C2 /* TransitionViewController.swift in Sources */,
 				49229AEB207F51D7008049D8 /* SideMenuBottomView.swift in Sources */,
 				49229AEC207F51D7008049D8 /* SideMenuTableViewCell.swift in Sources */,
+				49D448DD2084CE1D00EB67C2 /* UIViewAnimationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

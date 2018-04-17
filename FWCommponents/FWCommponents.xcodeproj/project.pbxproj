@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4909B0F020857C3200588921 /* CaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4909B0EF20857C3200588921 /* CaseViewController.swift */; };
+		4909B0F32085A80200588921 /* PathCenterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4909B0F22085A80200588921 /* PathCenterButton.swift */; };
 		49229AA0207F4D7F008049D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49229A9F207F4D7F008049D8 /* AppDelegate.swift */; };
 		49229AA7207F4D7F008049D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49229AA6207F4D7F008049D8 /* Assets.xcassets */; };
 		49229AAA207F4D7F008049D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49229AA8207F4D7F008049D8 /* LaunchScreen.storyboard */; };
@@ -60,6 +62,8 @@
 
 /* Begin PBXFileReference section */
 		23908366790C34920B7EAF87 /* Pods_FWCommponentsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FWCommponentsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4909B0EF20857C3200588921 /* CaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseViewController.swift; sourceTree = "<group>"; };
+		4909B0F22085A80200588921 /* PathCenterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathCenterButton.swift; sourceTree = "<group>"; };
 		49229A9C207F4D7F008049D8 /* FWCommponents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FWCommponents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49229A9F207F4D7F008049D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49229AA6207F4D7F008049D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -137,6 +141,14 @@
 				23908366790C34920B7EAF87 /* Pods_FWCommponentsUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4909B0F12085A40700588921 /* PathButton */ = {
+			isa = PBXGroup;
+			children = (
+				4909B0F22085A80200588921 /* PathCenterButton.swift */,
+			);
+			path = PathButton;
 			sourceTree = "<group>";
 		};
 		49229A93207F4D7F008049D8 = {
@@ -292,6 +304,7 @@
 		497336FD20803E1300A602A6 /* CoreAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				4909B0F12085A40700588921 /* PathButton */,
 				497336FE20803E4100A602A6 /* AnimationListViewController.swift */,
 				49450AF820842AE100A4B7EA /* AnimationBaseViewController.swift */,
 				49450B0120848EC900A4B7EA /* CommonAnimationViewController.swift */,
@@ -299,6 +312,7 @@
 				49D448CD2084908E00EB67C2 /* GroupAnimationViewController.swift */,
 				49D448DA2084C76300EB67C2 /* TransitionViewController.swift */,
 				49D448DC2084CE1D00EB67C2 /* UIViewAnimationViewController.swift */,
+				4909B0EF20857C3200588921 /* CaseViewController.swift */,
 			);
 			path = CoreAnimation;
 			sourceTree = "<group>";
@@ -540,6 +554,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49229AEE207F51D7008049D8 /* SideMenuHeaderView.swift in Sources */,
+				4909B0F32085A80200588921 /* PathCenterButton.swift in Sources */,
 				49229AE8207F51D7008049D8 /* FWNavigationController.swift in Sources */,
 				49229B00207F543F008049D8 /* RecentViewController.swift in Sources */,
 				49229AE9207F51D7008049D8 /* FWTabBarController.swift in Sources */,
@@ -553,6 +568,7 @@
 				49229AED207F51D7008049D8 /* SideMenuViewController.swift in Sources */,
 				49450AF920842AE100A4B7EA /* AnimationBaseViewController.swift in Sources */,
 				49229B03207F543F008049D8 /* QworldViewController.swift in Sources */,
+				4909B0F020857C3200588921 /* CaseViewController.swift in Sources */,
 				49D448CE2084908E00EB67C2 /* GroupAnimationViewController.swift in Sources */,
 				49229AA0207F4D7F008049D8 /* AppDelegate.swift in Sources */,
 				49229AEA207F51D7008049D8 /* FWTabBar.swift in Sources */,

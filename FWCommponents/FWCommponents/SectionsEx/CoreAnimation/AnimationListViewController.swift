@@ -52,6 +52,9 @@ class AnimationListViewController: UITableViewController {
         case 4:
             self.navigationController?.pushViewController(UIViewAnimationViewController(), animated: true)
             break
+        case 5:
+            self.navigationController?.pushViewController(CaseViewController(), animated: true)
+            break
         default:
             break
         }

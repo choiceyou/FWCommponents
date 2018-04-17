@@ -84,7 +84,7 @@ extension UIViewAnimationViewController {
         UIView.animate(withDuration: 1.0) {
             let transform1 = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
             let transform2 = CGAffineTransform(scaleX: 0.5, y: 0.5).concatenating(transform1)
-            self.animateView.transform = CGAffineTransform()
+            self.animateView.transform = CGAffineTransform(translationX: 100, y: 100).concatenating(transform2)
         }
     }
     

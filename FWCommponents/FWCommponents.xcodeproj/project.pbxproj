@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4909B0F020857C3200588921 /* CaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4909B0EF20857C3200588921 /* CaseViewController.swift */; };
 		4909B0F32085A80200588921 /* PathCenterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4909B0F22085A80200588921 /* PathCenterButton.swift */; };
+		4909B0F52085D5A400588921 /* PathItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4909B0F42085D5A400588921 /* PathItemButton.swift */; };
+		4909B0F72085E29300588921 /* PathButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4909B0F62085E29300588921 /* PathButton.swift */; };
 		49229AA0207F4D7F008049D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49229A9F207F4D7F008049D8 /* AppDelegate.swift */; };
 		49229AA7207F4D7F008049D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49229AA6207F4D7F008049D8 /* Assets.xcassets */; };
 		49229AAA207F4D7F008049D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49229AA8207F4D7F008049D8 /* LaunchScreen.storyboard */; };
@@ -64,6 +66,8 @@
 		23908366790C34920B7EAF87 /* Pods_FWCommponentsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FWCommponentsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4909B0EF20857C3200588921 /* CaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseViewController.swift; sourceTree = "<group>"; };
 		4909B0F22085A80200588921 /* PathCenterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathCenterButton.swift; sourceTree = "<group>"; };
+		4909B0F42085D5A400588921 /* PathItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathItemButton.swift; sourceTree = "<group>"; };
+		4909B0F62085E29300588921 /* PathButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathButton.swift; sourceTree = "<group>"; };
 		49229A9C207F4D7F008049D8 /* FWCommponents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FWCommponents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49229A9F207F4D7F008049D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49229AA6207F4D7F008049D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -146,7 +150,9 @@
 		4909B0F12085A40700588921 /* PathButton */ = {
 			isa = PBXGroup;
 			children = (
+				4909B0F62085E29300588921 /* PathButton.swift */,
 				4909B0F22085A80200588921 /* PathCenterButton.swift */,
+				4909B0F42085D5A400588921 /* PathItemButton.swift */,
 			);
 			path = PathButton;
 			sourceTree = "<group>";
@@ -560,6 +566,7 @@
 				49229AE9207F51D7008049D8 /* FWTabBarController.swift in Sources */,
 				49733707208047C000A602A6 /* FWBaseViewController.swift in Sources */,
 				497336FF20803E4100A602A6 /* AnimationListViewController.swift in Sources */,
+				4909B0F52085D5A400588921 /* PathItemButton.swift in Sources */,
 				49229B01207F543F008049D8 /* RecentTableViewCell.swift in Sources */,
 				49450AFC2084753B00A4B7EA /* FWMacro.swift in Sources */,
 				49229B04207F543F008049D8 /* BuddyViewController.swift in Sources */,
@@ -572,6 +579,7 @@
 				49D448CE2084908E00EB67C2 /* GroupAnimationViewController.swift in Sources */,
 				49229AA0207F4D7F008049D8 /* AppDelegate.swift in Sources */,
 				49229AEA207F51D7008049D8 /* FWTabBar.swift in Sources */,
+				4909B0F72085E29300588921 /* PathButton.swift in Sources */,
 				49229AFF207F543F008049D8 /* SubViewController.swift in Sources */,
 				49450B0220848EC900A4B7EA /* KeyframeAnimationViewController.swift in Sources */,
 				49D448DB2084C76300EB67C2 /* TransitionViewController.swift in Sources */,

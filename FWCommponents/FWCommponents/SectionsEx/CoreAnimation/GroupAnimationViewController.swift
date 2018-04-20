@@ -16,10 +16,6 @@ class GroupAnimationViewController: AnimationBaseViewController {
         
         self.view.backgroundColor = UIColor.white
         self.navigationItem.title = "动画组"
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
         
         self.itemTitleArray = ["同时", "连续"]
         self.setupItemBtn()

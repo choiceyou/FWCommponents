@@ -14,14 +14,14 @@ protocol PathItemButtonDelegate {
     func itemBtnTapped(itemBtn: PathItemButton)
 }
 
-class PathItemButton: UIImageView {
+open class PathItemButton: UIImageView {
     
     var pathItemButtonDelegate: PathItemButtonDelegate?
     var index = 0
     var backgroundImageView: UIImageView!
     
     
-    func pathItem(image: UIImage, highlightedImage: UIImage, backgroundImage: UIImage, backgroundHighlightedImage: UIImage) {
+    public func setup(image: UIImage, highlightedImage: UIImage, backgroundImage: UIImage, backgroundHighlightedImage: UIImage) {
         
         let itemFrame = CGRect(x: 0, y: 0, width: backgroundImage.size.width, height: backgroundImage.size.height)
         
@@ -42,12 +42,12 @@ class PathItemButton: UIImageView {
 
 extension PathItemButton {
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.isHighlighted = true
         self.backgroundImageView.isHighlighted = true
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let currentLocation = touches.first?.location(in: self)
         
         if currentLocation != nil && self.scaleRect(originRect: self.bounds).contains(currentLocation!) {
@@ -60,7 +60,7 @@ extension PathItemButton {
         self.backgroundImageView.isHighlighted = false
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if self.pathItemButtonDelegate != nil {
             self.pathItemButtonDelegate?.itemBtnTapped(itemBtn: self)

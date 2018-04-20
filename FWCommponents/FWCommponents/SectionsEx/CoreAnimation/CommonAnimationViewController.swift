@@ -16,10 +16,6 @@ class CommonAnimationViewController: AnimationBaseViewController {
         
         self.view.backgroundColor = UIColor.white
         self.navigationItem.title = "基础动画"
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
         
         self.itemTitleArray = ["位移", "透明度", "缩放", "旋转", "背景色"]
         self.setupItemBtn()
@@ -51,6 +47,43 @@ class CommonAnimationViewController: AnimationBaseViewController {
 }
 
 extension CommonAnimationViewController {
+    
+    /**
+     可选的KeyPath
+     transform.scale 比例转换
+     transform.scale.x
+     transform.scale.y
+     transform.rotation 旋转
+     transform.rotation.x
+     transform.rotation.y
+     transform.rotation.z
+     transform.translation
+     transform.translation.x
+     transform.translation.y
+     transform.translation.z
+     
+     opacity = 透明度
+     margin
+     zPosition
+     backgroundColor 背景颜色
+     cornerRadius 圆角
+     borderWidth
+     bounds
+     contents
+     contentsRect
+     cornerRadius
+     frame
+     hidden
+     mask
+     masksToBounds
+     opacity
+     position
+     shadowColor
+     shadowOffset
+     shadowOpacity
+     shadowRadius
+     
+     */
     
     /// 位移
     func positionAnimation() {

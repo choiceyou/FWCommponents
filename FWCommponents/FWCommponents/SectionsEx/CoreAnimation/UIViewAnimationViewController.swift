@@ -15,11 +15,7 @@ class UIViewAnimationViewController: AnimationBaseViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.white
-        self.navigationItem.title = "UIView仿射动画"
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+        self.navigationItem.title = "仿射动画"
         
         self.itemTitleArray = ["位移", "缩放", "旋转", "组合", "反转"]
         self.setupItemBtn()

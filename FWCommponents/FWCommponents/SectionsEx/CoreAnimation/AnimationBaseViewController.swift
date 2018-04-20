@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import FWCycleScrollView
 
-class AnimationBaseViewController: UIViewController {
+class AnimationBaseViewController: FWBaseViewController {
     
     var itemTitleArray: [String] = []
     var cycleScrollViewY = 0

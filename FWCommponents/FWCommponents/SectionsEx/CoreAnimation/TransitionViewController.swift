@@ -29,10 +29,6 @@ class TransitionViewController: AnimationBaseViewController {
         
         self.view.backgroundColor = UIColor.white
         self.navigationItem.title = "过渡动画"
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
         
         self.itemTitleArray = ["fade", "moveIn", "push", "reveal"]
         self.setupItemBtn()

@@ -7,3 +7,17 @@
 //
 
 import Foundation
+import UIKit
+
+class FWBaseViewController: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if self.navigationController != nil && self.navigationController?.isNavigationBarHidden == false && self.navigationController?.childViewControllers[0] != self {
+            
+            self.view.frame.size.height = UIScreen.main.bounds.height - kStatusAndNavBarHeight
+            
+        }
+    }
+}

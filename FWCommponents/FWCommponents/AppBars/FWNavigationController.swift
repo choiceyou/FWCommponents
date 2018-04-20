@@ -27,7 +27,7 @@ class FWNavigationController: UINavigationController {
         navigationBar.setBackgroundImage(AppDelegate.resizableImage(imageName: "header_bg_message", edgeInsets: UIEdgeInsetsMake(0, 0, 0, 0)), for: .default)
         navigationBar.isTranslucent = false
         
-        self.extendedLayoutIncludesOpaqueBars = false
+        self.extendedLayoutIncludesOpaqueBars = true
         self.edgesForExtendedLayout = []
         
     }

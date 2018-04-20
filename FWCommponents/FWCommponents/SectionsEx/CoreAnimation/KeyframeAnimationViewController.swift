@@ -16,10 +16,6 @@ class KeyframeAnimationViewController: AnimationBaseViewController, CAAnimationD
         
         self.view.backgroundColor = UIColor.white
         self.navigationItem.title = "关键帧动画"
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
         
         self.itemTitleArray = ["关键帧", "路径", "左右抖动", "上下抖动"]
         self.setupItemBtn()

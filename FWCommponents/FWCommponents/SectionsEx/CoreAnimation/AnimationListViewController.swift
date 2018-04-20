@@ -11,7 +11,7 @@ import UIKit
 
 class AnimationListViewController: UITableViewController {
     
-    let animationArray = ["基础动画", "关键帧动画", "动画组", "过渡动画", "UIView仿射动画", "动画案例"]
+    let animationArray = ["基础动画", "关键帧动画", "动画组", "过渡动画", "仿射动画", "动画案例"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

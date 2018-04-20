@@ -16,7 +16,7 @@ import UIKit
 
 class PathCenterButton: UIImageView {
     
-    var pathCenterButtonDelegate: PathCenterButtonDelegate?
+    public var pathCenterButtonDelegate: PathCenterButtonDelegate?
     
     override init(image: UIImage?, highlightedImage: UIImage?) {
         super.init(image: image, highlightedImage: highlightedImage)

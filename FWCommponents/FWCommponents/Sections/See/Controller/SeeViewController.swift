@@ -10,43 +10,45 @@ import Foundation
 import UIKit
 import RxCocoa
 
-class SeeViewController: UIViewController {
+class SeeViewController: FWBaseViewController {
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // 设置导航栏
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: navTitleFont)]
-        self.navigationController?.navigationBar.setBackgroundImage(AppDelegate.resizableImage(imageName: "header_bg_message", edgeInsets: UIEdgeInsetsMake(0, 0, 0, 0)), for: .default)
-        
-        // 设置状态栏
-        UIApplication.shared.statusBarStyle = .lightContent
-        
-        // 本页面开启支持打开侧滑菜单
-        self.menuContainerViewController.sideMenuPanMode = .defaults
-    }
+    lazy var seeViewModel: SeeViewModel = {
+       
+        let seeViewModel = SeeViewModel()
+        return seeViewModel
+    }()
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // 设置导航栏
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black, NSAttributedStringKey.font: UIFont.systemFont(ofSize: navTitleFont)]
-        self.navigationController?.navigationBar.setBackgroundImage(AppDelegate.getImageWithColor(color: UIColor.white), for: .default)
-        
-        // 离开本页面时关闭支持打开侧滑菜单
-        self.menuContainerViewController.sideMenuPanMode = .none
-    }
+    lazy var seeMainView: SeeMainView = {
+       
+        let seeMainView = SeeMainView()
+        seeMainView.fw_setupViewModel(viewModel: self.seeViewModel)
+        return seeMainView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = "看点"
         
-//        let nickNameTextField = UITextField(frame: CGRect(x: 0, y: 100, width: self.view.frame.width, height: 50))
-//        self.view.addSubview(nickNameTextField)
-//        let nickNameText = nickNameTextField.rx.text.orEmpty.map { (text) -> Bool in
-//
-//        }.share(replay: 1, scope: .whileConnected)
+        if #available(iOS 11.0, *) {
+            seeMainView.tableView.contentInsetAdjustmentBehavior = .never
+        }
         
+        self.sideMenuPanMode = .defaults
+        self.isNeedBlueNav = true
+    }
+    
+    override func fw_setupViews() {
+        
+        self.view.addSubview(self.seeMainView)
+    }
+    
+    override func updateViewConstraints() {
+        
+        self.seeMainView.snp.makeConstraints { [weak self] (make) in
+            make.edges.equalTo(self!.view)
+        }
+        
+        super.updateViewConstraints()
     }
 }

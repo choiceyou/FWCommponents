@@ -21,4 +21,7 @@ target 'FWCommponents' do
     pod 'RxSwift'
     pod 'RxCocoa'
     
+    # https://github.com/SnapKit/SnapKit
+    pod 'SnapKit'
+    
 end

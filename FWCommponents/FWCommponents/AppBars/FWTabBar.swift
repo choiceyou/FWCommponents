@@ -40,6 +40,7 @@ class FWTabBar: UITabBar {
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.white
+        self.isTranslucent = false
         self.backgroundImage = AppDelegate.resizableImage(imageName: (kStatusBarHeight > 20) ? "tabbar_bg_X" : "tabbar_bg", edgeInsets: UIEdgeInsetsMake(0.1, 0, 0, 0))
     }
     

@@ -43,7 +43,7 @@ class FWNavigationController: UINavigationController {
             button.setTitleColor(.darkGray, for: .normal)
             button.setTitleColor(.red, for: .highlighted)
             button.sizeToFit()
-            //            button.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
+            // button.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0)
             button.contentHorizontalAlignment = .left
             viewController.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
             

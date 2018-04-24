@@ -8,6 +8,7 @@ PODS:
   - RxCocoa (4.1.2):
     - RxSwift (~> 4.0)
   - RxSwift (4.1.2)
+  - SnapKit (4.0.0)
 
 DEPENDENCIES:
   - FWCycleScrollView
@@ -16,6 +17,7 @@ DEPENDENCIES:
   - FWSideMenu
   - RxCocoa
   - RxSwift
+  - SnapKit
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -26,6 +28,7 @@ SPEC REPOS:
     - Kingfisher
     - RxCocoa
     - RxSwift
+    - SnapKit
 
 SPEC CHECKSUMS:
   FWCycleScrollView: a23f2c33afc2bc36ad4205bb720b184ab725143f
@@ -35,7 +38,8 @@ SPEC CHECKSUMS:
   Kingfisher: da6b005aa96d37698e3e4f1ccfe96a5b9bbf27d6
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
   RxSwift: e49536837d9901277638493ea537394d4b55f570
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: 36ba7eb636991e54f03cd97c42e8cebe5d28652e
+PODFILE CHECKSUM: cd0309d32b74d02b7344df7e45f991a41eb3d9b5
 
 COCOAPODS: 1.5.0

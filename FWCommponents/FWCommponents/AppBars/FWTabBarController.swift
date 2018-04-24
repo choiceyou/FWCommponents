@@ -23,6 +23,9 @@ class FWTabBarController: UITabBarController {
         tabBar.setTitleTextAttributes(attrsNormal, for: .normal)
         tabBar.setTitleTextAttributes(attrsSelected, for: .selected)
         
+        self.extendedLayoutIncludesOpaqueBars = true
+        self.edgesForExtendedLayout = []
+        
         setupUI()
     }
 }

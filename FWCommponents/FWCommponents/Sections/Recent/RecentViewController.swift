@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class RecentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class RecentViewController: FWBaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     let imageArray = ["header_0", "header_1", "header_2", "header_3", "header_4", "header_5", "header_6", "header_7", "header_8", "header_9", "header_10"]
     let titleArray = ["服务号", "小甜", "怪蜀黍", "恶天使", "小鱼人", "我的其他QQ账号", "关联账号", "QQ直播", "QQ购物", "HI", "企鹅大叔"]
@@ -19,42 +19,23 @@ class RecentViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     lazy var tableView: UITableView = {
         
-        let tableview = UITableView(frame: self.view.bounds)
+        let tableview = UITableView()
         tableview.separatorStyle = .none
         return tableview
     }()
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // 设置导航栏
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: navTitleFont)]
-        self.navigationController?.navigationBar.setBackgroundImage(AppDelegate.resizableImage(imageName: "header_bg_message", edgeInsets: UIEdgeInsetsMake(0, 0, 0, 0)), for: .default)
-        
-        // 设置状态栏
-        UIApplication.shared.statusBarStyle = .lightContent
-        
-        // 本页面开启支持打开侧滑菜单
-        self.menuContainerViewController.sideMenuPanMode = .defaults
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // 设置导航栏
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black, NSAttributedStringKey.font: UIFont.systemFont(ofSize: navTitleFont)]
-        self.navigationController?.navigationBar.setBackgroundImage(AppDelegate.getImageWithColor(color: UIColor.white), for: .default)
-        
-        // 离开本页面时关闭支持打开侧滑菜单
-        self.menuContainerViewController.sideMenuPanMode = .none
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.white
         self.navigationItem.title = "消息"
-        self.view.frame.size.height = UIScreen.main.bounds.height - kStatusAndNavBarHeight - kTabBarHeight
+        
+        self.sideMenuPanMode = .defaults
+        self.isNeedBlueNav = true
+        
+        if #available(iOS 11.0, *) {
+            self.tableView.contentInsetAdjustmentBehavior = .never
+        }
         
         for index in 0...self.imageArray.count {
             self.timeArray.append(self.obtainRandomTime(index: index))
@@ -73,6 +54,15 @@ class RecentViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.register(UINib(nibName: "RecentTableViewCell", bundle: nil), forCellReuseIdentifier: "cellId")
         self.tableView.delegate = self
         self.tableView.dataSource = self
+    }
+    
+    override func updateViewConstraints() {
+        
+        self.tableView.snp.makeConstraints { [weak self] (make) in
+            make.edges.equalTo(self!.view)
+        }
+        
+        super.updateViewConstraints()
     }
     
     @objc func leftBtnAction() {

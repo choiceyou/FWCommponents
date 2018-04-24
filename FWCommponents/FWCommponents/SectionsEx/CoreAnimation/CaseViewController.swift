@@ -72,23 +72,23 @@ extension CaseViewController {
     
     /// 仿path动画
     func pathAnimation() {
-        
+        self.pathButton.isHidden = false
     }
     
-    /// 仿钉钉动画
+    /// 仿钉钉动画，后续有时间再实现
     func ddAnimation() {
-        
+        self.pathButton.isHidden = true
     }
     
-    /// 点赞动画
+    /// 点赞动画，后续有时间再实现
     func likeAnimation() {
-        
+        self.pathButton.isHidden = true
     }
 }
 
 extension CaseViewController {
     
     func itemBtnTapped(index: Int) {
-        
+        print("点击了第 \(index + 1) 项")
     }
 }

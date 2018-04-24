@@ -78,6 +78,7 @@ open class PathButton: UIView, PathCenterButtonDelegate, PathItemButtonDelegate,
 // MARK: - 实现代理
 extension PathButton {
     
+    /// 点击中间按钮
     public func clickCenterBtn() {
         if self.bloom {
             self.pathCenterButtonFold()
@@ -86,8 +87,30 @@ extension PathButton {
         }
     }
     
+    /// 点击PathItemButton
+    ///
+    /// - Parameter itemBtn: PathItemButton
     func itemBtnTapped(itemBtn: PathItemButton) {
         
+        UIView.animate(withDuration: 0.0618 * 5) {
+            itemBtn.transform = CGAffineTransform(scaleX: 3, y: 3)
+            itemBtn.alpha = 0.0
+        }
+        
+        for pathItemBtn in self.itemButtons {
+            if pathItemBtn == itemBtn {
+                continue
+            }
+            UIView.animate(withDuration: 0.0618 * 2, animations: {
+                pathItemBtn.transform = CGAffineTransform(scaleX: 0, y: 0)
+            })
+        }
+        
+        self.resizeToFoldedFrame()
+        
+        if self.pathButtonDelegate != nil {
+            self.pathButtonDelegate?.itemBtnTapped(index: itemBtn.tag)
+        }
     }
 }
 
@@ -264,5 +287,12 @@ extension PathButton {
         animationGroup.delegate = self
         
         return animationGroup
+    }
+}
+
+extension PathButton {
+    
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.pathCenterButtonFold()
     }
 }

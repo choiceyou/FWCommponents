@@ -4,9 +4,21 @@ use_frameworks!
 
 target 'FWCommponents' do
     
+    # https://github.com/choiceyou/FWSegmentedControl
     pod 'FWSegmentedControl'
+    
+    # https://github.com/choiceyou/FWPopupView
     pod 'FWPopupView'
+    
+    # https://github.com/choiceyou/FWCycleScrollView
     pod 'FWCycleScrollView'
+    
+    # https://github.com/choiceyou/FWSideMenu
     pod 'FWSideMenu'
+    
+    
+    # https://github.com/ReactiveX/RxSwift
+    pod 'RxSwift'
+    pod 'RxCocoa'
     
 end

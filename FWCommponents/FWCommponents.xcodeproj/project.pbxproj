@@ -26,7 +26,6 @@
 		49229AEF207F51D7008049D8 /* SideMenuHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49229ADE207F51D7008049D8 /* SideMenuHeaderView.xib */; };
 		49229AF0207F51D7008049D8 /* SideMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49229ADF207F51D7008049D8 /* SideMenuTableViewCell.xib */; };
 		49229AF1207F51D7008049D8 /* SideMenuBottomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49229AE0207F51D7008049D8 /* SideMenuBottomView.xib */; };
-		49229AFE207F543F008049D8 /* SeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49229AF3207F543F008049D8 /* SeeViewController.swift */; };
 		49229AFF207F543F008049D8 /* SubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49229AF5207F543F008049D8 /* SubViewController.swift */; };
 		49229B00207F543F008049D8 /* RecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49229AF7207F543F008049D8 /* RecentViewController.swift */; };
 		49229B01207F543F008049D8 /* RecentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49229AF8207F543F008049D8 /* RecentTableViewCell.swift */; };
@@ -37,6 +36,7 @@
 		49450AFC2084753B00A4B7EA /* FWMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450AFB2084753B00A4B7EA /* FWMacro.swift */; };
 		49450B0220848EC900A4B7EA /* KeyframeAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450B0020848EC900A4B7EA /* KeyframeAnimationViewController.swift */; };
 		49450B0320848EC900A4B7EA /* CommonAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450B0120848EC900A4B7EA /* CommonAnimationViewController.swift */; };
+		49563CBC208D711600643444 /* SeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49563CB8208D711600643444 /* SeeViewController.swift */; };
 		497336FF20803E4100A602A6 /* AnimationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497336FE20803E4100A602A6 /* AnimationListViewController.swift */; };
 		49733707208047C000A602A6 /* FWBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49733706208047C000A602A6 /* FWBaseViewController.swift */; };
 		49D448CE2084908E00EB67C2 /* GroupAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D448CD2084908E00EB67C2 /* GroupAnimationViewController.swift */; };
@@ -89,7 +89,6 @@
 		49229ADE207F51D7008049D8 /* SideMenuHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuHeaderView.xib; sourceTree = "<group>"; };
 		49229ADF207F51D7008049D8 /* SideMenuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuTableViewCell.xib; sourceTree = "<group>"; };
 		49229AE0207F51D7008049D8 /* SideMenuBottomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideMenuBottomView.xib; sourceTree = "<group>"; };
-		49229AF3207F543F008049D8 /* SeeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeViewController.swift; sourceTree = "<group>"; };
 		49229AF5207F543F008049D8 /* SubViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubViewController.swift; sourceTree = "<group>"; };
 		49229AF7207F543F008049D8 /* RecentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentViewController.swift; sourceTree = "<group>"; };
 		49229AF8207F543F008049D8 /* RecentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentTableViewCell.swift; sourceTree = "<group>"; };
@@ -100,6 +99,7 @@
 		49450AFB2084753B00A4B7EA /* FWMacro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWMacro.swift; sourceTree = "<group>"; };
 		49450B0020848EC900A4B7EA /* KeyframeAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyframeAnimationViewController.swift; sourceTree = "<group>"; };
 		49450B0120848EC900A4B7EA /* CommonAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonAnimationViewController.swift; sourceTree = "<group>"; };
+		49563CB8208D711600643444 /* SeeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeViewController.swift; sourceTree = "<group>"; };
 		497336FE20803E4100A602A6 /* AnimationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationListViewController.swift; sourceTree = "<group>"; };
 		49733706208047C000A602A6 /* FWBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWBaseViewController.swift; sourceTree = "<group>"; };
 		49D448CD2084908E00EB67C2 /* GroupAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupAnimationViewController.swift; sourceTree = "<group>"; };
@@ -252,7 +252,10 @@
 		49229AF2207F543F008049D8 /* See */ = {
 			isa = PBXGroup;
 			children = (
-				49229AF3207F543F008049D8 /* SeeViewController.swift */,
+				49563CB7208D711600643444 /* Controller */,
+				49563CB9208D711600643444 /* Model */,
+				49563CBA208D711600643444 /* View */,
+				49563CBB208D711600643444 /* ViewModel */,
 			);
 			path = See;
 			sourceTree = "<group>";
@@ -297,6 +300,35 @@
 				49450AFB2084753B00A4B7EA /* FWMacro.swift */,
 			);
 			path = Macro;
+			sourceTree = "<group>";
+		};
+		49563CB7208D711600643444 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				49563CB8208D711600643444 /* SeeViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		49563CB9208D711600643444 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		49563CBA208D711600643444 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		49563CBB208D711600643444 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		497336FC20803E1300A602A6 /* SectionsEx */ = {
@@ -522,6 +554,8 @@
 				"${BUILT_PRODUCTS_DIR}/FWSegmentedControl/FWSegmentedControl.framework",
 				"${BUILT_PRODUCTS_DIR}/FWSideMenu/FWSideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -530,6 +564,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FWSegmentedControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FWSideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -554,7 +590,6 @@
 				49229B01207F543F008049D8 /* RecentTableViewCell.swift in Sources */,
 				49450AFC2084753B00A4B7EA /* FWMacro.swift in Sources */,
 				49229B04207F543F008049D8 /* BuddyViewController.swift in Sources */,
-				49229AFE207F543F008049D8 /* SeeViewController.swift in Sources */,
 				49450B0320848EC900A4B7EA /* CommonAnimationViewController.swift in Sources */,
 				49229AED207F51D7008049D8 /* SideMenuViewController.swift in Sources */,
 				49450AF920842AE100A4B7EA /* AnimationBaseViewController.swift in Sources */,
@@ -565,6 +600,7 @@
 				49229AEA207F51D7008049D8 /* FWTabBar.swift in Sources */,
 				4909B0F72085E29300588921 /* PathButton.swift in Sources */,
 				49229AFF207F543F008049D8 /* SubViewController.swift in Sources */,
+				49563CBC208D711600643444 /* SeeViewController.swift in Sources */,
 				49450B0220848EC900A4B7EA /* KeyframeAnimationViewController.swift in Sources */,
 				49D448DB2084C76300EB67C2 /* TransitionViewController.swift in Sources */,
 				49229AEB207F51D7008049D8 /* SideMenuBottomView.swift in Sources */,

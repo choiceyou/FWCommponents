@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RxCocoa
 
 class SeeViewController: UIViewController {
     
@@ -40,5 +41,12 @@ class SeeViewController: UIViewController {
         super.viewDidLoad()
         
         self.navigationItem.title = "看点"
+        
+//        let nickNameTextField = UITextField(frame: CGRect(x: 0, y: 100, width: self.view.frame.width, height: 50))
+//        self.view.addSubview(nickNameTextField)
+//        let nickNameText = nickNameTextField.rx.text.orEmpty.map { (text) -> Bool in
+//
+//        }.share(replay: 1, scope: .whileConnected)
+        
     }
 }

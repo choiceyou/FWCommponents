@@ -5,12 +5,17 @@ PODS:
   - FWSegmentedControl (2.1.5)
   - FWSideMenu (2.0.1)
   - Kingfisher (4.7.0)
+  - RxCocoa (4.1.2):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.1.2)
 
 DEPENDENCIES:
   - FWCycleScrollView
   - FWPopupView
   - FWSegmentedControl
   - FWSideMenu
+  - RxCocoa
+  - RxSwift
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -19,6 +24,8 @@ SPEC REPOS:
     - FWSegmentedControl
     - FWSideMenu
     - Kingfisher
+    - RxCocoa
+    - RxSwift
 
 SPEC CHECKSUMS:
   FWCycleScrollView: a23f2c33afc2bc36ad4205bb720b184ab725143f
@@ -26,7 +33,9 @@ SPEC CHECKSUMS:
   FWSegmentedControl: 481faaeb6f9cad33640a0bd1b45d02a7c563949d
   FWSideMenu: bb55a6e34d5a1aff0527ccdaaa25ae02915dd273
   Kingfisher: da6b005aa96d37698e3e4f1ccfe96a5b9bbf27d6
+  RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
+  RxSwift: e49536837d9901277638493ea537394d4b55f570
 
-PODFILE CHECKSUM: 871b1442e06cc7eefa5ab129c12040a312b9b908
+PODFILE CHECKSUM: 36ba7eb636991e54f03cd97c42e8cebe5d28652e
 
 COCOAPODS: 1.5.0

@@ -30,7 +30,7 @@ class SeeMainView: FWBaseView, UITableViewDelegate, UITableViewDataSource {
     
     override func fw_setupViews() {
         self.addSubview(self.tableView)
-        FWMJRefreshManager.refresh(refreshedView: self.tableView, target: self, headerRereshAction: #selector(headerRefreshAction), shouldHeaderBeginRefresh: false, footerRereshAction: nil)
+        FWMJRefreshManager.refresh(refreshedView: self.tableView, target: self, headerRereshAction: #selector(headerRefreshAction), footerRereshAction: nil)
         
         self.setNeedsUpdateConstraints()
         self.updateConstraintsIfNeeded()
@@ -56,10 +56,16 @@ extension SeeMainView {
     }
     
     @objc func headerRefreshAction() {
-    
-        // 模拟网络请求结束
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            FWMJRefreshManager.endRefresh(refreshedView: self.tableView)
+        
+        self.seeViewModel.requestData(successBlock: {
+            
+            // 模拟网络请求结束
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                FWMJRefreshManager.endRefresh(refreshedView: self.tableView)
+            }
+            
+        }) {
+            print("加载数据失败")
         }
     }
 }

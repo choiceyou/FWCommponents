@@ -4,6 +4,7 @@ PODS:
   - FWPopupView (2.0.3)
   - FWSegmentedControl (2.1.5)
   - FWSideMenu (2.0.1)
+  - HandyJSON (4.1.1)
   - Kingfisher (4.7.0)
   - MJRefresh (3.1.15.3)
   - "NSObject+Rx (4.3.0)":
@@ -12,17 +13,20 @@ PODS:
     - RxSwift (~> 4.0)
   - RxSwift (4.1.2)
   - SnapKit (4.0.0)
+  - SwiftyJSON (4.1.0)
 
 DEPENDENCIES:
   - FWCycleScrollView
   - FWPopupView
   - FWSegmentedControl
   - FWSideMenu
+  - HandyJSON
   - MJRefresh
   - "NSObject+Rx"
   - RxCocoa
   - RxSwift
   - SnapKit
+  - SwiftyJSON
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -30,25 +34,29 @@ SPEC REPOS:
     - FWPopupView
     - FWSegmentedControl
     - FWSideMenu
+    - HandyJSON
     - Kingfisher
     - MJRefresh
     - "NSObject+Rx"
     - RxCocoa
     - RxSwift
     - SnapKit
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
   FWCycleScrollView: a23f2c33afc2bc36ad4205bb720b184ab725143f
   FWPopupView: 90b31f821f28b577f43ded9dd9d3da51f82195f4
   FWSegmentedControl: 481faaeb6f9cad33640a0bd1b45d02a7c563949d
   FWSideMenu: bb55a6e34d5a1aff0527ccdaaa25ae02915dd273
+  HandyJSON: 3a3de917c4118767ffe41c29b5acba23409649f4
   Kingfisher: da6b005aa96d37698e3e4f1ccfe96a5b9bbf27d6
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   "NSObject+Rx": 9a5eeff5e08156f849fa973514456f28eef08742
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: 90781c7f5c4866229ff8370149ddd9b75f6e1f1d
+PODFILE CHECKSUM: 43e7db53b1831b70677c9b48d83961527aa6be0a
 
 COCOAPODS: 1.5.0

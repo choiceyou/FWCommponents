@@ -37,4 +37,10 @@ target 'FWCommponents' do
     # 下拉刷新：https://github.com/CoderMJLee/MJRefresh
     pod 'MJRefresh'
     
+    # JSON解析：https://github.com/SwiftyJSON/SwiftyJSON
+    pod 'SwiftyJSON'
+    
+    # JSON解析：https://github.com/alibaba/HandyJSON
+    pod 'HandyJSON'
+    
 end

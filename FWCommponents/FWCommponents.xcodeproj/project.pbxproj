@@ -46,6 +46,7 @@
 		495772EC2091A48A00FB089F /* weibo_0.json in Resources */ = {isa = PBXBuildFile; fileRef = 495772E42091A48A00FB089F /* weibo_0.json */; };
 		495772ED2091A48A00FB089F /* weibo_6.json in Resources */ = {isa = PBXBuildFile; fileRef = 495772E52091A48A00FB089F /* weibo_6.json */; };
 		495772EE2091A48A00FB089F /* weibo_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 495772E62091A48A00FB089F /* weibo_2.json */; };
+		495772F32091DA2E00FB089F /* SeeItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495772F22091DA2E00FB089F /* SeeItemModel.swift */; };
 		497336FF20803E4100A602A6 /* AnimationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497336FE20803E4100A602A6 /* AnimationListViewController.swift */; };
 		49733707208047C000A602A6 /* FWBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49733706208047C000A602A6 /* FWBaseViewController.swift */; };
 		49735530208EB705006CB894 /* FWBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4973552F208EB705006CB894 /* FWBaseView.swift */; };
@@ -53,7 +54,6 @@
 		49735536208EB951006CB894 /* FWBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49735535208EB951006CB894 /* FWBaseViewModel.swift */; };
 		4973553A208EBF69006CB894 /* SeeItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49735539208EBF69006CB894 /* SeeItemTableViewCell.swift */; };
 		4973553C208ECB29006CB894 /* FWBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4973553B208ECB29006CB894 /* FWBaseModel.swift */; };
-		4973553E208ECC68006CB894 /* SeeItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4973553D208ECC68006CB894 /* SeeItemModel.swift */; };
 		49735540208ED097006CB894 /* SeeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4973553F208ED097006CB894 /* SeeViewModel.swift */; };
 		49735544208EDCDA006CB894 /* FWViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49735542208EDCDA006CB894 /* FWViewModelProtocol.swift */; };
 		49735545208EDCDA006CB894 /* FWViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49735543208EDCDA006CB894 /* FWViewProtocol.swift */; };
@@ -128,6 +128,7 @@
 		495772E42091A48A00FB089F /* weibo_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weibo_0.json; sourceTree = "<group>"; };
 		495772E52091A48A00FB089F /* weibo_6.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weibo_6.json; sourceTree = "<group>"; };
 		495772E62091A48A00FB089F /* weibo_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weibo_2.json; sourceTree = "<group>"; };
+		495772F22091DA2E00FB089F /* SeeItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeItemModel.swift; sourceTree = "<group>"; };
 		497336FE20803E4100A602A6 /* AnimationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationListViewController.swift; sourceTree = "<group>"; };
 		49733706208047C000A602A6 /* FWBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWBaseViewController.swift; sourceTree = "<group>"; };
 		4973552F208EB705006CB894 /* FWBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWBaseView.swift; sourceTree = "<group>"; };
@@ -135,7 +136,6 @@
 		49735535208EB951006CB894 /* FWBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWBaseViewModel.swift; sourceTree = "<group>"; };
 		49735539208EBF69006CB894 /* SeeItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeItemTableViewCell.swift; sourceTree = "<group>"; };
 		4973553B208ECB29006CB894 /* FWBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWBaseModel.swift; sourceTree = "<group>"; };
-		4973553D208ECC68006CB894 /* SeeItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeItemModel.swift; sourceTree = "<group>"; };
 		4973553F208ED097006CB894 /* SeeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeViewModel.swift; sourceTree = "<group>"; };
 		49735542208EDCDA006CB894 /* FWViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWViewModelProtocol.swift; sourceTree = "<group>"; };
 		49735543208EDCDA006CB894 /* FWViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWViewProtocol.swift; sourceTree = "<group>"; };
@@ -351,7 +351,7 @@
 		49563CB9208D711600643444 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4973553D208ECC68006CB894 /* SeeItemModel.swift */,
+				495772F22091DA2E00FB089F /* SeeItemModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -389,6 +389,13 @@
 			path = Api;
 			sourceTree = "<group>";
 		};
+		495772EF2091CD4300FB089F /* Category */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		497336FC20803E1300A602A6 /* SectionsEx */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,6 +423,7 @@
 		497337032080479C00A602A6 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				495772EF2091CD4300FB089F /* Category */,
 				497337052080479C00A602A6 /* Base */,
 				497337042080479C00A602A6 /* Manager */,
 				49450AFA2084752C00A4B7EA /* Macro */,
@@ -634,12 +642,14 @@
 				"${BUILT_PRODUCTS_DIR}/FWPopupView/FWPopupView.framework",
 				"${BUILT_PRODUCTS_DIR}/FWSegmentedControl/FWSegmentedControl.framework",
 				"${BUILT_PRODUCTS_DIR}/FWSideMenu/FWSideMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/HandyJSON/HandyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/NSObject+Rx/NSObject_Rx.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -647,12 +657,14 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FWPopupView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FWSegmentedControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FWSideMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HandyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSObject_Rx.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -672,6 +684,7 @@
 				4973553A208EBF69006CB894 /* SeeItemTableViewCell.swift in Sources */,
 				49229B00207F543F008049D8 /* RecentViewController.swift in Sources */,
 				49229AE9207F51D7008049D8 /* FWTabBarController.swift in Sources */,
+				495772F32091DA2E00FB089F /* SeeItemModel.swift in Sources */,
 				49733707208047C000A602A6 /* FWBaseViewController.swift in Sources */,
 				497336FF20803E4100A602A6 /* AnimationListViewController.swift in Sources */,
 				4909B0F52085D5A400588921 /* PathItemButton.swift in Sources */,
@@ -679,7 +692,6 @@
 				49450AFC2084753B00A4B7EA /* FWMacro.swift in Sources */,
 				49735536208EB951006CB894 /* FWBaseViewModel.swift in Sources */,
 				49735547208EDF7A006CB894 /* FWViewControllerProtocol.swift in Sources */,
-				4973553E208ECC68006CB894 /* SeeItemModel.swift in Sources */,
 				49229B04207F543F008049D8 /* BuddyViewController.swift in Sources */,
 				49450B0320848EC900A4B7EA /* CommonAnimationViewController.swift in Sources */,
 				49735532208EB73E006CB894 /* SeeMainView.swift in Sources */,

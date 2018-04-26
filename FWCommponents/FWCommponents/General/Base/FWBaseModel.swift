@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import HandyJSON
 
-class FWBaseModel: NSObject {
+class FWBaseModel: HandyJSON {
     
-    
+    required init() {}
 }

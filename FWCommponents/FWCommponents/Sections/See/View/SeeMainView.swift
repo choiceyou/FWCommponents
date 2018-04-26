@@ -23,18 +23,21 @@ class SeeMainView: FWBaseView, UITableViewDelegate, UITableViewDataSource {
         return tableView
     }()
     
-    func fw_setupViewModel(viewModel: AnyObject) {
+    func fw_setupViewModel(viewModel: FWViewModelProtocol) {
         
         self.seeViewModel = viewModel as! SeeViewModel
     }
     
     override func fw_setupViews() {
         self.addSubview(self.tableView)
+        FWMJRefreshManager.refresh(refreshedView: self.tableView, target: self, headerRereshAction: #selector(headerRefreshAction), shouldHeaderBeginRefresh: false, footerRereshAction: nil)
+        
         self.setNeedsUpdateConstraints()
         self.updateConstraintsIfNeeded()
     }
     
     override func fw_bindViewModel() {
+        
         
     }
 }
@@ -44,9 +47,20 @@ extension SeeMainView {
     override func updateConstraints() {
 
         self.tableView.snp.makeConstraints { [weak self] (make) in
-            make.edges.equalTo(self!)
+            guard let strongSelf = self else {
+                return
+            }
+            make.edges.equalTo(strongSelf)
         }
         super.updateConstraints()
+    }
+    
+    @objc func headerRefreshAction() {
+    
+        // 模拟网络请求结束
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            FWMJRefreshManager.endRefresh(refreshedView: self.tableView)
+        }
     }
 }
 

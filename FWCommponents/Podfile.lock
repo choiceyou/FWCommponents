@@ -5,6 +5,9 @@ PODS:
   - FWSegmentedControl (2.1.5)
   - FWSideMenu (2.0.1)
   - Kingfisher (4.7.0)
+  - MJRefresh (3.1.15.3)
+  - "NSObject+Rx (4.3.0)":
+    - RxSwift (~> 4.0)
   - RxCocoa (4.1.2):
     - RxSwift (~> 4.0)
   - RxSwift (4.1.2)
@@ -15,6 +18,8 @@ DEPENDENCIES:
   - FWPopupView
   - FWSegmentedControl
   - FWSideMenu
+  - MJRefresh
+  - "NSObject+Rx"
   - RxCocoa
   - RxSwift
   - SnapKit
@@ -26,6 +31,8 @@ SPEC REPOS:
     - FWSegmentedControl
     - FWSideMenu
     - Kingfisher
+    - MJRefresh
+    - "NSObject+Rx"
     - RxCocoa
     - RxSwift
     - SnapKit
@@ -36,10 +43,12 @@ SPEC CHECKSUMS:
   FWSegmentedControl: 481faaeb6f9cad33640a0bd1b45d02a7c563949d
   FWSideMenu: bb55a6e34d5a1aff0527ccdaaa25ae02915dd273
   Kingfisher: da6b005aa96d37698e3e4f1ccfe96a5b9bbf27d6
+  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
+  "NSObject+Rx": 9a5eeff5e08156f849fa973514456f28eef08742
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: cd0309d32b74d02b7344df7e45f991a41eb3d9b5
+PODFILE CHECKSUM: 90781c7f5c4866229ff8370149ddd9b75f6e1f1d
 
 COCOAPODS: 1.5.0

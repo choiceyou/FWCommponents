@@ -9,9 +9,7 @@
 import Foundation
 import UIKit
 
-typealias FWVoidBlock = () -> Void
 let navTitleFont: CGFloat = 18.0
-
 
 class FWNavigationController: UINavigationController {
     

@@ -4,24 +4,37 @@ use_frameworks!
 
 target 'FWCommponents' do
     
-    # https://github.com/choiceyou/FWSegmentedControl
+    # FW系列UI库
+    
+    # 分段控件：https://github.com/choiceyou/FWSegmentedControl
     pod 'FWSegmentedControl'
     
-    # https://github.com/choiceyou/FWPopupView
+    # 弹窗控件：https://github.com/choiceyou/FWPopupView
     pod 'FWPopupView'
     
-    # https://github.com/choiceyou/FWCycleScrollView
+    # 轮播控件：https://github.com/choiceyou/FWCycleScrollView
     pod 'FWCycleScrollView'
     
-    # https://github.com/choiceyou/FWSideMenu
+    # 侧滑控件：https://github.com/choiceyou/FWSideMenu
     pod 'FWSideMenu'
     
+    
+    # Rx相关
     
     # https://github.com/ReactiveX/RxSwift
     pod 'RxSwift'
     pod 'RxCocoa'
     
-    # https://github.com/SnapKit/SnapKit
+    # https://github.com/RxSwiftCommunity/NSObject-Rx
+    pod 'NSObject+Rx'
+    
+    
+    # 其他
+    
+    # Swift版的Masonry：https://github.com/SnapKit/SnapKit
     pod 'SnapKit'
+    
+    # 下拉刷新：https://github.com/CoderMJLee/MJRefresh
+    pod 'MJRefresh'
     
 end

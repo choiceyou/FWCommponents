@@ -11,5 +11,9 @@ import UIKit
 
 class SeeViewModel: FWBaseViewModel {
     
-    
+    override init() {
+        super.init()
+        
+        
+    }
 }

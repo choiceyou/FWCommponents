@@ -59,7 +59,10 @@ class RecentViewController: FWBaseViewController, UITableViewDelegate, UITableVi
     override func updateViewConstraints() {
         
         self.tableView.snp.makeConstraints { [weak self] (make) in
-            make.edges.equalTo(self!.view)
+            guard let strongSelf = self else {
+                return
+            }
+            make.edges.equalTo(strongSelf.view)
         }
         
         super.updateViewConstraints()

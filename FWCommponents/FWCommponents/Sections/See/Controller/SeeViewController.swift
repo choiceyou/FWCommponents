@@ -43,10 +43,18 @@ class SeeViewController: FWBaseViewController {
         self.view.addSubview(self.seeMainView)
     }
     
+    override func fw_bindViewModel() {
+        
+        
+    }
+    
     override func updateViewConstraints() {
         
         self.seeMainView.snp.makeConstraints { [weak self] (make) in
-            make.edges.equalTo(self!.view)
+            guard let strongSelf = self else {
+                return
+            }
+            make.edges.equalTo(strongSelf.view)
         }
         
         super.updateViewConstraints()

@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 
+
+// MARK: - ----------------------- System -----------------------
+
 /// 状态栏高度
 let kStatusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
 /// 导航栏高度
@@ -22,4 +25,15 @@ let kTabBarHeight: CGFloat = (UIApplication.shared.statusBarFrame.size.height > 
 let kScreenW: CGFloat = UIScreen.main.bounds.width
 /// 屏幕高度
 let kScreenH: CGFloat = UIScreen.main.bounds.height
+
+
+
+// MARK: - ----------------------- 闭包 -----------------------
+
+/// 无参数闭包
+typealias FWVoidBlock = ()->Void
+/// 通用的完成回调
+typealias FWIsFinishedBlock = (_ isFinished: Bool)->Void
+/// 通用的错误回调
+typealias FWErrorBlock = (_ errCode: Int, _ errMsg: String?)->Void
 

@@ -11,6 +11,10 @@
 		4909B0F32085A80200588921 /* PathCenterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4909B0F22085A80200588921 /* PathCenterButton.swift */; };
 		4909B0F52085D5A400588921 /* PathItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4909B0F42085D5A400588921 /* PathItemButton.swift */; };
 		4909B0F72085E29300588921 /* PathButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4909B0F62085E29300588921 /* PathButton.swift */; };
+		490EA7152092B354000952BF /* SeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EA7142092B354000952BF /* SeeModel.swift */; };
+		490EA7172092B938000952BF /* SeeStatusLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EA7162092B938000952BF /* SeeStatusLayout.swift */; };
+		490EA7192092C746000952BF /* UIImage+fw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EA7182092C746000952BF /* UIImage+fw.swift */; };
+		490EA71B2092F5C2000952BF /* FWUtilsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EA71A2092F5C2000952BF /* FWUtilsManager.swift */; };
 		49229AA0207F4D7F008049D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49229A9F207F4D7F008049D8 /* AppDelegate.swift */; };
 		49229AA7207F4D7F008049D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49229AA6207F4D7F008049D8 /* Assets.xcassets */; };
 		49229AAA207F4D7F008049D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49229AA8207F4D7F008049D8 /* LaunchScreen.storyboard */; };
@@ -46,7 +50,6 @@
 		495772EC2091A48A00FB089F /* weibo_0.json in Resources */ = {isa = PBXBuildFile; fileRef = 495772E42091A48A00FB089F /* weibo_0.json */; };
 		495772ED2091A48A00FB089F /* weibo_6.json in Resources */ = {isa = PBXBuildFile; fileRef = 495772E52091A48A00FB089F /* weibo_6.json */; };
 		495772EE2091A48A00FB089F /* weibo_2.json in Resources */ = {isa = PBXBuildFile; fileRef = 495772E62091A48A00FB089F /* weibo_2.json */; };
-		495772F32091DA2E00FB089F /* SeeItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495772F22091DA2E00FB089F /* SeeItemModel.swift */; };
 		497336FF20803E4100A602A6 /* AnimationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497336FE20803E4100A602A6 /* AnimationListViewController.swift */; };
 		49733707208047C000A602A6 /* FWBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49733706208047C000A602A6 /* FWBaseViewController.swift */; };
 		49735530208EB705006CB894 /* FWBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4973552F208EB705006CB894 /* FWBaseView.swift */; };
@@ -87,6 +90,10 @@
 		4909B0F22085A80200588921 /* PathCenterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathCenterButton.swift; sourceTree = "<group>"; };
 		4909B0F42085D5A400588921 /* PathItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathItemButton.swift; sourceTree = "<group>"; };
 		4909B0F62085E29300588921 /* PathButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathButton.swift; sourceTree = "<group>"; };
+		490EA7142092B354000952BF /* SeeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeModel.swift; sourceTree = "<group>"; };
+		490EA7162092B938000952BF /* SeeStatusLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeStatusLayout.swift; sourceTree = "<group>"; };
+		490EA7182092C746000952BF /* UIImage+fw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+fw.swift"; sourceTree = "<group>"; };
+		490EA71A2092F5C2000952BF /* FWUtilsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWUtilsManager.swift; sourceTree = "<group>"; };
 		49229A9C207F4D7F008049D8 /* FWCommponents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FWCommponents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49229A9F207F4D7F008049D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49229AA6207F4D7F008049D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -128,7 +135,6 @@
 		495772E42091A48A00FB089F /* weibo_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weibo_0.json; sourceTree = "<group>"; };
 		495772E52091A48A00FB089F /* weibo_6.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weibo_6.json; sourceTree = "<group>"; };
 		495772E62091A48A00FB089F /* weibo_2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weibo_2.json; sourceTree = "<group>"; };
-		495772F22091DA2E00FB089F /* SeeItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeItemModel.swift; sourceTree = "<group>"; };
 		497336FE20803E4100A602A6 /* AnimationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationListViewController.swift; sourceTree = "<group>"; };
 		49733706208047C000A602A6 /* FWBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWBaseViewController.swift; sourceTree = "<group>"; };
 		4973552F208EB705006CB894 /* FWBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWBaseView.swift; sourceTree = "<group>"; };
@@ -351,7 +357,8 @@
 		49563CB9208D711600643444 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				495772F22091DA2E00FB089F /* SeeItemModel.swift */,
+				490EA7142092B354000952BF /* SeeModel.swift */,
+				490EA7162092B938000952BF /* SeeStatusLayout.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -392,6 +399,7 @@
 		495772EF2091CD4300FB089F /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				490EA7182092C746000952BF /* UIImage+fw.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -423,9 +431,9 @@
 		497337032080479C00A602A6 /* General */ = {
 			isa = PBXGroup;
 			children = (
-				495772EF2091CD4300FB089F /* Category */,
 				497337052080479C00A602A6 /* Base */,
 				497337042080479C00A602A6 /* Manager */,
+				495772EF2091CD4300FB089F /* Category */,
 				49450AFA2084752C00A4B7EA /* Macro */,
 			);
 			path = General;
@@ -435,6 +443,7 @@
 			isa = PBXGroup;
 			children = (
 				495772DC2091766500FB089F /* FWMJRefreshManager.swift */,
+				490EA71A2092F5C2000952BF /* FWUtilsManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -650,6 +659,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -665,6 +675,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -680,11 +691,12 @@
 			files = (
 				49229AEE207F51D7008049D8 /* SideMenuHeaderView.swift in Sources */,
 				4909B0F32085A80200588921 /* PathCenterButton.swift in Sources */,
+				490EA71B2092F5C2000952BF /* FWUtilsManager.swift in Sources */,
 				49229AE8207F51D7008049D8 /* FWNavigationController.swift in Sources */,
 				4973553A208EBF69006CB894 /* SeeItemTableViewCell.swift in Sources */,
+				490EA7192092C746000952BF /* UIImage+fw.swift in Sources */,
 				49229B00207F543F008049D8 /* RecentViewController.swift in Sources */,
 				49229AE9207F51D7008049D8 /* FWTabBarController.swift in Sources */,
-				495772F32091DA2E00FB089F /* SeeItemModel.swift in Sources */,
 				49733707208047C000A602A6 /* FWBaseViewController.swift in Sources */,
 				497336FF20803E4100A602A6 /* AnimationListViewController.swift in Sources */,
 				4909B0F52085D5A400588921 /* PathItemButton.swift in Sources */,
@@ -694,6 +706,8 @@
 				49735547208EDF7A006CB894 /* FWViewControllerProtocol.swift in Sources */,
 				49229B04207F543F008049D8 /* BuddyViewController.swift in Sources */,
 				49450B0320848EC900A4B7EA /* CommonAnimationViewController.swift in Sources */,
+				490EA7172092B938000952BF /* SeeStatusLayout.swift in Sources */,
+				490EA7152092B354000952BF /* SeeModel.swift in Sources */,
 				49735532208EB73E006CB894 /* SeeMainView.swift in Sources */,
 				49229AED207F51D7008049D8 /* SideMenuViewController.swift in Sources */,
 				49450AF920842AE100A4B7EA /* AnimationBaseViewController.swift in Sources */,

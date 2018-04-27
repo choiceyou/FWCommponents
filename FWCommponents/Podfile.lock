@@ -14,6 +14,9 @@ PODS:
   - RxSwift (4.1.2)
   - SnapKit (4.0.0)
   - SwiftyJSON (4.1.0)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
   - FWCycleScrollView
@@ -27,6 +30,7 @@ DEPENDENCIES:
   - RxSwift
   - SnapKit
   - SwiftyJSON
+  - YYKit
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -42,6 +46,7 @@ SPEC REPOS:
     - RxSwift
     - SnapKit
     - SwiftyJSON
+    - YYKit
 
 SPEC CHECKSUMS:
   FWCycleScrollView: a23f2c33afc2bc36ad4205bb720b184ab725143f
@@ -56,7 +61,8 @@ SPEC CHECKSUMS:
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 43e7db53b1831b70677c9b48d83961527aa6be0a
+PODFILE CHECKSUM: fd3e10e9618051212c185324d7978935ed4e3a29
 
 COCOAPODS: 1.5.0

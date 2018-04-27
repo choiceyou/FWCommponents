@@ -17,11 +17,10 @@ typealias NetFailureBlock = FWVoidBlock
 
 class SeeViewModel: FWBaseViewModel {
     
-    var responseModelList: [SeeItemModel] = []
+    var responseModelList: [SeeModel] = []
     
     override init() {
         super.init()
-        
     }
 }
 
@@ -37,10 +36,13 @@ extension SeeViewModel {
                 let path = Bundle.main.path(forResource: "weibo_\(index)", ofType: "json")
                 do {
                     let data = try Data(contentsOf: URL(fileURLWithPath: path!))
+                    // 原生方法
+                    // let json:Any =tryJSONSerialization.jsonObject(with: data, options:JSONSerialization.ReadingOptions.mutableContainers)
+                    // let jsonDic = jsonas!Dictionary<String,Any>
                     let json = JSON(data)
                     
-                    let seeItemModel = SeeItemModel.deserialize(from: json.rawString())
-                    guard let seeIm = seeItemModel else {
+                    let seeModel = SeeModel.deserialize(from: json.rawString())
+                    guard let seeIm = seeModel else {
                         return
                     }
                     self.responseModelList.append(seeIm)
@@ -50,10 +52,12 @@ extension SeeViewModel {
                 }
             }
             
-            if self.responseModelList.count > 0 && successBlock != nil {
-                successBlock!()
-            } else if failureBlock != nil {
-                failureBlock!()
+            DispatchQueue.main.async {
+                if self.responseModelList.count > 0 && successBlock != nil {
+                    successBlock!()
+                } else if failureBlock != nil {
+                    failureBlock!()
+                }
             }
         }
     }

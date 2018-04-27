@@ -41,7 +41,7 @@ class FWTabBar: UITabBar {
         
         self.backgroundColor = UIColor.white
         self.isTranslucent = false
-        self.backgroundImage = AppDelegate.resizableImage(imageName: (kStatusBarHeight > 20) ? "tabbar_bg_X" : "tabbar_bg", edgeInsets: UIEdgeInsetsMake(0.1, 0, 0, 0))
+        self.backgroundImage = FWUtilsManager.resizableImage(imageName: (kStatusBarHeight > 20) ? "tabbar_bg_X" : "tabbar_bg", edgeInsets: UIEdgeInsetsMake(0.1, 0, 0, 0))
     }
     
     override func draw(_ rect: CGRect) {

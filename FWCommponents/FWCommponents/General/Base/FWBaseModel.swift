@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import HandyJSON
 
-class FWBaseModel: HandyJSON {
+class FWBaseModel: NSObject, HandyJSON {
     
-    required init() {}
+    required override init() {}
 }

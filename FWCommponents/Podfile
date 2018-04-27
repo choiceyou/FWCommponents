@@ -37,6 +37,9 @@ target 'FWCommponents' do
     # 下拉刷新：https://github.com/CoderMJLee/MJRefresh
     pod 'MJRefresh'
     
+    # YY系列：https://github.com/ibireme/YYKit
+    pod 'YYKit'
+    
     # JSON解析：https://github.com/SwiftyJSON/SwiftyJSON
     pod 'SwiftyJSON'
     

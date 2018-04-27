@@ -19,6 +19,7 @@ class SeeMainView: FWBaseView, UITableViewDelegate, UITableViewDataSource {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         tableView.register(SeeItemTableViewCell.self, forCellReuseIdentifier: "cellId")
         return tableView
     }()
@@ -57,12 +58,13 @@ extension SeeMainView {
     
     @objc func headerRefreshAction() {
         
-        self.seeViewModel.requestData(successBlock: {
+        self.seeViewModel.requestData(successBlock: { [weak self] in
             
-            // 模拟网络请求结束
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                FWMJRefreshManager.endRefresh(refreshedView: self.tableView)
+            guard let stongSelf = self else {
+                return
             }
+            stongSelf.tableView.reloadData()
+            FWMJRefreshManager.endRefresh(refreshedView: stongSelf.tableView)
             
         }) {
             print("加载数据失败")
@@ -75,12 +77,14 @@ extension SeeMainView {
 extension SeeMainView {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return self.seeViewModel.responseModelList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! SeeItemTableViewCell
-        cell.textLabel?.text = "测试测试"
+        let seeModel = self.seeViewModel.responseModelList[indexPath.row]
+        let seeStatusModel = seeModel.statuses.first
+        cell.textLabel?.text = seeStatusModel?.created_at
         return cell
     }
 }

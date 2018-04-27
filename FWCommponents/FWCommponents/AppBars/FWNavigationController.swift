@@ -22,7 +22,7 @@ class FWNavigationController: UINavigationController {
         let textAttrs = [NSAttributedStringKey.foregroundColor: UIColor.black, NSAttributedStringKey.font: UIFont.systemFont(ofSize: navTitleFont)]
         navigationBar.titleTextAttributes = textAttrs
         
-        navigationBar.setBackgroundImage(AppDelegate.resizableImage(imageName: "header_bg_message", edgeInsets: UIEdgeInsetsMake(0, 0, 0, 0)), for: .default)
+        navigationBar.setBackgroundImage(FWUtilsManager.resizableImage(imageName: "header_bg_message", edgeInsets: UIEdgeInsetsMake(0, 0, 0, 0)), for: .default)
         navigationBar.isTranslucent = false
         
         self.extendedLayoutIncludesOpaqueBars = true

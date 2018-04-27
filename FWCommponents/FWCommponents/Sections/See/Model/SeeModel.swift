@@ -20,6 +20,19 @@ enum SeePictureBadgeType: Int {
     case gif
 }
 
+/// 认证方式
+///
+/// - none: 没有认证
+/// - standard: 个人认证，黄V
+/// - organization: 官方认证，蓝V
+/// - club: 达人认证，红星
+enum SeeUserVerifyType: Int {
+    case none
+    case standard
+    case organization
+    case club
+}
+
 class SeeModel: FWBaseModel {
     
     let ad = [SeeAdModel]()
@@ -116,6 +129,111 @@ class SeeStatusModel: FWBaseModel {
 /// 用户
 class SeeUserModel: FWBaseModel {
     
+    /// id (int)
+    let id = 0
+    /// id (string)
+    let idstr = ""
+    /// 0:none 1:男 2:女
+    let gender = 0
+    /// "m":男 "f":女 "n"未知
+    let genderString = ""
+    /// 个人简介
+    let desc = ""
+    /// 个性域名
+    let domain = ""
+    
+    /// 昵称
+    let name = ""
+    /// 友好昵称
+    let screen_name = ""
+    /// 备注
+    let remark = ""
+    
+    /// 粉丝数
+    let followers_count = 0
+    /// 关注数
+    let friends_count = 0
+    /// 好友数 (双向关注)
+    let bi_followers_count = 0
+    /// 收藏数
+    let favourites_count = 0
+    /// 微博数
+    let statuses_count = 0
+    /// 话题数
+    let topics_count = 0
+    /// 屏蔽数
+    let blocked_count = 0
+    let pagefriends_count = 0
+    let follow_me = false
+    let following = false
+    
+    /// 省
+    let province = ""
+    /// 市
+    let city = ""
+    
+    /// 博客地址
+    let url = ""
+    /// let profile_image_url = ""
+    let profile_image_url = ""
+    /// 头像 180*180
+    let avatar_large = ""
+    /// 头像 原图
+    let avatar_hd = ""
+    /// 封面图 920x300
+    let cover_image = ""
+    let cover_image_phone = ""
+
+    let profile_url = ""
+    let type = 0
+    let ptype = 0
+    let mbtype = 0
+    /// 微博等级 (LV)
+    let urank = 0
+    let uclass = 0
+    let ulevel = 0
+    /// 会员等级 (橙名 VIP)
+    let mbrank = 0
+    let star = 0
+    let level = 0
+    /// 注册时间
+    let created_at = ""
+    let allow_all_act_msg = false
+    let allow_all_comment = false
+    let geo_enabled = false
+    let online_status = 0
+    /// 所在地
+    let location = ""
+    let icons = [String : String]()
+    let weihao = ""
+    let badge_top = ""
+    let block_app = 0
+    let block_word = 0
+    let has_ability_tag = 0
+    /// 信用积分
+    let credit_score = 0
+    /// 勋章
+    let badge = [String : NSNumber]()
+    let lang = ""
+    let user_ability = 0
+    let extend = [String : String]()
+    
+    /// 微博认证 (大V)
+    let verified = false
+    let verified_type = 0
+    let verified_level = 0
+    let verified_state = 0
+    let verified_contact_email = ""
+    let verified_contact_mobile = ""
+    let verified_trade = ""
+    let verified_contact_name = ""
+    let verified_source_url = ""
+    let verified_reason = ""
+    let verified_reason_modified = ""
+    let verified_reason_url = ""
+    let verified_source = ""
+    
+    let userVerifyType = SeeUserVerifyType.none
     
 }
 

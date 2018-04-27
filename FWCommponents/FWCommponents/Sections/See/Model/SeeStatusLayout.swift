@@ -11,33 +11,33 @@ import UIKit
 import YYKit
 
 // 宽高
-let kSeeCellTopMargin = 8      // cell 顶部灰色留白
-let kSeeCellTitleHeight = 36   // cell 标题高度 (例如"仅自己可见")
-let kSeeCellPadding = 12       // cell 内边距
-let kSeeCellPaddingText = 10   // cell 文本与其他元素间留白
+let kSeeCellTopMargin: CGFloat = 8      // cell 顶部灰色留白
+let kSeeCellTitleHeight: CGFloat = 36   // cell 标题高度 (例如"仅自己可见")
+let kSeeCellPadding: CGFloat = 12       // cell 内边距
+let kSeeCellPaddingText: CGFloat = 10   // cell 文本与其他元素间留白
 let kSeeCellPaddingPic = 4     // cell 多张图片中间留白
-let kSeeCellProfileHeight = 56 // cell 名片高度
-let kSeeCellCardHeight = 70    // cell card 视图高度
-let kSeeCellNamePaddingLeft = 14 // cell 名字和 avatar 之间留白
-let kSeeCellContentWidth = (kScreenW - CGFloat(2 * kSeeCellPadding)) // cell 内容宽度
-let kSeeCellNameWidth = (kScreenW - 110) // cell 名字最宽限制
+let kSeeCellProfileHeight: CGFloat = 56 // cell 名片高度
+let kSeeCellCardHeight: CGFloat = 70    // cell card 视图高度
+let kSeeCellNamePaddingLeft: CGFloat = 14 // cell 名字和 avatar 之间留白
+let kSeeCellContentWidth: CGFloat = (kScreenW - CGFloat(2 * kSeeCellPadding)) // cell 内容宽度
+let kSeeCellNameWidth: CGFloat = (kScreenW - 110) // cell 名字最宽限制
 
-let kSeeCellTagPadding = 8         // tag 上下留白
-let kSeeCellTagNormalHeight = 16   // 一般 tag 高度
-let kSeeCellTagPlaceHeight = 24    // 地理位置 tag 高度
+let kSeeCellTagPadding: CGFloat = 8         // tag 上下留白
+let kSeeCellTagNormalHeight: CGFloat = 16   // 一般 tag 高度
+let kSeeCellTagPlaceHeight: CGFloat = 24    // 地理位置 tag 高度
 
-let kSeeCellToolbarHeight = 35     // cell 下方工具栏高度
-let kSeeCellToolbarBottomMargin = 2 // cell 下方灰色留白
+let kSeeCellToolbarHeight: CGFloat = 35     // cell 下方工具栏高度
+let kSeeCellToolbarBottomMargin: CGFloat = 2 // cell 下方灰色留白
 
 // 字体 应该做成动态的，这里只是 Demo，临时写死了。
-let kSeeCellNameFontSize = 16      // 名字字体大小
-let kSeeCellSourceFontSize = 12    // 来源字体大小
-let kSeeCellTextFontSize = 17      // 文本字体大小
-let kSeeCellTextFontRetweetSize = 16 // 转发字体大小
-let kSeeCellCardTitleFontSize = 16 // 卡片标题文本字体大小
-let kSeeCellCardDescFontSize = 12 // 卡片描述文本字体大小
-let kSeeCellTitlebarFontSize = 14 // 标题栏字体大小
-let kSeeCellToolbarFontSize = 14 // 工具栏字体大小
+let kSeeCellNameFontSize: CGFloat = 16      // 名字字体大小
+let kSeeCellSourceFontSize: CGFloat = 12    // 来源字体大小
+let kSeeCellTextFontSize: CGFloat = 17      // 文本字体大小
+let kSeeCellTextFontRetweetSize: CGFloat = 16 // 转发字体大小
+let kSeeCellCardTitleFontSize: CGFloat = 16 // 卡片标题文本字体大小
+let kSeeCellCardDescFontSize: CGFloat = 12 // 卡片描述文本字体大小
+let kSeeCellTitlebarFontSize: CGFloat = 14 // 标题栏字体大小
+let kSeeCellToolbarFontSize: CGFloat = 14 // 工具栏字体大小
 
 // 颜色
 let kSeeCellNameNormalColor = UIColorHex(hexString: "333333") // 名字颜色
@@ -109,7 +109,7 @@ class SeeStatusLayout: NSObject {
     // ==以下是布局结果==
     
     /// 顶部灰色留白
-    var marginTop: CGFloat = 0.0
+    var marginTop: CGFloat = kSeeCellTopMargin
     
     // ==标题栏==
     /// 标题栏高度，0为没标题栏
@@ -167,7 +167,7 @@ class SeeStatusLayout: NSObject {
     
     // ==工具栏==
     /// 工具栏
-    var toolbarHeight: CGFloat = 0.0
+    var toolbarHeight: CGFloat = kSeeCellToolbarHeight
     var toolbarRepostTextLayout: YYTextLayout!
     var toolbarCommentTextLayout: YYTextLayout!
     var toolbarLikeTextLayout: YYTextLayout!
@@ -176,7 +176,7 @@ class SeeStatusLayout: NSObject {
     var toolbarLikeTextWidth: CGFloat = 0.0
     
     /// 下边留白
-    var marginBottom: CGFloat = 0.0
+    var marginBottom: CGFloat = kSeeCellToolbarBottomMargin
     
     /// 总高度
     var height: CGFloat = 0.0
@@ -185,15 +185,244 @@ class SeeStatusLayout: NSObject {
     init(status: SeeStatusModel, style: SeeLayoutStyle) {
         super.init()
         
+        self.status = status
+        self.style = style
+        
+        self.layout()
     }
     
     /// 计算布局
     func layout() {
         
+        // 文本排版，计算布局
+        self.layoutTitle()
+        self.layoutProfile()
+        self.layoutRetweet()
+        if self.retweetHeight == 0 {
+            self.layoutPics()
+            if self.picHeight == 0 {
+                self.layoutCard()
+            }
+        }
+        self.layoutText()
+        self.layoutTag()
+        self.layoutToolbar()
+        
+        // 计算高度
+        self.height += self.marginTop
+        self.height += self.titleHeight
+        self.height += self.profileHeight
+        self.height += self.textHeight
+        if self.retweetHeight > 0 {
+            self.height += self.retweetHeight
+        } else if (self.picHeight > 0) {
+            self.height += self.picHeight
+        } else if (self.cardHeight > 0) {
+            self.height += self.cardHeight
+        }
+        if self.tagHeight > 0 {
+            self.height += self.tagHeight
+        } else {
+            if self.picHeight > 0 || self.cardHeight > 0 {
+                self.height += kSeeCellPadding
+            }
+        }
+        self.height += self.toolbarHeight
+        self.height += self.marginBottom
     }
     
     /// 更新时间字符串
     func updateDate() {
+        
+    }
+    
+    func layoutTitle() {
+        
+        let title = self.status.title
+        if title.text.count == 0 {
+            return
+        }
+        
+        let text = NSMutableAttributedString(string: title.text)
+        if !title.iconURL.isEmpty {
+            let icon = self.attachment(fontSize: kSeeCellTitlebarFontSize, imageURL: title.iconURL, shrink: false)
+            if icon.length > 0 {
+                text.insert(icon, at: 0)
+            }
+        }
+        text.color = kSeeCellToolbarTitleColor
+        text.font = UIFont.systemFont(ofSize: kSeeCellTitlebarFontSize)
+        
+        let container = YYTextContainer(size: CGSize(width: kScreenW - 100, height: kSeeCellTitleHeight))
+        self.titleTextLayout = YYTextLayout(container: container, text: text)
+        self.titleHeight = kSeeCellTitleHeight
+    }
+    
+    func attachment(fontSize: CGFloat, imageURL: String, shrink: Bool) -> NSMutableAttributedString {
+        
+        /**
+         微博 URL 嵌入的图片，比临近的字体要小一圈。。
+         这里模拟一下 Heiti SC 字体，然后把图片缩小一下。
+         */
+        let ascent = fontSize * 0.86
+        let descent = fontSize * 0.14
+        let bounding = CGRect(x: 0, y: -0.14 * fontSize, width: fontSize, height: fontSize)
+        var contentInsets = UIEdgeInsetsMake(ascent - (bounding.size.height + bounding.origin.y), 0, descent + bounding.origin.y, 0)
+        var size = CGSize(width: fontSize, height: fontSize)
+        
+        if shrink {
+            // 缩小
+            let scale = CGFloat(1 / 10.0)
+            contentInsets.top += fontSize * scale
+            contentInsets.bottom += fontSize * scale
+            contentInsets.left += fontSize * scale
+            contentInsets.right += fontSize * scale
+            contentInsets = UIEdgeInsetPixelFloor(contentInsets)
+            size = CGSize(width: fontSize - fontSize * scale * 2, height: fontSize - fontSize * scale * 2)
+            size = CGSizePixelRound(size)
+        }
+        
+        let delegate = YYTextRunDelegate()
+        delegate.ascent = ascent
+        delegate.descent = descent
+        delegate.width = bounding.size.width
+        
+        let attachment = SeeTextImageViewAttachment()
+        attachment.contentMode = .scaleAspectFit
+        attachment.contentInsets = contentInsets
+        attachment.size = size
+        attachment.imageURL = URL(string: imageURL)
+        
+        let atr = NSMutableAttributedString(string: YYTextAttachmentToken)
+        atr.setTextAttachment(attachment, range: NSMakeRange(0, atr.length))
+        let ctDelegate = delegate.ctRunDelegate()
+        atr.setRunDelegate(ctDelegate, range: NSMakeRange(0, atr.length))
+        return atr
+    }
+    
+    func attachment(fontSize: CGFloat, image: UIImage, shrink: Bool) -> NSMutableAttributedString {
+        
+        // Heiti SC 字体。。
+        let ascent = fontSize * 0.86
+        let descent = fontSize * 0.14
+        let bounding = CGRect(x: 0, y: -0.14 * fontSize, width: fontSize, height: fontSize)
+        var contentInsets = UIEdgeInsetsMake(ascent - (bounding.size.height + bounding.origin.y), 0, descent + bounding.origin.y, 0)
+        var size = CGSize(width: fontSize, height: fontSize)
+        
+        if shrink {
+            // 缩小
+            let scale = CGFloat(1 / 10.0)
+            contentInsets.top += fontSize * scale
+            contentInsets.bottom += fontSize * scale
+            contentInsets.left += fontSize * scale
+            contentInsets.right += fontSize * scale
+            contentInsets = UIEdgeInsetPixelFloor(contentInsets)
+            size = CGSize(width: fontSize - fontSize * scale * 2, height: fontSize - fontSize * scale * 2)
+            size = CGSizePixelRound(size)
+        }
+        
+        let delegate = YYTextRunDelegate()
+        delegate.ascent = ascent
+        delegate.descent = descent
+        delegate.width = bounding.size.width
+        
+        let attachment = SeeTextImageViewAttachment()
+        attachment.contentMode = .scaleAspectFit
+        attachment.contentInsets = contentInsets
+        attachment.content = image
+        
+        let atr = NSMutableAttributedString(string: YYTextAttachmentToken)
+        atr.setTextAttachment(attachment, range: NSMakeRange(0, atr.length))
+        let ctDelegate = delegate.ctRunDelegate()
+        atr.setRunDelegate(ctDelegate, range: NSMakeRange(0, atr.length))
+        return atr
+    }
+    
+    func layoutProfile() {
+        
+        self.layoutName()
+        self.layoutSource()
+        
+        self.profileHeight = kSeeCellProfileHeight
+    }
+    
+    func layoutRetweet() {
+        
+    }
+    
+    func layoutPics() {
+        
+    }
+    
+    func layoutCard() {
+        
+    }
+    
+    func layoutText() {
+        
+    }
+    
+    func layoutTag() {
+        
+    }
+    
+    func layoutToolbar() {
+        
+    }
+    
+    /// 名字
+    func layoutName() {
+        
+        let user = self.status.user
+        var nameStr = ""
+        if !user.remark.isEmpty {
+            nameStr = user.remark
+        } else if(!user.screen_name.isEmpty) {
+            nameStr = user.screen_name
+        } else {
+            nameStr = user.name
+        }
+        if nameStr.isEmpty {
+            self.nameTextLayout = nil
+            return
+        }
+        
+        let nameText = NSMutableAttributedString(string: nameStr)
+        
+        // 蓝V
+        if user.userVerifyType == .organization {
+            let blueVImage = UIImage(named: "avatar_enterprise_vip")
+            let blueVText = self.attachment(fontSize: kSeeCellNameFontSize, image: blueVImage!, shrink: false)
+            nameText.appendString("")
+            nameText.append(blueVText)
+        }
+        
+        // VIP
+        if user.mbrank > 0 {
+            var yelllowVImage = UIImage(named: "common_icon_membership_level\(user.mbrank)")
+            if yelllowVImage == nil {
+                yelllowVImage = UIImage(named: "common_icon_membership")
+            }
+            let vipText = self.attachment(fontSize: kSeeCellNameFontSize, image: yelllowVImage!, shrink: false)
+            nameText.appendString("")
+            nameText.append(vipText)
+        }
+        
+        nameText.font = UIFont.systemFont(ofSize: kSeeCellNameFontSize)
+        nameText.color = user.mbrank > 0 ? kSeeCellNameOrangeColor : kSeeCellNameNormalColor
+        nameText.lineBreakMode = .byCharWrapping
+        
+        let container = YYTextContainer(size: CGSize(width: kSeeCellNameWidth, height: 9999))
+        container.maximumNumberOfRows = 1
+        self.nameTextLayout = YYTextLayout(container: container, text: nameText)
+    }
+    
+    /// 时间和来源
+    func layoutSource() {
+        
+        let sourceText = NSMutableAttributedString()
+        let createTime = <#value#>
+        
         
     }
 }

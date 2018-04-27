@@ -15,6 +15,7 @@
 		490EA7172092B938000952BF /* SeeStatusLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EA7162092B938000952BF /* SeeStatusLayout.swift */; };
 		490EA7192092C746000952BF /* UIImage+fw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EA7182092C746000952BF /* UIImage+fw.swift */; };
 		490EA71B2092F5C2000952BF /* FWUtilsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EA71A2092F5C2000952BF /* FWUtilsManager.swift */; };
+		490EA720209344B5000952BF /* SeeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EA71F209344B5000952BF /* SeeManager.swift */; };
 		49229AA0207F4D7F008049D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49229A9F207F4D7F008049D8 /* AppDelegate.swift */; };
 		49229AA7207F4D7F008049D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49229AA6207F4D7F008049D8 /* Assets.xcassets */; };
 		49229AAA207F4D7F008049D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49229AA8207F4D7F008049D8 /* LaunchScreen.storyboard */; };
@@ -94,6 +95,7 @@
 		490EA7162092B938000952BF /* SeeStatusLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeStatusLayout.swift; sourceTree = "<group>"; };
 		490EA7182092C746000952BF /* UIImage+fw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+fw.swift"; sourceTree = "<group>"; };
 		490EA71A2092F5C2000952BF /* FWUtilsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWUtilsManager.swift; sourceTree = "<group>"; };
+		490EA71F209344B5000952BF /* SeeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeManager.swift; sourceTree = "<group>"; };
 		49229A9C207F4D7F008049D8 /* FWCommponents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FWCommponents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49229A9F207F4D7F008049D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49229AA6207F4D7F008049D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -201,6 +203,14 @@
 			path = PathButton;
 			sourceTree = "<group>";
 		};
+		490EA71E2093449F000952BF /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				490EA71F209344B5000952BF /* SeeManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		49229A93207F4D7F008049D8 = {
 			isa = PBXGroup;
 			children = (
@@ -296,6 +306,7 @@
 		49229AF2207F543F008049D8 /* See */ = {
 			isa = PBXGroup;
 			children = (
+				490EA71E2093449F000952BF /* Manager */,
 				49563CB9208D711600643444 /* Model */,
 				49563CBA208D711600643444 /* View */,
 				49563CB7208D711600643444 /* Controller */,
@@ -690,6 +701,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49229AEE207F51D7008049D8 /* SideMenuHeaderView.swift in Sources */,
+				490EA720209344B5000952BF /* SeeManager.swift in Sources */,
 				4909B0F32085A80200588921 /* PathCenterButton.swift in Sources */,
 				490EA71B2092F5C2000952BF /* FWUtilsManager.swift in Sources */,
 				49229AE8207F51D7008049D8 /* FWNavigationController.swift in Sources */,

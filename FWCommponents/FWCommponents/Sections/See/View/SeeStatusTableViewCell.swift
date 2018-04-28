@@ -210,6 +210,49 @@ class SeeStatusView: UIView {
         self.profileView.top = top
         top += layout.profileHeight
         
+        self.vipBackgroundView.kf.setImage(with: SeeManager.defaultURL(forImageURL: layout.status.pic_bg), placeholder: nil, options: nil, progressBlock: nil) { [weak self] (image, error, type, url) in
+            if image != nil {
+                let image2 = UIImage.init(cgImage: image!.cgImage!, scale: 2.0, orientation: image!.imageOrientation)
+                self?.vipBackgroundView.image = image2
+            }
+        }
+        
+        self.textLabel.top = top
+        self.textLabel.textLayout = layout.textLayout
+        top += layout.textHeight
+        
+        self.retweetBackgroundView.isHidden = true
+        self.retweetTextLabel.isHidden = true
+        self.cardView.isHidden = true
+        if layout.picHeight == 0 && layout.retweetPicHeight == 0 {
+            self.hideImageViews()
+        }
+        
+        // 优先级是 转发->图片->卡片
+        if layout.retweetHeight > 0 {
+            
+        } else if layout.picHeight > 0 {
+            
+        } else if layout.cardHeight > 0 {
+            
+        }
+        
+        if layout.tagHeight > 0 {
+            self.tagView.isHidden = false
+            self.tagView.setupLayout(layout: layout)
+            self.tagView.centerY = self.contentView.height - kSeeCellToolbarHeight - layout.tagHeight / 2
+        } else {
+            self.tagView.isHidden = true
+        }
+        
+        self.toolbarView.bottom = self.contentView.height
+        self.toolbarView.setupLayout(layout: layout)
+    }
+    
+    func hideImageViews() {
+        for imageView in self.picViews {
+            imageView.isHidden = true
+        }
     }
 }
 
@@ -359,16 +402,24 @@ class SeeStatusCardView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    public func setupLayout(layout: SeeStatusLayout) {
+        
+    }
 }
 
 /// 下方Tag
 class SeeStatusTagView: UIView {
     
-    
+    public func setupLayout(layout: SeeStatusLayout) {
+        
+    }
 }
 
 /// 工具栏
 class SeeStatusToolbarView: UIView {
     
-    
+    public func setupLayout(layout: SeeStatusLayout) {
+        
+    }
 }

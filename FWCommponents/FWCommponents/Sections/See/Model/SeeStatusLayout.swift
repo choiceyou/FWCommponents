@@ -449,7 +449,6 @@ class SeeStatusLayout: NSObject {
                 urlTitle.append(YYTextTruncationToken)
             }
             
-            
             let searchRange = NSMakeRange(0, text.string.count)
             
         }
@@ -512,19 +511,19 @@ class SeeStatusLayout: NSObject {
         let container = YYTextContainer(size: CGSize(width: kScreenW, height: kSeeCellToolbarHeight))
         container.maximumNumberOfRows = 1
         
-        let repostText = NSMutableAttributedString(string: self.status.reposts_count <= 0 ? "转发" : SeeManager.shorted(number: self.status.reposts_count))
+        let repostText = NSMutableAttributedString(string: self.status.reposts_count <= 0 ? "转发" : SeeManager.shortedNumberDesc(UInt(self.status.reposts_count)))
         repostText.font = font
         repostText.color = kSeeCellToolbarTitleColor
         self.toolbarRepostTextLayout = YYTextLayout(container: container, text: repostText)
         self.toolbarRepostTextWidth = CGFloatPixelRound(self.toolbarRepostTextLayout.textBoundingRect.size.width)
 
-        let commentText = NSMutableAttributedString(string: self.status.comments_count <= 0 ? "评论" : SeeManager.shorted(number: self.status.comments_count))
+        let commentText = NSMutableAttributedString(string: self.status.comments_count <= 0 ? "评论" : SeeManager.shortedNumberDesc(UInt(self.status.comments_count)))
         commentText.font = font
         commentText.color = kSeeCellToolbarTitleColor
         self.toolbarCommentTextLayout = YYTextLayout(container: container, text: commentText)
         self.toolbarCommentTextWidth = CGFloatPixelRound(self.toolbarCommentTextLayout.textBoundingRect.size.width)
         
-        let likeText = NSMutableAttributedString(string: self.status.attitudes_count <= 0 ? "赞" : SeeManager.shorted(number: self.status.attitudes_count))
+        let likeText = NSMutableAttributedString(string: self.status.attitudes_count <= 0 ? "赞" : SeeManager.shortedNumberDesc(UInt(self.status.attitudes_count)))
         likeText.font = font
         likeText.color = self.status.attitudes_status == 1 ? kSeeCellToolbarTitleHighlightColor : kSeeCellToolbarTitleColor
         self.toolbarLikeTextLayout = YYTextLayout(container: container, text: likeText)
@@ -582,7 +581,7 @@ class SeeStatusLayout: NSObject {
     func layoutSource() {
         
         let sourceText = NSMutableAttributedString()
-        let createTime = SeeManager.stringWithTimeline(date: self.status.created_at)
+        let createTime = SeeManager.string(withTimelineDate: self.status.created_at) as String
         
         // 时间
         if createTime.count > 0 {

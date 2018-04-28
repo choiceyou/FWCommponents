@@ -15,7 +15,6 @@
 		490EA7172092B938000952BF /* SeeStatusLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EA7162092B938000952BF /* SeeStatusLayout.swift */; };
 		490EA7192092C746000952BF /* UIImage+fw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EA7182092C746000952BF /* UIImage+fw.swift */; };
 		490EA71B2092F5C2000952BF /* FWUtilsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EA71A2092F5C2000952BF /* FWUtilsManager.swift */; };
-		490EA720209344B5000952BF /* SeeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490EA71F209344B5000952BF /* SeeManager.swift */; };
 		49229AA0207F4D7F008049D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49229A9F207F4D7F008049D8 /* AppDelegate.swift */; };
 		49229AA7207F4D7F008049D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49229AA6207F4D7F008049D8 /* Assets.xcassets */; };
 		49229AAA207F4D7F008049D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49229AA8207F4D7F008049D8 /* LaunchScreen.storyboard */; };
@@ -42,6 +41,7 @@
 		49450B0220848EC900A4B7EA /* KeyframeAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450B0020848EC900A4B7EA /* KeyframeAnimationViewController.swift */; };
 		49450B0320848EC900A4B7EA /* CommonAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450B0120848EC900A4B7EA /* CommonAnimationViewController.swift */; };
 		49554CA52094490D0016CF64 /* SeeStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49554CA42094490D0016CF64 /* SeeStatusTableViewCell.swift */; };
+		49554CA9209475BB0016CF64 /* SeeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49554CA8209475BB0016CF64 /* SeeManager.m */; };
 		49563CBC208D711600643444 /* SeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49563CB8208D711600643444 /* SeeViewController.swift */; };
 		495772DD2091766500FB089F /* FWMJRefreshManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495772DC2091766500FB089F /* FWMJRefreshManager.swift */; };
 		495772E72091A48A00FB089F /* weibo_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 495772DF2091A48800FB089F /* weibo_1.json */; };
@@ -95,7 +95,6 @@
 		490EA7162092B938000952BF /* SeeStatusLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeStatusLayout.swift; sourceTree = "<group>"; };
 		490EA7182092C746000952BF /* UIImage+fw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+fw.swift"; sourceTree = "<group>"; };
 		490EA71A2092F5C2000952BF /* FWUtilsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWUtilsManager.swift; sourceTree = "<group>"; };
-		490EA71F209344B5000952BF /* SeeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeManager.swift; sourceTree = "<group>"; };
 		49229A9C207F4D7F008049D8 /* FWCommponents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FWCommponents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49229A9F207F4D7F008049D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49229AA6207F4D7F008049D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -128,6 +127,9 @@
 		49450B0020848EC900A4B7EA /* KeyframeAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyframeAnimationViewController.swift; sourceTree = "<group>"; };
 		49450B0120848EC900A4B7EA /* CommonAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonAnimationViewController.swift; sourceTree = "<group>"; };
 		49554CA42094490D0016CF64 /* SeeStatusTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeStatusTableViewCell.swift; sourceTree = "<group>"; };
+		49554CA6209475BB0016CF64 /* FWCommponents-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FWCommponents-Bridging-Header.h"; sourceTree = "<group>"; };
+		49554CA7209475BB0016CF64 /* SeeManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeeManager.h; sourceTree = "<group>"; };
+		49554CA8209475BB0016CF64 /* SeeManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeeManager.m; sourceTree = "<group>"; };
 		49563CB8208D711600643444 /* SeeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeViewController.swift; sourceTree = "<group>"; };
 		495772DC2091766500FB089F /* FWMJRefreshManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWMJRefreshManager.swift; sourceTree = "<group>"; };
 		495772DF2091A48800FB089F /* weibo_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weibo_1.json; sourceTree = "<group>"; };
@@ -206,7 +208,9 @@
 		490EA71E2093449F000952BF /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				490EA71F209344B5000952BF /* SeeManager.swift */,
+				49554CA7209475BB0016CF64 /* SeeManager.h */,
+				49554CA8209475BB0016CF64 /* SeeManager.m */,
+				49554CA6209475BB0016CF64 /* FWCommponents-Bridging-Header.h */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -560,6 +564,7 @@
 				TargetAttributes = {
 					49229A9B207F4D7F008049D8 = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0930;
 						ProvisioningStyle = Automatic;
 					};
 					49229AAF207F4D7F008049D8 = {
@@ -701,7 +706,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				49229AEE207F51D7008049D8 /* SideMenuHeaderView.swift in Sources */,
-				490EA720209344B5000952BF /* SeeManager.swift in Sources */,
 				4909B0F32085A80200588921 /* PathCenterButton.swift in Sources */,
 				490EA71B2092F5C2000952BF /* FWUtilsManager.swift in Sources */,
 				49229AE8207F51D7008049D8 /* FWNavigationController.swift in Sources */,
@@ -731,6 +735,7 @@
 				49229AEA207F51D7008049D8 /* FWTabBar.swift in Sources */,
 				4909B0F72085E29300588921 /* PathButton.swift in Sources */,
 				49229AFF207F543F008049D8 /* SubViewController.swift in Sources */,
+				49554CA9209475BB0016CF64 /* SeeManager.m in Sources */,
 				49563CBC208D711600643444 /* SeeViewController.swift in Sources */,
 				49450B0220848EC900A4B7EA /* KeyframeAnimationViewController.swift in Sources */,
 				495772DD2091766500FB089F /* FWMJRefreshManager.swift in Sources */,
@@ -900,12 +905,15 @@
 			baseConfigurationReference = 53A254506FE8648AC1AACD6D /* Pods-FWCommponents.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K4Y22J2KN7;
 				INFOPLIST_FILE = FWCommponents/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xfg.FWCommponents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FWCommponents/Sections/See/Manager/FWCommponents-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -916,12 +924,14 @@
 			baseConfigurationReference = FD6A4EEB0EFDCA07576F9F25 /* Pods-FWCommponents.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K4Y22J2KN7;
 				INFOPLIST_FILE = FWCommponents/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xfg.FWCommponents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FWCommponents/Sections/See/Manager/FWCommponents-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

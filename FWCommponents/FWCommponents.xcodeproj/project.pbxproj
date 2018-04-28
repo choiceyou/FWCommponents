@@ -41,6 +41,7 @@
 		49450AFC2084753B00A4B7EA /* FWMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450AFB2084753B00A4B7EA /* FWMacro.swift */; };
 		49450B0220848EC900A4B7EA /* KeyframeAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450B0020848EC900A4B7EA /* KeyframeAnimationViewController.swift */; };
 		49450B0320848EC900A4B7EA /* CommonAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450B0120848EC900A4B7EA /* CommonAnimationViewController.swift */; };
+		49554CA52094490D0016CF64 /* SeeStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49554CA42094490D0016CF64 /* SeeStatusTableViewCell.swift */; };
 		49563CBC208D711600643444 /* SeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49563CB8208D711600643444 /* SeeViewController.swift */; };
 		495772DD2091766500FB089F /* FWMJRefreshManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495772DC2091766500FB089F /* FWMJRefreshManager.swift */; };
 		495772E72091A48A00FB089F /* weibo_1.json in Resources */ = {isa = PBXBuildFile; fileRef = 495772DF2091A48800FB089F /* weibo_1.json */; };
@@ -56,7 +57,6 @@
 		49735530208EB705006CB894 /* FWBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4973552F208EB705006CB894 /* FWBaseView.swift */; };
 		49735532208EB73E006CB894 /* SeeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49735531208EB73E006CB894 /* SeeMainView.swift */; };
 		49735536208EB951006CB894 /* FWBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49735535208EB951006CB894 /* FWBaseViewModel.swift */; };
-		4973553A208EBF69006CB894 /* SeeItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49735539208EBF69006CB894 /* SeeItemTableViewCell.swift */; };
 		4973553C208ECB29006CB894 /* FWBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4973553B208ECB29006CB894 /* FWBaseModel.swift */; };
 		49735540208ED097006CB894 /* SeeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4973553F208ED097006CB894 /* SeeViewModel.swift */; };
 		49735544208EDCDA006CB894 /* FWViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49735542208EDCDA006CB894 /* FWViewModelProtocol.swift */; };
@@ -127,6 +127,7 @@
 		49450AFB2084753B00A4B7EA /* FWMacro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWMacro.swift; sourceTree = "<group>"; };
 		49450B0020848EC900A4B7EA /* KeyframeAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyframeAnimationViewController.swift; sourceTree = "<group>"; };
 		49450B0120848EC900A4B7EA /* CommonAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonAnimationViewController.swift; sourceTree = "<group>"; };
+		49554CA42094490D0016CF64 /* SeeStatusTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeStatusTableViewCell.swift; sourceTree = "<group>"; };
 		49563CB8208D711600643444 /* SeeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeViewController.swift; sourceTree = "<group>"; };
 		495772DC2091766500FB089F /* FWMJRefreshManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWMJRefreshManager.swift; sourceTree = "<group>"; };
 		495772DF2091A48800FB089F /* weibo_1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = weibo_1.json; sourceTree = "<group>"; };
@@ -142,7 +143,6 @@
 		4973552F208EB705006CB894 /* FWBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWBaseView.swift; sourceTree = "<group>"; };
 		49735531208EB73E006CB894 /* SeeMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMainView.swift; sourceTree = "<group>"; };
 		49735535208EB951006CB894 /* FWBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWBaseViewModel.swift; sourceTree = "<group>"; };
-		49735539208EBF69006CB894 /* SeeItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeItemTableViewCell.swift; sourceTree = "<group>"; };
 		4973553B208ECB29006CB894 /* FWBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWBaseModel.swift; sourceTree = "<group>"; };
 		4973553F208ED097006CB894 /* SeeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeViewModel.swift; sourceTree = "<group>"; };
 		49735542208EDCDA006CB894 /* FWViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -378,7 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				49735531208EB73E006CB894 /* SeeMainView.swift */,
-				49735539208EBF69006CB894 /* SeeItemTableViewCell.swift */,
+				49554CA42094490D0016CF64 /* SeeStatusTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -705,13 +705,13 @@
 				4909B0F32085A80200588921 /* PathCenterButton.swift in Sources */,
 				490EA71B2092F5C2000952BF /* FWUtilsManager.swift in Sources */,
 				49229AE8207F51D7008049D8 /* FWNavigationController.swift in Sources */,
-				4973553A208EBF69006CB894 /* SeeItemTableViewCell.swift in Sources */,
 				490EA7192092C746000952BF /* UIImage+fw.swift in Sources */,
 				49229B00207F543F008049D8 /* RecentViewController.swift in Sources */,
 				49229AE9207F51D7008049D8 /* FWTabBarController.swift in Sources */,
 				49733707208047C000A602A6 /* FWBaseViewController.swift in Sources */,
 				497336FF20803E4100A602A6 /* AnimationListViewController.swift in Sources */,
 				4909B0F52085D5A400588921 /* PathItemButton.swift in Sources */,
+				49554CA52094490D0016CF64 /* SeeStatusTableViewCell.swift in Sources */,
 				49229B01207F543F008049D8 /* RecentTableViewCell.swift in Sources */,
 				49450AFC2084753B00A4B7EA /* FWMacro.swift in Sources */,
 				49735536208EB951006CB894 /* FWBaseViewModel.swift in Sources */,

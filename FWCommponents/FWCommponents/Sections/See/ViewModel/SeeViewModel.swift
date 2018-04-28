@@ -17,7 +17,7 @@ typealias NetFailureBlock = FWVoidBlock
 
 class SeeViewModel: FWBaseViewModel {
     
-    var responseModelList: [SeeModel] = []
+    var responseLayouts: [SeeStatusLayout] = []
     
     override init() {
         super.init()
@@ -29,7 +29,7 @@ extension SeeViewModel {
     /// 模拟网络请求
     public func requestData(successBlock: (FWVoidBlock?) = nil, failureBlock: (FWVoidBlock?) = nil) {
         
-        self.responseModelList.removeAll()
+        var tmpLayouts: [SeeStatusLayout] = []
         
         DispatchQueue.global().async {
             for index in 0...7 {
@@ -45,7 +45,10 @@ extension SeeViewModel {
                     guard let seeIm = seeModel else {
                         return
                     }
-                    self.responseModelList.append(seeIm)
+                    for status: SeeStatusModel in seeIm.statuses {
+                        let layout = SeeStatusLayout(status: status, style: SeeLayoutStyle.Timeline)
+                        tmpLayouts.append(layout)
+                    }
                     
                 } catch {
                     
@@ -53,7 +56,9 @@ extension SeeViewModel {
             }
             
             DispatchQueue.main.async {
-                if self.responseModelList.count > 0 && successBlock != nil {
+                if tmpLayouts.count > 0 && successBlock != nil {
+                    self.responseLayouts.removeAll()
+                    self.responseLayouts = tmpLayouts
                     successBlock!()
                 } else if failureBlock != nil {
                     failureBlock!()

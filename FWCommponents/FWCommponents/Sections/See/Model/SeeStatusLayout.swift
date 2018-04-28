@@ -451,9 +451,6 @@ class SeeStatusLayout: NSObject {
             
             
             let searchRange = NSMakeRange(0, text.string.count)
-            repeat {
-                
-            } while true
             
         }
         
@@ -621,7 +618,7 @@ class SeeStatusLayout: NSObject {
                     from.font = UIFont.systemFont(ofSize: kSeeCellSourceFontSize)
                     from.color = kSeeCellTimeNormalColor
                     if self.status.source_allowclick > 0 {
-                        let range = NSMakeRange(3, text.count)
+                        let range = NSMakeRange(3, text.count-1)
                         from.setColor(kSeeCellTextHighlightColor, range: range)
                         let backed = YYTextBackedString.init(string: href)
                         from.setTextBacked(backed, range: range)

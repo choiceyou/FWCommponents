@@ -79,6 +79,7 @@ let kTabBarHeight: CGFloat = (UIApplication.shared.statusBarFrame.size.height > 
 let kScreenW: CGFloat = UIScreen.main.bounds.width
 /// 屏幕高度
 let kScreenH: CGFloat = UIScreen.main.bounds.height
+let kScreenScale = UIScreen.main.scale
 
 
 

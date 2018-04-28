@@ -20,7 +20,7 @@ class SeeMainView: FWBaseView, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.register(SeeItemTableViewCell.self, forCellReuseIdentifier: "cellId")
+        tableView.register(SeeStatusTableViewCell.self, forCellReuseIdentifier: "cellId")
         return tableView
     }()
     
@@ -77,15 +77,17 @@ extension SeeMainView {
 extension SeeMainView {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.seeViewModel.responseModelList.count
+        return self.seeViewModel.responseLayouts.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.seeViewModel.responseLayouts[indexPath.row].height
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! SeeItemTableViewCell
-        let seeModel = self.seeViewModel.responseModelList[indexPath.row]
-        let seeStatusModel = seeModel.statuses.first
-        cell.textLabel?.text = seeStatusModel?.id
-        print(seeStatusModel?.created_at)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! SeeStatusTableViewCell
+        cell.selectionStyle = .none
+        cell.setupLayout(layout: self.seeViewModel.responseLayouts[indexPath.row])
         return cell
     }
 }

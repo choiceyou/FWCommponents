@@ -12,6 +12,7 @@ import RxSwift
 import RxCocoa
 import NSObject_Rx
 import YYKit
+import Kingfisher
 
 class SeeStatusTableViewCell: UITableViewCell {
     
@@ -55,9 +56,9 @@ class SeeStatusView: UIView {
     /// 转发容器
     var retweetBackgroundView: UIView!
     /// 文本
-    var textLabel: UILabel!
+    var textLabel: YYLabel!
     /// 转发文本
-    var retweetTextLabel: UILabel!
+    var retweetTextLabel: YYLabel!
     
     /// 图片
     var picViews: [UIView] = []
@@ -93,13 +94,17 @@ class SeeStatusView: UIView {
         self.contentView.backgroundColor = UIColor.white
         self.addSubview(self.contentView)
         
-        let topLine = UIImageView(frame: CGRect(x: 0, y: 0, width: self.contentView.frame.width, height: 1))
-        topLine.image = FWUtilsManager.resizableImage(imageName: "com_line", edgeInsets: UIEdgeInsetsMake(0, 0, 0, 0))
+        let topLine = UIImageView(image: FWUtilsManager.resizableImage(imageName: "com_line", edgeInsets: UIEdgeInsetsMake(0, 0, 0, 0)))
+        topLine.width = self.contentView.width
+        topLine.bottom = 0
+        topLine.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         self.contentView.addSubview(topLine)
         
-        //        let bottomLine = UIImageView(frame: CGRect(x: 0, y: self.contentView.height, width: self.contentView.frame.width, height: 1))
-        //        bottomLine.image = FWUtilsManager.resizableImage(imageName: "com_line", edgeInsets: UIEdgeInsetsMake(0, 0, 0, 0))
-        //        self.contentView.addSubview(bottomLine)
+        let bottomLine = UIImageView(image: FWUtilsManager.resizableImage(imageName: "com_line", edgeInsets: UIEdgeInsetsMake(0, 0, 0, 0)))
+        bottomLine.width = self.contentView.width
+        bottomLine.top = self.contentView.height
+        bottomLine.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        self.contentView.addSubview(bottomLine)
         
         self.titleView = SeeStatusTitleView()
         self.titleView.isHidden = true
@@ -108,11 +113,16 @@ class SeeStatusView: UIView {
         self.profileView = SeeStatusProfileView()
         self.contentView.addSubview(self.profileView)
         
-        self.vipBackgroundView = UIImageView(frame: CGRect(x: 0, y: -2, width: self.contentView.frame.width, height: 14.0))
+        self.vipBackgroundView = UIImageView()
+        self.vipBackgroundView.size = CGSize(width: self.contentView.width, height: 14.0)
+        self.vipBackgroundView.top = -2
+        self.vipBackgroundView.contentMode = .topRight
         self.contentView.addSubview(self.vipBackgroundView)
         
         self.menuButton = UIButton(type: .custom)
-        self.menuButton.frame = CGRect(x: self.contentView.frame.width - 35, y: 18, width: 30, height: 30)
+        self.menuButton.size = CGSize(width: 30, height: 30)
+        self.menuButton.centerX = self.width - 20
+        self.centerY = 18
         self.menuButton.setImage(UIImage(named: "timeline_icon_more"), for: .normal)
         self.menuButton.setImage(UIImage(named: "timeline_icon_more_highlighted"), for: .highlighted)
         self.menuButton.rx.controlEvent(.touchUpInside).subscribe(onNext: { [weak self] (_) in
@@ -124,12 +134,33 @@ class SeeStatusView: UIView {
         
         self.retweetBackgroundView = UIView()
         self.retweetBackgroundView.backgroundColor = kSeeCellInnerViewColor
+        self.retweetBackgroundView.width = self.contentView.width
         self.contentView.addSubview(self.retweetBackgroundView)
         
-        self.textLabel = UILabel()
+        self.textLabel = YYLabel()
+        self.textLabel.left = kSeeCellPadding
+        self.textLabel.width = kSeeCellContentWidth
+        self.textLabel.textVerticalAlignment = .top
+        self.textLabel.displaysAsynchronously = true
+        self.textLabel.ignoreCommonProperties = true
+        self.textLabel.fadeOnHighlight = false
+        self.textLabel.fadeOnAsynchronouslyDisplay = false
+        self.textLabel.highlightTapAction = { (containerView, text, range,rect) in
+            
+        }
         self.contentView.addSubview(self.textLabel)
         
-        self.retweetTextLabel = UILabel()
+        self.retweetTextLabel = YYLabel()
+        self.retweetTextLabel.left = kSeeCellPadding
+        self.retweetTextLabel.width = kSeeCellContentWidth
+        self.retweetTextLabel.textVerticalAlignment = .top
+        self.retweetTextLabel.displaysAsynchronously = true
+        self.retweetTextLabel.ignoreCommonProperties = true
+        self.retweetTextLabel.fadeOnHighlight = false
+        self.retweetTextLabel.fadeOnAsynchronouslyDisplay = false
+        self.retweetTextLabel.highlightTapAction = { (containerView, text, range,rect) in
+            
+        }
         self.contentView.addSubview(self.retweetTextLabel)
         
         var tmpPicViews: [UIView] = []
@@ -142,6 +173,7 @@ class SeeStatusView: UIView {
         self.contentView.addSubview(self.cardView)
         
         self.tagView = SeeStatusTagView()
+        self.tagView.left = kSeeCellPadding
         self.tagView.isHidden = true
         self.contentView.addSubview(self.tagView)
         
@@ -169,6 +201,15 @@ class SeeStatusView: UIView {
         } else {
             self.titleView.isHidden = true
         }
+        
+        self.profileView.avatarView.kf.setImage(with: URL(string: layout.status.user.avatar_large))
+        self.profileView.nameLabel.textLayout = layout.nameTextLayout
+        self.profileView.sourceLabel.textLayout = layout.sourceTextLayout
+        self.profileView.verifyType = layout.status.user.userVerifyType
+        self.profileView.height = layout.profileHeight
+        self.profileView.top = top
+        top += layout.profileHeight
+        
     }
 }
 
@@ -245,14 +286,19 @@ class SeeStatusProfileView: UIView {
         self.avatarView.size = CGSize(width: 40, height: 40)
         self.avatarView.origin = CGPoint(x: kSeeCellPadding, y: kSeeCellPadding + 3)
         self.avatarView.contentMode = .scaleAspectFill
+        self.avatarView.layer.cornerRadius = self.avatarView.height / 2
+        self.avatarView.clipsToBounds = true
+        self.avatarView.layer.masksToBounds = true
         self.addSubview(self.avatarView)
         
         let avatarBorder = CALayer()
         avatarBorder.frame = self.avatarView.bounds
         avatarBorder.borderWidth = CGFloatFromPixel(1)
+        avatarBorder.borderColor = UIColor(white: 0.000, alpha: 0.090).cgColor
         avatarBorder.cornerRadius = self.avatarView.height / 2
         avatarBorder.shouldRasterize = true
         avatarBorder.rasterizationScale = kScreenScale
+        avatarBorder.masksToBounds = true
         self.avatarView.layer.addSublayer(avatarBorder)
         
         self.avatarBadgeView = UIImageView()
@@ -297,7 +343,22 @@ class SeeStatusProfileView: UIView {
 /// 卡片
 class SeeStatusCardView: UIView {
     
+    override init(frame: CGRect) {
+        if frame.width == 0 && frame.height == 0 {
+            var tmpFrame = frame
+            tmpFrame.size.width = kScreenW
+            tmpFrame.origin.x = kSeeCellPadding
+            super.init(frame: tmpFrame)
+        } else {
+            super.init(frame: frame)
+        }
+        
+        self.backgroundColor = kSeeCellInnerViewColor
+    }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 /// 下方Tag

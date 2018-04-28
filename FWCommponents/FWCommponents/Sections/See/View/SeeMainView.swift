@@ -20,6 +20,8 @@ class SeeMainView: FWBaseView, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        tableView.backgroundColor = UIColor.clear
+        tableView.backgroundView?.backgroundColor = UIColor.clear
         tableView.register(SeeStatusTableViewCell.self, forCellReuseIdentifier: "cellId")
         return tableView
     }()
@@ -30,7 +32,10 @@ class SeeMainView: FWBaseView, UITableViewDelegate, UITableViewDataSource {
     }
     
     override func fw_setupViews() {
+        
+        self.backgroundColor = kSeeCellBackgroundColor
         self.addSubview(self.tableView)
+        
         FWMJRefreshManager.refresh(refreshedView: self.tableView, target: self, headerRereshAction: #selector(headerRefreshAction), footerRereshAction: nil)
         
         self.setNeedsUpdateConstraints()

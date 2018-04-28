@@ -4,7 +4,7 @@
 //
 //  Created by xfg on 2018/4/10.
 //  Copyright © 2018年 xfg. All rights reserved.
-//
+//  本模块主要是练练手，参考：YYkit的微博模块。。。
 
 import Foundation
 import UIKit

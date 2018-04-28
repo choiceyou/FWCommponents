@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import HandyJSON
 
 /// 图片标记
 ///
@@ -52,7 +53,7 @@ class SeeModel: FWBaseModel {
 
 class SeeStatusModel: FWBaseModel {
     
-    let id = ""
+    var id = ""
     let idstr = ""
     let mid = ""
     let rid = ""
@@ -123,6 +124,17 @@ class SeeStatusModel: FWBaseModel {
     let scheme = ""
     let visible = [String : String]()
     let darwin_tags = [String]()
+    
+    func mapping(mapper: HelpingMapper) {
+        // 指定 id 字段用 "cat_id" 去解析
+//        mapper.specify(property: &id, name: "cat_id")
+//
+//        // 指定 parent 字段用这个方法去解析
+//        mapper.specify(property: &parent) { (rawString) -> (String, String) in
+//            let parentNames = rawString.characters.split{$0 == "/"}.map(String.init)
+//            return (parentNames[0], parentNames[1])
+//        }
+    }
     
 }
 

@@ -254,6 +254,15 @@ class SeeStatusView: UIView {
             imageView.isHidden = true
         }
     }
+    
+    func setImageView(imageTop: CGFloat, isRetweet: Bool) {
+        
+        let picSize = isRetweet ? self.layout.retweetPicSize : self.layout.picSize
+        let pics = isRetweet ? self.layout.status.pics : self.layout.status.pics
+        
+        
+        
+    }
 }
 
 

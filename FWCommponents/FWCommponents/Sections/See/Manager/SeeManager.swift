@@ -34,14 +34,27 @@ class SeeManager: NSObject {
             return "刚刚"
         } else if delta < 60 * 60 { // 1小时内
             return "\(delta / 60.0)分钟前"
-        } else if date.isToday {
-            return "\(delta / 60.0 / 60.0)小时前"
-        } else if date.isYesterday {
-            return formatterYesterday.string(from:date)
-        } else if (date.year == now.year) {
-            return formatterSameYear.string(from:date)
-        } else {
+        }
+//        else if date.isToday {
+//            return "\(delta / 60.0 / 60.0)小时前"
+//        } else if date.isYesterday {
+//            return formatterYesterday.string(from:date)
+//        } else if (date.year == now.year) {
+//            return formatterSameYear.string(from:date)
+//        }
+        else {
             return formatterFullDate.string(from:date)
         }
+    }
+    
+    static func shorted(number: Int) -> String {
+        
+        if number <= 9999 {
+            return "\(number)"
+        }
+        if number <= 9999999 {
+            return "\(number / 10000)万"
+        }
+        return "\(number / 10000000)千万"
     }
 }

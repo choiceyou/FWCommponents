@@ -161,7 +161,7 @@ class SeeStatusLayout: NSObject {
     // ==Tag==
     /// Tip高度，0为没tip
     var tagHeight: CGFloat = 0.0
-    var tagType: SeeStatusTagType!
+    var tagType = SeeStatusTagType.none
     /// 最下方tag
     var tagTextLayout: YYTextLayout!
     
@@ -237,6 +237,9 @@ class SeeStatusLayout: NSObject {
     }
     
     func layoutTitle() {
+        
+        self.titleHeight = 0
+        self.titleTextLayout = nil
         
         let title = self.status.title
         if title.text.count == 0 {
@@ -346,7 +349,19 @@ class SeeStatusLayout: NSObject {
         self.profileHeight = kSeeCellProfileHeight
     }
     
+    /// 转发
     func layoutRetweet() {
+        
+        self.retweetHeight = 0
+        //        self.
+    }
+    
+    func layoutRetweetedText() {
+        
+        self.retweetHeight = 0
+        self.retweetTextLayout = nil
+        
+        //        let text = self.text(status: self.status, isRetweet: <#T##Bool#>, fontSize: <#T##CGFloat#>, textColor: <#T##UIColor#>)
         
     }
     
@@ -358,16 +373,165 @@ class SeeStatusLayout: NSObject {
         
     }
     
+    /// 文本
     func layoutText() {
         
+        self.textHeight = 0
+        self.textLayout = nil
+        
+        let text = self.text(status: self.status, isRetweet: false, fontSize: kSeeCellTextFontSize, textColor: kSeeCellTextNormalColor)
+        if text == nil || text!.length == 0 {
+            return
+        }
+        
+        let modifier = SeeTextLinePositionModifier()
+        modifier.font = UIFont.init(name: "Heiti SC", size: kSeeCellTextFontSize)
+        modifier.paddingTop = kSeeCellPaddingText
+        modifier.paddingBottom = kSeeCellPaddingText
+        
+        let container = YYTextContainer()
+        container.size = CGSize(width: kSeeCellContentWidth, height: CGFloat(HUGE))
+        container.linePositionModifier = modifier
+        
+        self.textLayout = YYTextLayout(container: container, text: text!)
+        if self.textLayout == nil {
+            return
+        }
+        
+        self.textHeight = modifier.heightForLineCount(lineCount: Int(self.textLayout.rowCount))
     }
     
+    func text(status: SeeStatusModel, isRetweet: Bool, fontSize: CGFloat, textColor: UIColor) -> NSMutableAttributedString? {
+        
+        var string = status.text
+        if string.count == 0 {
+            return nil
+        }
+        
+        if isRetweet {
+            var name = status.user.name
+            if name.isEmpty {
+                name = status.user.screen_name
+            }
+            
+            if !name.isEmpty {
+                let insert = "@\(name)"
+                let c = insert as! Character
+                string.insert(c, at: string.index(string.startIndex, offsetBy: 0))
+            }
+        }
+        
+        // 字体
+        let font = UIFont.systemFont(ofSize: fontSize)
+        // 高亮状态的背景
+        let highlightBorder = YYTextBorder()
+        highlightBorder.insets = UIEdgeInsetsMake(-2, 0, -2, 0)
+        highlightBorder.cornerRadius = 3
+        highlightBorder.fillColor = kSeeCellTextHighlightBackgroundColor
+        
+        let text = NSMutableAttributedString(string: string)
+        text.font = font
+        text.color = textColor
+        
+        // 根据 urlStruct 中每个 URL.shortURL 来匹配文本，将其替换为图标+友好描述
+        for seeUrl: SeeURLModel in status.url_struct {
+            if seeUrl.short_url.count == 0 {
+                continue
+            }
+            if seeUrl.url_title.count == 0 {
+                continue
+            }
+            
+            var urlTitle = seeUrl.url_title
+            if urlTitle.count > 27 {
+                let index = urlTitle.index(urlTitle.startIndex, offsetBy: 27)
+                urlTitle = String(urlTitle[..<index])
+                urlTitle.append(YYTextTruncationToken)
+            }
+            
+            
+            let searchRange = NSMakeRange(0, text.string.count)
+            repeat {
+                
+            } while true
+            
+        }
+        
+        return text
+    }
+    
+    /// Tag
     func layoutTag() {
         
+        self.tagType = .none
+        self.tagHeight = 0
+        
+        let tag = self.status.tag_struct.first
+        if tag == nil || tag!.tag_name.count == 0 {
+            return
+        }
+        
+        let text = NSMutableAttributedString(string: tag!.tag_name)
+        if tag!.tag_type == 1 {
+            self.tagType = .place
+            self.tagHeight = 40
+            text.color = UIColor(white: 0.217, alpha: 1.000)
+        } else {
+            self.tagType = .normal
+            self.tagHeight = 32
+            if tag!.url_type_pic.count > 0 {
+                let pic = self.attachment(fontSize: kSeeCellCardDescFontSize, imageURL: tag!.url_type_pic, shrink: true)
+                text.insert(pic, at: 0)
+            }
+            // 高亮状态的背景
+            let highlightBorder = YYTextBorder()
+            highlightBorder.insets = UIEdgeInsetsMake(-2, 0, -2, 0)
+            highlightBorder.cornerRadius = 2
+            highlightBorder.fillColor = kSeeCellTextHighlightBackgroundColor
+            
+            text.setColor(kSeeCellTextHighlightColor, range: text.rangeOfAll())
+            
+            // 高亮状态
+            let highlight = YYTextHighlight()
+            highlight.setBackgroundBorder(highlightBorder)
+            // 数据信息，用于稍后用户点击
+            highlight.userInfo = [kSeeLinkTagName : tag as Any]
+            text.setTextHighlight(highlight, range: text.rangeOfAll())
+        }
+        text.font = UIFont.systemFont(ofSize: kSeeCellCardDescFontSize)
+        
+        let container = YYTextContainer(size: CGSize(width: 9999, height: 9999))
+        self.tagTextLayout = YYTextLayout(container: container, text: text)
+        if self.tagTextLayout == nil {
+            self.tagType = .none
+            self.tagHeight = 0
+        }
     }
     
+    /// 工具栏
     func layoutToolbar() {
         
+        let font = UIFont.systemFont(ofSize: kSeeCellToolbarFontSize)
+        let container = YYTextContainer(size: CGSize(width: kScreenW, height: kSeeCellToolbarHeight))
+        container.maximumNumberOfRows = 1
+        
+        let repostText = NSMutableAttributedString(string: self.status.reposts_count <= 0 ? "转发" : SeeManager.shorted(number: self.status.reposts_count))
+        repostText.font = font
+        repostText.color = kSeeCellToolbarTitleColor
+        self.toolbarRepostTextLayout = YYTextLayout(container: container, text: repostText)
+        self.toolbarRepostTextWidth = CGFloatPixelRound(self.toolbarRepostTextLayout.textBoundingRect.size.width)
+
+        let commentText = NSMutableAttributedString(string: self.status.comments_count <= 0 ? "评论" : SeeManager.shorted(number: self.status.comments_count))
+        commentText.font = font
+        commentText.color = kSeeCellToolbarTitleColor
+        self.toolbarCommentTextLayout = YYTextLayout(container: container, text: commentText)
+        self.toolbarCommentTextWidth = CGFloatPixelRound(self.toolbarCommentTextLayout.textBoundingRect.size.width)
+        
+        let likeText = NSMutableAttributedString(string: self.status.attitudes_count <= 0 ? "赞" : SeeManager.shorted(number: self.status.attitudes_count))
+        likeText.font = font
+        likeText.color = self.status.attitudes_status == 1 ? kSeeCellToolbarTitleHighlightColor : kSeeCellToolbarTitleColor
+        self.toolbarLikeTextLayout = YYTextLayout(container: container, text: likeText)
+        self.toolbarLikeTextWidth = CGFloatPixelRound(self.toolbarLikeTextLayout.textBoundingRect.size.width)
     }
     
     /// 名字
@@ -421,9 +585,73 @@ class SeeStatusLayout: NSObject {
     func layoutSource() {
         
         let sourceText = NSMutableAttributedString()
-        let createTime = <#value#>
+        let createTime = SeeManager.stringWithTimeline(date: self.status.created_at)
         
+        // 时间
+        if createTime.count > 0 {
+            let timeText = NSMutableAttributedString(string: createTime)
+            timeText.appendString("  ")
+            timeText.font = UIFont.systemFont(ofSize: kSeeCellSourceFontSize)
+            timeText.color = kSeeCellTimeNormalColor
+            sourceText.append(timeText)
+        }
         
+        // 来源
+        if self.status.source.count > 0 {
+            do {
+                /// 创建正则表达式对象
+                let hrefRegex = try NSRegularExpression(pattern: "(?<=href=\").+(?=\" )", options: [])
+                let textRegex = try NSRegularExpression(pattern: "(?<=>).+(?=<)", options: [])
+                
+                let hrefResult = hrefRegex.firstMatch(in: self.status.source, options: [], range: NSMakeRange(0, self.status.source.count))
+                let textResult = textRegex.firstMatch(in: self.status.source, options: [], range: NSMakeRange(0, self.status.source.count))
+                
+                var href = ""
+                var text = ""
+                
+                if hrefResult != nil && textResult != nil && hrefResult?.range.location != NSNotFound && textResult?.range.location != NSNotFound {
+                    let str = self.status.source as NSString
+                    href = str.substring(with: hrefResult!.range)
+                    text = str.substring(with: textResult!.range)
+                }
+                
+                if href.count > 0 && text.count > 0 {
+                    let from = NSMutableAttributedString()
+                    from.appendString("来自\(text)")
+                    from.font = UIFont.systemFont(ofSize: kSeeCellSourceFontSize)
+                    from.color = kSeeCellTimeNormalColor
+                    if self.status.source_allowclick > 0 {
+                        let range = NSMakeRange(3, text.count)
+                        from.setColor(kSeeCellTextHighlightColor, range: range)
+                        let backed = YYTextBackedString.init(string: href)
+                        from.setTextBacked(backed, range: range)
+                        
+                        let border = YYTextBorder()
+                        border.insets = UIEdgeInsetsMake(-2, 0, -2, 0)
+                        border.fillColor = kSeeCellTextHighlightBackgroundColor
+                        border.cornerRadius = 3
+                        let highlight = YYTextHighlight()
+                        if !href.isEmpty {
+                            highlight.userInfo = [kSeeLinkHrefName : href]
+                        }
+                        highlight.setBackgroundBorder(border)
+                        from.setTextHighlight(highlight, range: range)
+                    }
+                    sourceText.append(from)
+                }
+                
+            } catch {
+                
+            }
+        }
+        
+        if sourceText.length == 0 {
+            self.sourceTextLayout = nil
+        } else {
+            let container = YYTextContainer(size: CGSize(width: kSeeCellNameWidth, height: 9999))
+            container.maximumNumberOfRows = 1
+            self.sourceTextLayout = YYTextLayout(container: container, text: sourceText)
+        }
     }
 }
 

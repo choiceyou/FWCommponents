@@ -57,7 +57,7 @@ class SeeStatusModel: FWBaseModel {
     let mid = ""
     let rid = ""
     /// 发布时间
-    let created_at = ""
+    let created_at = Date()
     
     let user = SeeUserModel()
     let userType = 0
@@ -336,7 +336,7 @@ class SeeTagModel: FWBaseModel {
     /// 链接 sinaweibo://...
     let tag_scheme = ""
     /// 1 地点 2其他
-    let tag_type = ""
+    let tag_type = 0
     /// 需要加 _default
     let url_type_pic = ""
     

@@ -84,7 +84,8 @@ extension SeeMainView {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! SeeItemTableViewCell
         let seeModel = self.seeViewModel.responseModelList[indexPath.row]
         let seeStatusModel = seeModel.statuses.first
-        cell.textLabel?.text = seeStatusModel?.created_at
+        cell.textLabel?.text = seeStatusModel?.id
+        print(seeStatusModel?.created_at)
         return cell
     }
 }

@@ -61,7 +61,7 @@ class SeeStatusView: UIView {
     var retweetTextLabel: YYLabel!
     
     /// 图片
-    var picViews: [UIView] = []
+    var picViews: [UIImageView] = []
     
     /// 卡片
     var cardView: SeeStatusCardView!
@@ -163,10 +163,29 @@ class SeeStatusView: UIView {
         }
         self.contentView.addSubview(self.retweetTextLabel)
         
-        var tmpPicViews: [UIView] = []
-        for index in 0...9 {
+        var tmpPicViews: [UIImageView] = []
+        for _ in 0...9 {
+            let imageView = UIImageView()
+            imageView.size = CGSize(width: 100, height: 100)
+            imageView.isHidden = true
+            imageView.clipsToBounds = true
+            imageView.backgroundColor = kSeeCellHighlightColor
+            imageView.isExclusiveTouch = true
             
+            let badge = UIView()
+            badge.isUserInteractionEnabled = false
+            badge.contentMode = .scaleAspectFit
+            badge.size = CGSize(width: 56 / 2, height: 36 / 2)
+            badge.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin]
+            badge.right = imageView.width
+            badge.bottom = imageView.height
+            badge.isHidden = true
+            imageView.addSubview(badge)
+            
+            tmpPicViews.append(imageView)
+            self.contentView.addSubview(imageView)
         }
+        self.picViews = tmpPicViews
         
         self.cardView = SeeStatusCardView()
         self.cardView.isHidden = true
@@ -232,7 +251,7 @@ class SeeStatusView: UIView {
         if layout.retweetHeight > 0 {
             
         } else if layout.picHeight > 0 {
-            
+            self.setImageView(imageTop: self.retweetTextLabel.bottom, isRetweet: false)
         } else if layout.cardHeight > 0 {
             
         }
@@ -260,7 +279,60 @@ class SeeStatusView: UIView {
         let picSize = isRetweet ? self.layout.retweetPicSize : self.layout.picSize
         let pics = isRetweet ? self.layout.status.pics : self.layout.status.pics
         
+        let picsCount = pics.count
         
+        if picSize == nil {
+            return
+        }
+        
+        for index in 0...9 {
+            let imageView = self.picViews[index]
+            if index >= self.picViews.count {
+                imageView.layer.cancelCurrentImageRequest()
+                imageView.isHidden = true
+            } else {
+                var origin = CGPoint(x: 0, y: 0)
+                switch picsCount {
+                case 1:
+                    origin.x = kSeeCellPadding
+                    origin.y = imageTop
+                    break
+                case 4:
+                    origin.x = kSeeCellPadding + CGFloat(index % 2) * (picSize!.width + CGFloat(kSeeCellPaddingPic))
+                    origin.y = imageTop + CGFloat(index / 2) * (picSize!.height + CGFloat(kSeeCellPaddingPic))
+                    break
+                default:
+                    origin.x = kSeeCellPadding + CGFloat(index % 3) * (picSize!.width + CGFloat(kSeeCellPaddingPic))
+                    origin.y = imageTop + CGFloat(index / 3) * (picSize!.height + CGFloat(kSeeCellPaddingPic))
+                    break
+                }
+            }
+            imageView.frame = CGRect(x: origin.x, y: origin.y, width: picSize!.width, height: picSize!.height)
+            imageView.isHidden = false
+            imageView.layer.removeAnimation(forKey: "contents")
+            
+            let pic = pics[index]
+            
+            let badge = imageView.subviews.first
+            switch pic.largest.badgeType {
+                
+            case .none:
+                if badge?.layer.contents != nil {
+                    badge?.layer.contents = nil
+                    badge?.isHidden = true
+                }
+            case .long:
+                badge?.layer.contents = SeeManager.imageNamed("timeline_image_longimage").cgImage
+                badge?.isHidden = false
+            case .gif:
+                badge?.layer.contents = SeeManager.imageNamed("timeline_image_gif").cgImage
+                badge?.isHidden = false
+            }
+            
+            imageView.kf.setImage(with: URL(string: pic.bmiddle.url), placeholder: nil, options: nil, progressBlock: nil) { (image, error, type, url) in
+                
+            }
+        }
         
     }
 }

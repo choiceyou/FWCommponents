@@ -43,6 +43,9 @@ extension SeeViewModel {
                     
                     let seeModel = SeeModel.deserialize(from: json.rawString())
                     guard let seeIm = seeModel else {
+                        if failureBlock != nil {
+                            failureBlock!()
+                        }
                         return
                     }
                     for status: SeeStatusModel in seeIm.statuses {

@@ -449,8 +449,156 @@ class SeeStatusLayout: NSObject {
                 urlTitle.append(YYTextTruncationToken)
             }
             
-            let searchRange = NSMakeRange(0, text.string.count)
+            var searchRange = NSMakeRange(0, text.string.count)
+            repeat {
+                //                let range = text.string.range(of: seeUrl.short_url, options: [], range: Range.init(searchRange, in: text.string), locale: nil)
+                
+                let tmpStr = text.string as NSString
+                let range: NSRange = tmpStr.range(of: seeUrl.short_url, options: [], range: searchRange, locale: nil)
+                
+                if range.location == NSNotFound {
+                    break
+                }
+                
+                if range.location + range.length == text.length {
+                    if !status.page_info.page_id.isEmpty && !seeUrl.page_id.isEmpty && seeUrl.page_id == status.page_info.page_id {
+                        if status.pics.count == 0 {
+                            text.replaceCharacters(in: range, with: "")
+                            break // cut the tail, show with card
+                        }
+                    }
+                }
+                
+                if (text.attribute(NSAttributedStringKey(rawValue: YYTextHighlightAttributeName), at: range.location, effectiveRange: nil) == nil) {
+                    
+                    // 替换的内容
+                    let replace = NSMutableAttributedString(string: urlTitle)
+                    if seeUrl.url_type_pic.count > 0 {
+                        // 链接头部有个图片附件 (要从网络获取)
+                        let picURL = SeeManager.defaultURL(forImageURL: seeUrl.url_type_pic)
+                        if picURL != nil {
+                            let image = YYImageCache.shared().getImageForKey(picURL!.absoluteString)
+                            let pic = (image != nil && seeUrl.pics.count == 0) ? self.attachment(fontSize: fontSize, image: image!, shrink: true) : self.attachment(fontSize: fontSize, imageURL: seeUrl.url_type_pic, shrink: true)
+                            replace.insert(pic, at: 0)
+                        }
+                    }
+                    replace.font = font
+                    replace.color = kSeeCellTextHighlightColor
+                    
+                    // 高亮状态
+                    let highlight = YYTextHighlight()
+                    highlight.setBackgroundBorder(highlightBorder)
+                    // 数据信息，用于稍后用户点击
+                    highlight.userInfo = [kSeeLinkURLName : seeUrl]
+                    replace.setTextHighlight(highlight, range: NSMakeRange(0, replace.length))
+                    
+                    // 添加被替换的原始字符串，用于复制
+                    let tmpStr = text.string as NSString
+                    
+                    let backed = YYTextBackedString(string: tmpStr.substring(with: range))
+                    replace.setTextBacked(backed, range: NSMakeRange(0, replace.length))
+                    
+                    // 替换
+                    text.replaceCharacters(in: range, with: replace)
+                    
+                    searchRange.location = searchRange.location + (replace.length > 0 ? replace.length : 1)
+                    if searchRange.location + 1 >= text.length {
+                        break
+                    }
+                    searchRange.length = text.length - searchRange.location
+                } else {
+                    searchRange.location = searchRange.location + (searchRange.length > 0 ? searchRange.length : 1)
+                    if searchRange.location + 1 >= text.length {
+                        break
+                    }
+                    searchRange.length = text.length - searchRange.location
+                }
+                
+            } while true
+        }
+        
+        // 根据 topicStruct 中每个 Topic.topicTitle 来匹配文本，标记为话题
+        for topic: SeeTopicModel in status.topic_struct {
             
+            if topic.topic_title.count == 0 {
+                continue
+            }
+            
+            let topicTitle = "#\(topic.topic_title)#"
+            var searchRange = NSMakeRange(0, text.string.count)
+            repeat {
+                let tmpStr = text.string as NSString
+                let range = tmpStr.range(of: topicTitle, options: [], range: searchRange)
+                if range.location == NSNotFound {
+                    break
+                }
+                
+                if text.attribute(NSAttributedStringKey(rawValue: YYTextHighlightAttributeName), at: range.location, effectiveRange: nil) == nil {
+                    text.setColor(kSeeCellTextHighlightColor, range: range)
+                    
+                    // 高亮状态
+                    let highlight = YYTextHighlight()
+                    highlight.setBackgroundBorder(highlightBorder)
+                    // 数据信息，用于稍后用户点击
+                    highlight.userInfo = [kSeeLinkTopicName : topic]
+                    text.setTextHighlight(highlight, range: range)
+                }
+                searchRange.location = searchRange.location + (searchRange.length > 0 ? searchRange.length : 1)
+                if searchRange.location + 1 >= text.length {
+                    break
+                }
+                searchRange.length = text.length - searchRange.location
+                
+            } while true
+        }
+        
+        // 匹配 @用户名
+        let atResults = SeeManager.regexAt().matches(in: text.string, options: [], range: text.rangeOfAll())
+        for at: NSTextCheckingResult in atResults {
+            if at.range.location == NSNotFound && at.range.length <= 1 {
+                continue
+            }
+            if text.attribute(NSAttributedStringKey(rawValue: YYTextHighlightAttributeName), at: at.range.location, effectiveRange: nil) == nil {
+                text.setColor(kSeeCellTextHighlightColor, range: at.range)
+                
+                // 高亮状态
+                let highlight = YYTextHighlight()
+                highlight.setBackgroundBorder(highlightBorder)
+                // 数据信息，用于稍后用户点击
+                let tmpStr = text.string as NSString
+                highlight.userInfo = [kSeeLinkAtName : tmpStr.substring(with: NSMakeRange(at.range.location + 1, at.range.length - 1))]
+                text.setTextHighlight(highlight, range: at.range)
+            }
+        }
+        
+        // 匹配 [表情]
+        let emoticonResults = SeeManager.regexEmoticon().matches(in: text.string, options: [], range: text.rangeOfAll())
+        var emoClipLength = 0
+        for emo: NSTextCheckingResult in emoticonResults {
+            if emo.range.location == NSNotFound && emo.range.length <= 1 {
+                continue
+            }
+            var range = emo.range
+            range.location -= emoClipLength
+            if (text.attribute(NSAttributedStringKey(rawValue: YYTextHighlightAttributeName), at: range.location, effectiveRange: nil) != nil) {
+                continue
+            }
+            if (text.attribute(NSAttributedStringKey(rawValue: YYTextAttachmentAttributeName), at: range.location, effectiveRange: nil) != nil) {
+                continue
+            }
+            let tmpStr = text.string as NSString
+            let emoString = tmpStr.substring(with: range)
+            let imagePath = SeeManager.emoticonDic()[emoString]
+            if imagePath == nil {
+                continue
+            }
+            let image = SeeManager.image(withPath: imagePath as! String)
+            if image == nil {
+                continue
+            }
+            let emoText = NSAttributedString.attachmentString(withEmojiImage: image!, fontSize: fontSize)
+            text.replaceCharacters(in: range, with: emoText!)
+            emoClipLength += range.length - 1
         }
         
         return text
@@ -516,7 +664,7 @@ class SeeStatusLayout: NSObject {
         repostText.color = kSeeCellToolbarTitleColor
         self.toolbarRepostTextLayout = YYTextLayout(container: container, text: repostText)
         self.toolbarRepostTextWidth = CGFloatPixelRound(self.toolbarRepostTextLayout.textBoundingRect.size.width)
-
+        
         let commentText = NSMutableAttributedString(string: self.status.comments_count <= 0 ? "评论" : SeeManager.shortedNumberDesc(UInt(self.status.comments_count)))
         commentText.font = font
         commentText.color = kSeeCellToolbarTitleColor

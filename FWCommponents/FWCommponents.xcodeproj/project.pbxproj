@@ -62,6 +62,8 @@
 		49735544208EDCDA006CB894 /* FWViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49735542208EDCDA006CB894 /* FWViewModelProtocol.swift */; };
 		49735545208EDCDA006CB894 /* FWViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49735543208EDCDA006CB894 /* FWViewProtocol.swift */; };
 		49735547208EDF7A006CB894 /* FWViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49735546208EDF7A006CB894 /* FWViewControllerProtocol.swift */; };
+		497F1ABC209FFECC00BF800B /* ResourceWeibo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 497F1ABA209FFECB00BF800B /* ResourceWeibo.bundle */; };
+		497F1ABD209FFECC00BF800B /* EmoticonWeibo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 497F1ABB209FFECC00BF800B /* EmoticonWeibo.bundle */; };
 		49D448CE2084908E00EB67C2 /* GroupAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D448CD2084908E00EB67C2 /* GroupAnimationViewController.swift */; };
 		49D448DB2084C76300EB67C2 /* TransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D448DA2084C76300EB67C2 /* TransitionViewController.swift */; };
 		49D448DD2084CE1D00EB67C2 /* UIViewAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D448DC2084CE1D00EB67C2 /* UIViewAnimationViewController.swift */; };
@@ -150,6 +152,8 @@
 		49735542208EDCDA006CB894 /* FWViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWViewModelProtocol.swift; sourceTree = "<group>"; };
 		49735543208EDCDA006CB894 /* FWViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FWViewProtocol.swift; sourceTree = "<group>"; };
 		49735546208EDF7A006CB894 /* FWViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWViewControllerProtocol.swift; sourceTree = "<group>"; };
+		497F1ABA209FFECB00BF800B /* ResourceWeibo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ResourceWeibo.bundle; sourceTree = "<group>"; };
+		497F1ABB209FFECC00BF800B /* EmoticonWeibo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EmoticonWeibo.bundle; sourceTree = "<group>"; };
 		49D448CD2084908E00EB67C2 /* GroupAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupAnimationViewController.swift; sourceTree = "<group>"; };
 		49D448DA2084C76300EB67C2 /* TransitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionViewController.swift; sourceTree = "<group>"; };
 		49D448DC2084CE1D00EB67C2 /* UIViewAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewAnimationViewController.swift; sourceTree = "<group>"; };
@@ -310,6 +314,7 @@
 		49229AF2207F543F008049D8 /* See */ = {
 			isa = PBXGroup;
 			children = (
+				497F1AB9209FFEB000BF800B /* Resources */,
 				490EA71E2093449F000952BF /* Manager */,
 				49563CB9208D711600643444 /* Model */,
 				49563CBA208D711600643444 /* View */,
@@ -485,6 +490,15 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		497F1AB9209FFEB000BF800B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				497F1ABB209FFECC00BF800B /* EmoticonWeibo.bundle */,
+				497F1ABA209FFECB00BF800B /* ResourceWeibo.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		9A0C6EA1689D0DA627F8E37C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,6 +618,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				497F1ABD209FFECC00BF800B /* EmoticonWeibo.bundle in Resources */,
 				49229AAA207F4D7F008049D8 /* LaunchScreen.storyboard in Resources */,
 				495772ED2091A48A00FB089F /* weibo_6.json in Resources */,
 				495772EC2091A48A00FB089F /* weibo_0.json in Resources */,
@@ -616,6 +631,7 @@
 				495772EE2091A48A00FB089F /* weibo_2.json in Resources */,
 				495772EB2091A48A00FB089F /* weibo_3.json in Resources */,
 				495772E82091A48A00FB089F /* weibo_5.json in Resources */,
+				497F1ABC209FFECC00BF800B /* ResourceWeibo.bundle in Resources */,
 				495772E92091A48A00FB089F /* weibo_7.json in Resources */,
 				49229AA7207F4D7F008049D8 /* Assets.xcassets in Resources */,
 			);

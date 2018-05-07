@@ -208,98 +208,98 @@
     return regex;
 }
 
-//+ (NSDictionary *)emoticonDic {
-//    static NSMutableDictionary *dic;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        NSString *emoticonBundlePath = [[NSBundle mainBundle] pathForResource:@"EmoticonWeibo" ofType:@"bundle"];
-//        dic = [self _emoticonDicFromPath:emoticonBundlePath];
-//    });
-//    return dic;
-//}
++ (NSDictionary *)emoticonDic {
+    static NSMutableDictionary *dic;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *emoticonBundlePath = [[NSBundle mainBundle] pathForResource:@"EmoticonWeibo" ofType:@"bundle"];
+        dic = [self _emoticonDicFromPath:emoticonBundlePath];
+    });
+    return dic;
+}
 
-//+ (NSMutableDictionary *)_emoticonDicFromPath:(NSString *)path {
-//    NSMutableDictionary *dic = [NSMutableDictionary new];
-//    WBEmoticonGroup *group = nil;
-//    NSString *jsonPath = [path stringByAppendingPathComponent:@"info.json"];
-//    NSData *json = [NSData dataWithContentsOfFile:jsonPath];
-//    if (json.length) {
-//        group = [WBEmoticonGroup modelWithJSON:json];
-//    }
-//    if (!group) {
-//        NSString *plistPath = [path stringByAppendingPathComponent:@"info.plist"];
-//        NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-//        if (plist.count) {
-//            group = [WBEmoticonGroup modelWithJSON:plist];
-//        }
-//    }
-//    for (WBEmoticon *emoticon in group.emoticons) {
-//        if (emoticon.png.length == 0) continue;
-//        NSString *pngPath = [path stringByAppendingPathComponent:emoticon.png];
-//        if (emoticon.chs) dic[emoticon.chs] = pngPath;
-//        if (emoticon.cht) dic[emoticon.cht] = pngPath;
-//    }
-//    
-//    NSArray *folders = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
-//    for (NSString *folder in folders) {
-//        if (folder.length == 0) continue;
-//        NSDictionary *subDic = [self _emoticonDicFromPath:[path stringByAppendingPathComponent:folder]];
-//        if (subDic) {
-//            [dic addEntriesFromDictionary:subDic];
-//        }
-//    }
-//    return dic;
-//}
-//
-//+ (NSArray<WBEmoticonGroup *> *)emoticonGroups {
-//    static NSMutableArray *groups;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        NSString *emoticonBundlePath = [[NSBundle mainBundle] pathForResource:@"EmoticonWeibo" ofType:@"bundle"];
-//        NSString *emoticonPlistPath = [emoticonBundlePath stringByAppendingPathComponent:@"emoticons.plist"];
-//        NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:emoticonPlistPath];
-//        NSArray *packages = plist[@"packages"];
-//        groups = (NSMutableArray *)[NSArray modelArrayWithClass:[WBEmoticonGroup class] json:packages];
-//        
-//        NSMutableDictionary *groupDic = [NSMutableDictionary new];
-//        for (int i = 0, max = (int)groups.count; i < max; i++) {
-//            WBEmoticonGroup *group = groups[i];
-//            if (group.groupID.length == 0) {
-//                [groups removeObjectAtIndex:i];
-//                i--;
-//                max--;
-//                continue;
-//            }
-//            NSString *path = [emoticonBundlePath stringByAppendingPathComponent:group.groupID];
-//            NSString *infoPlistPath = [path stringByAppendingPathComponent:@"info.plist"];
-//            NSDictionary *info = [NSDictionary dictionaryWithContentsOfFile:infoPlistPath];
-//            [group modelSetWithDictionary:info];
-//            if (group.emoticons.count == 0) {
-//                i--;
-//                max--;
-//                continue;
-//            }
-//            groupDic[group.groupID] = group;
-//        }
-//        
-//        NSArray<NSString *> *additionals = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[emoticonBundlePath stringByAppendingPathComponent:@"additional"] error:nil];
-//        for (NSString *path in additionals) {
-//            WBEmoticonGroup *group = groupDic[path];
-//            if (!group) continue;
-//            NSString *infoJSONPath = [[[emoticonBundlePath stringByAppendingPathComponent:@"additional"] stringByAppendingPathComponent:path] stringByAppendingPathComponent:@"info.json"];
-//            NSData *infoJSON = [NSData dataWithContentsOfFile:infoJSONPath];
-//            WBEmoticonGroup *addGroup = [WBEmoticonGroup modelWithJSON:infoJSON];
-//            if (addGroup.emoticons.count) {
-//                for (WBEmoticon *emoticon in addGroup.emoticons) {
-//                    emoticon.group = group;
-//                }
-//                [((NSMutableArray *)group.emoticons) insertObjects:addGroup.emoticons atIndex:0];
-//            }
-//        }
-//    });
-//    return groups;
-//}
-//
++ (NSMutableDictionary *)_emoticonDicFromPath:(NSString *)path {
+    NSMutableDictionary *dic = [NSMutableDictionary new];
+    WBEmoticonGroup *group = nil;
+    NSString *jsonPath = [path stringByAppendingPathComponent:@"info.json"];
+    NSData *json = [NSData dataWithContentsOfFile:jsonPath];
+    if (json.length) {
+        group = [WBEmoticonGroup modelWithJSON:json];
+    }
+    if (!group) {
+        NSString *plistPath = [path stringByAppendingPathComponent:@"info.plist"];
+        NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+        if (plist.count) {
+            group = [WBEmoticonGroup modelWithJSON:plist];
+        }
+    }
+    for (WBEmoticon *emoticon in group.emoticons) {
+        if (emoticon.png.length == 0) continue;
+        NSString *pngPath = [path stringByAppendingPathComponent:emoticon.png];
+        if (emoticon.chs) dic[emoticon.chs] = pngPath;
+        if (emoticon.cht) dic[emoticon.cht] = pngPath;
+    }
+    
+    NSArray *folders = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
+    for (NSString *folder in folders) {
+        if (folder.length == 0) continue;
+        NSDictionary *subDic = [self _emoticonDicFromPath:[path stringByAppendingPathComponent:folder]];
+        if (subDic) {
+            [dic addEntriesFromDictionary:subDic];
+        }
+    }
+    return dic;
+}
+
++ (NSArray<WBEmoticonGroup *> *)emoticonGroups {
+    static NSMutableArray *groups;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *emoticonBundlePath = [[NSBundle mainBundle] pathForResource:@"EmoticonWeibo" ofType:@"bundle"];
+        NSString *emoticonPlistPath = [emoticonBundlePath stringByAppendingPathComponent:@"emoticons.plist"];
+        NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:emoticonPlistPath];
+        NSArray *packages = plist[@"packages"];
+        groups = (NSMutableArray *)[NSArray modelArrayWithClass:[WBEmoticonGroup class] json:packages];
+        
+        NSMutableDictionary *groupDic = [NSMutableDictionary new];
+        for (int i = 0, max = (int)groups.count; i < max; i++) {
+            WBEmoticonGroup *group = groups[i];
+            if (group.groupID.length == 0) {
+                [groups removeObjectAtIndex:i];
+                i--;
+                max--;
+                continue;
+            }
+            NSString *path = [emoticonBundlePath stringByAppendingPathComponent:group.groupID];
+            NSString *infoPlistPath = [path stringByAppendingPathComponent:@"info.plist"];
+            NSDictionary *info = [NSDictionary dictionaryWithContentsOfFile:infoPlistPath];
+            [group modelSetWithDictionary:info];
+            if (group.emoticons.count == 0) {
+                i--;
+                max--;
+                continue;
+            }
+            groupDic[group.groupID] = group;
+        }
+        
+        NSArray<NSString *> *additionals = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[emoticonBundlePath stringByAppendingPathComponent:@"additional"] error:nil];
+        for (NSString *path in additionals) {
+            WBEmoticonGroup *group = groupDic[path];
+            if (!group) continue;
+            NSString *infoJSONPath = [[[emoticonBundlePath stringByAppendingPathComponent:@"additional"] stringByAppendingPathComponent:path] stringByAppendingPathComponent:@"info.json"];
+            NSData *infoJSON = [NSData dataWithContentsOfFile:infoJSONPath];
+            WBEmoticonGroup *addGroup = [WBEmoticonGroup modelWithJSON:infoJSON];
+            if (addGroup.emoticons.count) {
+                for (WBEmoticon *emoticon in addGroup.emoticons) {
+                    emoticon.group = group;
+                }
+                [((NSMutableArray *)group.emoticons) insertObjects:addGroup.emoticons atIndex:0];
+            }
+        }
+    });
+    return groups;
+}
+
 
 /*
  weibo.app 里面的正则，有兴趣的可以参考下：
@@ -339,3 +339,31 @@
  */
 
 @end
+
+
+@implementation WBEmoticon
++ (NSArray *)modelPropertyBlacklist {
+    return @[@"group"];
+}
+@end
+
+@implementation WBEmoticonGroup
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"groupID" : @"id",
+             @"nameCN" : @"group_name_cn",
+             @"nameEN" : @"group_name_en",
+             @"nameTW" : @"group_name_tw",
+             @"displayOnly" : @"display_only",
+             @"groupType" : @"group_type"};
+}
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"emoticons" : [WBEmoticon class]};
+}
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    [_emoticons enumerateObjectsUsingBlock:^(WBEmoticon *emoticon, NSUInteger idx, BOOL *stop) {
+        emoticon.group = self;
+    }];
+    return YES;
+}
+@end
+

@@ -21,6 +21,7 @@ class SeeStatusTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.backgroundColor = UIColor.clear
         self.statusView = SeeStatusView()
         self.statusView.tableViewCell = self
         self.contentView.addSubview(self.statusView)
@@ -237,6 +238,7 @@ class SeeStatusView: UIView {
         }
         
         self.textLabel.top = top
+        self.textLabel.height = layout.textHeight
         self.textLabel.textLayout = layout.textLayout
         top += layout.textHeight
         
@@ -500,7 +502,163 @@ class SeeStatusTagView: UIView {
 /// 工具栏
 class SeeStatusToolbarView: UIView {
     
+    var repostButton: UIButton!
+    var commentButton: UIButton!
+    var likeButton: UIButton!
+    
+    var repostImageView: UIImageView!
+    var commentImageView: UIImageView!
+    var likeImageView: UIImageView!
+    
+    var repostLabel: YYLabel!
+    var commentLabel: YYLabel!
+    var likeLabel: YYLabel!
+    
+    var line1: CAGradientLayer!
+    var line2: CAGradientLayer!
+    var topLine: CALayer!
+    var bottomLine: CALayer!
+    
+    var tableViewCell: SeeStatusTableViewCell!
+    
+    override init(frame: CGRect) {
+        if frame.width == 0 && frame.height == 0 {
+            var tmpFrame = frame
+            tmpFrame.size.width = kScreenW
+            tmpFrame.size.height = kSeeCellToolbarHeight
+            super.init(frame: tmpFrame)
+        } else {
+            super.init(frame: frame)
+        }
+        
+        self.isExclusiveTouch = true
+        
+        self.repostButton = UIButton(type: .custom)
+        self.repostButton.isExclusiveTouch = true
+        self.repostButton.size = CGSize(width: CGFloatPixelRound(self.width / 3.0), height: self.height)
+        self.repostButton.setBackgroundImage(UIImage(color: kSeeCellHighlightColor), for: .highlighted)
+        
+        self.commentButton = UIButton(type: .custom)
+        self.commentButton.isExclusiveTouch = true
+        self.commentButton.size = CGSize(width: CGFloatPixelRound(self.width / 3.0), height: self.height)
+        self.commentButton.left = CGFloatPixelRound(self.width / 3.0)
+        self.commentButton.setBackgroundImage(UIImage(color: kSeeCellHighlightColor), for: .highlighted)
+        
+        self.likeButton = UIButton(type: .custom)
+        self.likeButton.isExclusiveTouch = true
+        self.likeButton.size = CGSize(width: CGFloatPixelRound(self.width / 3.0), height: self.height)
+        self.likeButton.left = CGFloatPixelRound(self.width / 3.0 * 2.0)
+        self.likeButton.setBackgroundImage(UIImage(color: kSeeCellHighlightColor), for: .highlighted)
+        
+        self.repostImageView = UIImageView(image: SeeManager.imageNamed("timeline_icon_retweet"))
+        self.repostImageView.centerY = self.height / 2
+        self.repostButton.addSubview(self.repostImageView)
+        
+        self.commentImageView = UIImageView(image: SeeManager.imageNamed("timeline_icon_comment"))
+        self.commentImageView.centerY = self.height / 2
+        self.commentButton.addSubview(self.commentImageView)
+        
+        self.likeImageView = UIImageView(image: SeeManager.imageNamed("timeline_icon_unlike"))
+        self.likeImageView.centerY = self.height / 2
+        self.likeButton.addSubview(self.likeImageView)
+        
+        self.repostLabel = YYLabel()
+        self.repostLabel.isUserInteractionEnabled = false
+        self.repostLabel.height = self.height
+        self.repostLabel.textVerticalAlignment = YYTextVerticalAlignment.center
+        self.repostLabel.displaysAsynchronously = true
+        self.repostLabel.ignoreCommonProperties = true
+        self.repostLabel.fadeOnHighlight = false
+        self.repostLabel.fadeOnAsynchronouslyDisplay = false
+        self.repostButton.addSubview(self.repostLabel)
+        
+        self.commentLabel = YYLabel()
+        self.commentLabel.isUserInteractionEnabled = false
+        self.commentLabel.height = self.height
+        self.commentLabel.textVerticalAlignment = YYTextVerticalAlignment.center
+        self.commentLabel.displaysAsynchronously = true
+        self.commentLabel.ignoreCommonProperties = true
+        self.commentLabel.fadeOnHighlight = false
+        self.commentLabel.fadeOnAsynchronouslyDisplay = false
+        self.commentButton.addSubview(self.commentLabel)
+        
+        self.likeLabel = YYLabel()
+        self.likeLabel.isUserInteractionEnabled = false
+        self.likeLabel.height = self.height
+        self.likeLabel.textVerticalAlignment = YYTextVerticalAlignment.center
+        self.likeLabel.displaysAsynchronously = true
+        self.likeLabel.ignoreCommonProperties = true
+        self.likeLabel.fadeOnHighlight = false
+        self.likeLabel.fadeOnAsynchronouslyDisplay = false
+        self.likeButton.addSubview(self.likeLabel)
+        
+        let dark = UIColor(white: 0, alpha: 0.2)
+        let clear = UIColor(white: 0, alpha: 0)
+        let colors = [clear.cgColor, dark.cgColor, clear.cgColor]
+        let locations = [NSNumber(value: 0.2), NSNumber(value: 0.5), NSNumber(value: 0.8)]
+        
+        self.line1 = CAGradientLayer()
+        self.line1.colors = colors
+        self.line1.locations = locations
+        self.line1.startPoint = CGPoint(x: 0, y: 0)
+        self.line1.endPoint = CGPoint(x: 0, y: 1)
+        self.line1.size = CGSize(width: CGFloatFromPixel(1), height: self.height)
+        self.line1.left = self.repostButton.right
+        
+        self.line2 = CAGradientLayer()
+        self.line2.colors = colors
+        self.line2.locations = locations
+        self.line2.startPoint = CGPoint(x: 0, y: 0)
+        self.line2.endPoint = CGPoint(x: 0, y: 1)
+        self.line2.size = CGSize(width: CGFloatFromPixel(1), height: self.height)
+        self.line2.left = self.commentButton.right
+        
+        self.topLine = CALayer()
+        self.topLine.size = CGSize(width: self.width, height: CGFloatFromPixel(1))
+        self.topLine.backgroundColor = kSeeCellLineColor.cgColor
+        
+        self.bottomLine = CALayer()
+        self.bottomLine.size = self.topLine.size
+        self.bottomLine.bottom = self.height
+        self.bottomLine.backgroundColor = UIColorHex(hexString: "e8e8e8").cgColor
+        
+        self.addSubview(self.repostButton)
+        self.addSubview(self.commentButton)
+        self.addSubview(self.likeButton)
+        self.layer.addSublayer(self.line1)
+        self.layer.addSublayer(self.line2)
+        self.layer.addSublayer(self.topLine)
+        self.layer.addSublayer(self.bottomLine)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     public func setupLayout(layout: SeeStatusLayout) {
         
+        self.repostLabel.width = layout.toolbarRepostTextWidth
+        self.commentLabel.width = layout.toolbarCommentTextWidth
+        self.likeLabel.width = layout.toolbarLikeTextWidth
+        
+        self.repostLabel.textLayout = layout.toolbarRepostTextLayout
+        self.commentLabel.textLayout = layout.toolbarCommentTextLayout
+        self.likeLabel.textLayout = layout.toolbarLikeTextLayout
+        
+        self.adjust(image: self.repostImageView, label: self.repostLabel, button: self.repostButton)
+        self.adjust(image: self.commentImageView, label: self.commentLabel, button: self.commentButton)
+        self.adjust(image: self.likeImageView, label: self.likeLabel, button: self.likeButton)
+        
+        self.likeImageView.image = layout.status.attitudes_status > 0 ? SeeManager.imageNamed("timeline_icon_like") : SeeManager.imageNamed("timeline_icon_unlike")
+    }
+    
+    func adjust(image: UIImageView, label: YYLabel, button: UIButton) {
+        
+        let imageWidth = image.bounds.size.width
+        let labelWidth = label.width
+        let paddingMid: CGFloat = 5
+        let paddingSide = (button.width - imageWidth - labelWidth - paddingMid) / 2.0
+        image.centerX = CGFloatPixelRound(paddingSide + imageWidth / 2)
+        label.right = CGFloatPixelRound(button.width - paddingSide)
     }
 }

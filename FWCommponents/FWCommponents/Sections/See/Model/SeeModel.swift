@@ -34,6 +34,16 @@ enum SeeUserVerifyType: Int {
     case club
 }
 
+/// 表情类型
+///
+/// - image: 图片表情
+/// - emoji: Emoji表情
+enum SeeEmoticonType: Int {
+    case image
+    case emoji
+}
+
+
 class SeeModel: FWBaseModel {
     
     let ad = [SeeAdModel]()
@@ -71,13 +81,13 @@ class SeeStatusModel: FWBaseModel {
     let text = ""
     /// 缩略图
     let thumbnail_pic = ""
-    /// 中图
+    /// 中图   
     let bmiddle_pic = ""
     /// 大图
     let original_pic = ""
     
     /// 转发微博
-//    let retweeted_status = SeeStatusModel()
+    //    let retweeted_status = SeeStatusModel()
     
     let pic_ids = [String]()
     let pic_infos = [String : SeePictureModel]()
@@ -127,13 +137,13 @@ class SeeStatusModel: FWBaseModel {
     
     func mapping(mapper: HelpingMapper) {
         // 指定 id 字段用 "cat_id" 去解析
-//        mapper.specify(property: &id, name: "cat_id")
-//
-//        // 指定 parent 字段用这个方法去解析
-//        mapper.specify(property: &parent) { (rawString) -> (String, String) in
-//            let parentNames = rawString.characters.split{$0 == "/"}.map(String.init)
-//            return (parentNames[0], parentNames[1])
-//        }
+        //        mapper.specify(property: &id, name: "cat_id")
+        //
+        //        // 指定 parent 字段用这个方法去解析
+        //        mapper.specify(property: &parent) { (rawString) -> (String, String) in
+        //            let parentNames = rawString.characters.split{$0 == "/"}.map(String.init)
+        //            return (parentNames[0], parentNames[1])
+        //        }
     }
     
 }
@@ -195,7 +205,7 @@ class SeeUserModel: FWBaseModel {
     /// 封面图 920x300
     let cover_image = ""
     let cover_image_phone = ""
-
+    
     let profile_url = ""
     let type = 0
     let ptype = 0
@@ -423,7 +433,5 @@ class SeeGsidModel: FWBaseModel {
     
     
 }
-
-
 
 

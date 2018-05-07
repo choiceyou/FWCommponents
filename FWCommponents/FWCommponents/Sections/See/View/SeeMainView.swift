@@ -71,7 +71,11 @@ extension SeeMainView {
             stongSelf.tableView.reloadData()
             FWMJRefreshManager.endRefresh(refreshedView: stongSelf.tableView)
             
-        }) {
+        }) { [weak self] in
+            guard let stongSelf = self else {
+                return
+            }
+            FWMJRefreshManager.endRefresh(refreshedView: stongSelf.tableView)
             print("加载数据失败")
         }
     }

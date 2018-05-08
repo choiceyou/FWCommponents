@@ -1,7 +1,7 @@
 PODS:
-  - FWCycleScrollView (2.0.4):
+  - FWCycleScrollView (2.0.5):
     - Kingfisher
-  - FWPopupView (2.0.3)
+  - FWPopupView (2.0.4)
   - FWSegmentedControl (2.1.5)
   - FWSideMenu (2.0.1)
   - HandyJSON (4.1.1)
@@ -49,8 +49,8 @@ SPEC REPOS:
     - YYKit
 
 SPEC CHECKSUMS:
-  FWCycleScrollView: a23f2c33afc2bc36ad4205bb720b184ab725143f
-  FWPopupView: 90b31f821f28b577f43ded9dd9d3da51f82195f4
+  FWCycleScrollView: b246f8f354b990b065bee97a7e39fd32cae308c9
+  FWPopupView: 1c69085ea34c6dd7567786ff05c9de37cbd65713
   FWSegmentedControl: 481faaeb6f9cad33640a0bd1b45d02a7c563949d
   FWSideMenu: bb55a6e34d5a1aff0527ccdaaa25ae02915dd273
   HandyJSON: 3a3de917c4118767ffe41c29b5acba23409649f4

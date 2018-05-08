@@ -13,4 +13,12 @@ import HandyJSON
 class FWBaseModel: NSObject, HandyJSON {
     
     required override init() {}
+    
+    func mapping(mapper: HelpingMapper) {
+        
+    }
+    
+    func didFinishMapping() {
+        
+    }
 }

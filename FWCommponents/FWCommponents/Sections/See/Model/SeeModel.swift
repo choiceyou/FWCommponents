@@ -46,104 +46,121 @@ enum SeeEmoticonType: Int {
 
 class SeeModel: FWBaseModel {
     
-    let ad = [SeeAdModel]()
-    let advertises = [SeeAdvertisesModel]()
-    let gsid = [SeeGsidModel]()
-    let interval = 0
-    let uve_blank = 0
-    let has_unread = 0
-    let total_number = 0
-    let since_id = ""
-    let max_id = ""
-    let previous_cursor = ""
-    let next_cursor = ""
-    let statuses = [SeeStatusModel]()
+    var ad = [SeeAdModel]()
+    var advertises = [SeeAdvertisesModel]()
+    var gsid = [SeeGsidModel]()
+    var interval = 0
+    var uve_blank = 0
+    var has_unread = 0
+    var total_number = 0
+    var since_id = ""
+    var max_id = ""
+    var previous_cursor = ""
+    var next_cursor = ""
+    var statuses = [SeeStatusModel]()
     
 }
 
 class SeeStatusModel: FWBaseModel {
     
     var id = ""
-    let idstr = ""
-    let mid = ""
-    let rid = ""
+    var idstr = ""
+    var mid = ""
+    var rid = ""
     /// 发布时间
-    let created_at = Date()
+    var created_at: Date?
     
-    let user = SeeUserModel()
-    let userType = 0
+    var user = SeeUserModel()
+    var userType = 0
     
     /// 标题栏 (通常为nil)
-    let title = SeeTitleModel()
+    var title = SeeTitleModel()
     /// 微博VIP背景图，需要替换 "os7"
-    let pic_bg = ""
+    var pic_bg = ""
     /// 正文
-    let text = ""
+    var text = ""
     /// 缩略图
-    let thumbnail_pic = ""
-    /// 中图   
-    let bmiddle_pic = ""
+    var thumbnail_pic = ""
+    /// 中图
+    var bmiddle_pic = ""
     /// 大图
-    let original_pic = ""
+    var original_pic = ""
     
     /// 转发微博
-    //    let retweeted_status = SeeStatusModel()
+    var retweeted_status: SeeStatusModel? = nil
     
-    let pic_ids = [String]()
-    let pic_infos = [String : SeePictureModel]()
+    var pic_ids = [String]()
+    var pic_infos = [String : SeePictureModel]()
     
-    let pics = [SeePictureModel]()
-    let url_struct = [SeeURLModel]()
-    let topic_struct = [SeeTopicModel]()
-    let tag_struct = [SeeTagModel]()
-    let page_info = SeePageInfoModel()
+    var pics = [SeePictureModel]()
+    var url_struct = [SeeURLModel]()
+    var topic_struct = [SeeTopicModel]()
+    var tag_struct = [SeeTagModel]()
+    var page_info = SeePageInfoModel()
     
     /// 是否收藏
-    let favorited = false
+    var favorited = false
     /// 是否截断
-    let truncated = false
+    var truncated = false
     
     /// 转发数
-    let reposts_count = 0
+    var reposts_count = 0
     /// 评论数
-    let comments_count = 0
+    var comments_count = 0
     /// 赞数
-    let attitudes_count = 0
+    var attitudes_count = 0
     /// 是否已赞 0:没有
-    let attitudes_status = 0
-    let recom_state = 0
+    var attitudes_status = 0
+    var recom_state = 0
     
-    let in_reply_to_screen_name = ""
-    let in_reply_to_status_id = ""
-    let in_reply_to_user_id = ""
+    var in_reply_to_screen_name = ""
+    var in_reply_to_status_id = ""
+    var in_reply_to_user_id = ""
     
     /// 来自 XXX
-    let source = ""
-    let source_type = 0
+    var source = ""
+    var source_type = 0
     /// 来源是否允许点击
-    let source_allowclick = 0
+    var source_allowclick = 0
     
-    let geo = [String : String]()
+    var geo = [String : String]()
     /// 地理位置
-    let annotations = [String]()
-    let biz_feature = 0
-    let mlevel = 0
+    var annotations = [String]()
+    var biz_feature = 0
+    var mlevel = 0
     
-    let mblogid = ""
-    let mblogtypename = ""
-    let scheme = ""
-    let visible = [String : String]()
-    let darwin_tags = [String]()
+    var mblogid = ""
+    var mblogtypename = ""
+    var scheme = ""
+    var visible = [String : String]()
+    var darwin_tags = [String]()
     
-    func mapping(mapper: HelpingMapper) {
+    override func mapping(mapper: HelpingMapper) {
         // 指定 id 字段用 "cat_id" 去解析
         //        mapper.specify(property: &id, name: "cat_id")
         //
         //        // 指定 parent 字段用这个方法去解析
         //        mapper.specify(property: &parent) { (rawString) -> (String, String) in
-        //            let parentNames = rawString.characters.split{$0 == "/"}.map(String.init)
+        //            var parentNames = rawString.characters.split{$0 == "/"}.map(String.init)
         //            return (parentNames[0], parentNames[1])
         //        }
+        
+        mapper <<<
+            created_at <-- CustomDateFormatTransform(formatString: "EEE MMM dd HH:mm:ss zzz yyyy")
+    }
+    
+    override func didFinishMapping() {
+        
+        if self.pic_ids.count != 0 {
+            var tmpPics = [SeePictureModel]()
+            for picId in pic_ids {
+                let pic = pic_infos[picId]
+                if pic != nil {
+                    tmpPics.append(pic!)
+                }
+            }
+            pics = tmpPics
+        }
     }
     
 }
@@ -152,145 +169,145 @@ class SeeStatusModel: FWBaseModel {
 class SeeUserModel: FWBaseModel {
     
     /// id (int)
-    let id = 0
+    var id = 0
     /// id (string)
-    let idstr = ""
+    var idstr = ""
     /// 0:none 1:男 2:女
-    let gender = 0
+    var gender = 0
     /// "m":男 "f":女 "n"未知
-    let genderString = ""
+    var genderString = ""
     /// 个人简介
-    let desc = ""
+    var desc = ""
     /// 个性域名
-    let domain = ""
+    var domain = ""
     
     /// 昵称
-    let name = ""
+    var name = ""
     /// 友好昵称
-    let screen_name = ""
+    var screen_name = ""
     /// 备注
-    let remark = ""
+    var remark = ""
     
     /// 粉丝数
-    let followers_count = 0
+    var followers_count = 0
     /// 关注数
-    let friends_count = 0
+    var friends_count = 0
     /// 好友数 (双向关注)
-    let bi_followers_count = 0
+    var bi_followers_count = 0
     /// 收藏数
-    let favourites_count = 0
+    var favourites_count = 0
     /// 微博数
-    let statuses_count = 0
+    var statuses_count = 0
     /// 话题数
-    let topics_count = 0
+    var topics_count = 0
     /// 屏蔽数
-    let blocked_count = 0
-    let pagefriends_count = 0
-    let follow_me = false
-    let following = false
+    var blocked_count = 0
+    var pagefriends_count = 0
+    var follow_me = false
+    var following = false
     
     /// 省
-    let province = ""
+    var province = ""
     /// 市
-    let city = ""
+    var city = ""
     
     /// 博客地址
-    let url = ""
-    /// let profile_image_url = ""
-    let profile_image_url = ""
+    var url = ""
+    /// var profile_image_url = ""
+    var profile_image_url = ""
     /// 头像 180*180
-    let avatar_large = ""
+    var avatar_large = ""
     /// 头像 原图
-    let avatar_hd = ""
+    var avatar_hd = ""
     /// 封面图 920x300
-    let cover_image = ""
-    let cover_image_phone = ""
+    var cover_image = ""
+    var cover_image_phone = ""
     
-    let profile_url = ""
-    let type = 0
-    let ptype = 0
-    let mbtype = 0
+    var profile_url = ""
+    var type = 0
+    var ptype = 0
+    var mbtype = 0
     /// 微博等级 (LV)
-    let urank = 0
-    let uclass = 0
-    let ulevel = 0
+    var urank = 0
+    var uclass = 0
+    var ulevel = 0
     /// 会员等级 (橙名 VIP)
-    let mbrank = 0
-    let star = 0
-    let level = 0
+    var mbrank = 0
+    var star = 0
+    var level = 0
     /// 注册时间
-    let created_at = ""
-    let allow_all_act_msg = false
-    let allow_all_comment = false
-    let geo_enabled = false
-    let online_status = 0
+    var created_at = ""
+    var allow_all_act_msg = false
+    var allow_all_comment = false
+    var geo_enabled = false
+    var online_status = 0
     /// 所在地
-    let location = ""
-    let icons = [String : String]()
-    let weihao = ""
-    let badge_top = ""
-    let block_app = 0
-    let block_word = 0
-    let has_ability_tag = 0
+    var location = ""
+    var icons = [String : String]()
+    var weihao = ""
+    var badge_top = ""
+    var block_app = 0
+    var block_word = 0
+    var has_ability_tag = 0
     /// 信用积分
-    let credit_score = 0
+    var credit_score = 0
     /// 勋章
-    let badge = [String : NSNumber]()
-    let lang = ""
-    let user_ability = 0
-    let extend = [String : String]()
+    var badge = [String : NSNumber]()
+    var lang = ""
+    var user_ability = 0
+    var extend = [String : String]()
     
     /// 微博认证 (大V)
-    let verified = false
-    let verified_type = 0
-    let verified_level = 0
-    let verified_state = 0
-    let verified_contact_email = ""
-    let verified_contact_mobile = ""
-    let verified_trade = ""
-    let verified_contact_name = ""
-    let verified_source_url = ""
-    let verified_reason = ""
-    let verified_reason_modified = ""
-    let verified_reason_url = ""
-    let verified_source = ""
+    var verified = false
+    var verified_type = 0
+    var verified_level = 0
+    var verified_state = 0
+    var verified_contact_email = ""
+    var verified_contact_mobile = ""
+    var verified_trade = ""
+    var verified_contact_name = ""
+    var verified_source_url = ""
+    var verified_reason = ""
+    var verified_reason_modified = ""
+    var verified_reason_url = ""
+    var verified_source = ""
     
-    let userVerifyType = SeeUserVerifyType.none
+    var userVerifyType = SeeUserVerifyType.none
     
 }
 
 /// 标题
 class SeeTitleModel: FWBaseModel {
     
-    let baseColor = 0
+    var baseColor = 0
     /// 文本，例如"仅自己可见"
-    let text = ""
+    var text = ""
     /// 图标URL，需要加Default
-    let iconURL = ""
+    var iconURL = ""
     
 }
 
 /// 图片
 class SeePictureModel: FWBaseModel {
     
-    let pic_id = ""
-    let object_id = ""
-    let photo_tag = 0
+    var pic_id = ""
+    var object_id = ""
+    var photo_tag = 0
     /// YES:固定为方形 NO:原始宽高比
-    let keep_size = false
+    var keep_size = false
     
     /// w:180
-    let thumbnail = SeePictureMetadataModel()
+    var thumbnail = SeePictureMetadataModel()
     /// w:360 (列表中的缩略图)
-    let bmiddle = SeePictureMetadataModel()
+    var bmiddle = SeePictureMetadataModel()
     /// w:480
-    let middlePlus = SeePictureMetadataModel()
+    var middlePlus = SeePictureMetadataModel()
     /// w:720 (放大查看)
-    let large = SeePictureMetadataModel()
+    var large = SeePictureMetadataModel()
     /// (查看原图)
-    let largest = SeePictureMetadataModel()
-    let original = SeePictureMetadataModel()
-    let badgeType = SeePictureMetadataModel()
+    var largest = SeePictureMetadataModel()
+    var original = SeePictureMetadataModel()
+    var badgeType = SeePictureMetadataModel()
     
 }
 
@@ -298,44 +315,44 @@ class SeePictureModel: FWBaseModel {
 class SeePictureMetadataModel: FWBaseModel {
     
     /// Full image url
-    let url = ""
+    var url = ""
     /// pixel width
-    let width = 0
+    var width = 0
     /// pixel height
-    let height = 0
+    var height = 0
     /// "WEBP" "JPEG" "GIF"
-    let type = ""
+    var type = ""
     /// Default:1
-    let cut_type = 0
-    let badgeType: SeePictureBadgeType = .none
+    var cut_type = 0
+    var badgeType: SeePictureBadgeType = .none
     
 }
 
 /// 链接
 class SeeURLModel: FWBaseModel {
     
-    let result = false
+    var result = false
     /// 短域名 (原文)
-    let short_url = ""
+    var short_url = ""
     /// 原始链接
-    let ori_url = ""
+    var ori_url = ""
     /// 显示文本，例如"网页链接"，可能需要裁剪(24)
-    let url_title = ""
+    var url_title = ""
     /// 链接类型的图片URL
-    let url_type_pic = ""
+    var url_type_pic = ""
     /// 0:一般链接 36地点 39视频/图片
-    let url_type = ""
-    let log = ""
-    let actionlog = ""
+    var url_type = ""
+    var log = ""
+    var actionlog = ""
     /// 对应着 SeePageInfoModel
-    let page_id = ""
-    let storage_type = ""
+    var page_id = ""
+    var storage_type = ""
     
     
     /// 如果是图片，则会有下面这些，可以直接点开看
-    let pic_ids = [String]()
-    let pic_infos = [String : SeePictureModel]()
-    let pics = [SeePictureModel]()
+    var pic_ids = [String]()
+    var pic_infos = [String : SeePictureModel]()
+    var pics = [SeePictureModel]()
     
 }
 
@@ -343,24 +360,24 @@ class SeeURLModel: FWBaseModel {
 class SeeTopicModel: FWBaseModel {
     
     /// 话题标题
-    let topic_title = ""
+    var topic_title = ""
     /// 话题链接 sinaweibo://
-    let topic_url = ""
+    var topic_url = ""
     
 }
 
 /// 标签
 class SeeTagModel: FWBaseModel {
     
-    let tag_hidden = ""
+    var tag_hidden = ""
     /// 标签名字，例如"上海·上海文庙"
-    let tag_name = ""
+    var tag_name = ""
     /// 链接 sinaweibo://...
-    let tag_scheme = ""
+    var tag_scheme = ""
     /// 1 地点 2其他
-    let tag_type = 0
+    var tag_type = 0
     /// 需要加 _default
-    let url_type_pic = ""
+    var url_type_pic = ""
     
 }
 
@@ -375,35 +392,35 @@ class SeeTagModel: FWBaseModel {
 class SeePageInfoModel: FWBaseModel {
     
     /// 页面标题，例如"上海·上海文庙"
-    let page_title = ""
-    let page_id = ""
+    var page_title = ""
+    var page_id = ""
     /// 页面描述，例如"上海市黄浦区文庙路215号"
-    let page_desc = ""
+    var page_desc = ""
     /// 类型，例如"place" "video"
-    let object_type = ""
+    var object_type = ""
     /// 提示，例如"4222条微博"
-    let tips = ""
-    let content1 = ""
-    let content2 = ""
-    let content3 = ""
-    let content4 = ""
-    let object_id = ""
+    var tips = ""
+    var content1 = ""
+    var content2 = ""
+    var content3 = ""
+    var content4 = ""
+    var object_id = ""
     /// 真实链接，例如 http://v.qq.com/xxx
-    let scheme = ""
-    let buttons = [SeeButtonLinkModel]()
+    var scheme = ""
+    var buttons = [SeeButtonLinkModel]()
     
-    let is_asyn = 0
-    let type = 0
+    var is_asyn = 0
+    var type = 0
     /// 链接 sinaweibo://...
-    let page_url = ""
+    var page_url = ""
     /// 图片URL，不需要加(_default) 通常是左侧的方形图片
-    let page_pic = ""
+    var page_pic = ""
     /// Badge 图片URL，不需要加(_default) 通常放在最左上角角落里
-    let type_icon = ""
+    var type_icon = ""
     
-    let act_status = 0
-    let actionlog = [String : String]()
-    let media_info = [String : String]()
+    var act_status = 0
+    var actionlog = [String : String]()
+    var media_info = [String : String]()
     
 }
 
@@ -411,11 +428,11 @@ class SeePageInfoModel: FWBaseModel {
 class SeeButtonLinkModel: FWBaseModel {
     
     /// 按钮图片URL (需要加_default)
-    let pic = ""
+    var pic = ""
     /// 按钮文本，例如"点评"
-    let name = ""
-    let type = ""
-    let params = [String : String]()
+    var name = ""
+    var type = ""
+    var params = [String : String]()
     
 }
 

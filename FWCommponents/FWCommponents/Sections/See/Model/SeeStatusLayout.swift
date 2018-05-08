@@ -15,7 +15,7 @@ let kSeeCellTopMargin: CGFloat = 8      // cell 顶部灰色留白
 let kSeeCellTitleHeight: CGFloat = 36   // cell 标题高度 (例如"仅自己可见")
 let kSeeCellPadding: CGFloat = 12       // cell 内边距
 let kSeeCellPaddingText: CGFloat = 10   // cell 文本与其他元素间留白
-let kSeeCellPaddingPic = 4     // cell 多张图片中间留白
+let kSeeCellPaddingPic: CGFloat = 4     // cell 多张图片中间留白
 let kSeeCellProfileHeight: CGFloat = 56 // cell 名片高度
 let kSeeCellCardHeight: CGFloat = 70    // cell card 视图高度
 let kSeeCellNamePaddingLeft: CGFloat = 14 // cell 名字和 avatar 之间留白
@@ -197,7 +197,9 @@ class SeeStatusLayout: NSObject {
         // 文本排版，计算布局
         self.layoutTitle()
         self.layoutProfile()
-        self.layoutRetweet()
+        if self.status.retweeted_status != nil {
+            self.layoutRetweet()
+        }
         if self.retweetHeight == 0 {
             self.layoutPics()
             if self.picHeight == 0 {
@@ -353,25 +355,22 @@ class SeeStatusLayout: NSObject {
     func layoutRetweet() {
         
         self.retweetHeight = 0
-        //        self.
+        self.layoutRetweetedText()
+        self.layoutRetweetPics()
+        if self.retweetPicHeight == 0 {
+            self.layoutRetweetCard()
+        }
+        
+        self.retweetHeight = self.retweetTextHeight
+        if self.retweetPicHeight > 0 {
+            self.retweetHeight += self.retweetPicHeight
+            self.retweetHeight += kSeeCellPadding
+        } else if self.retweetCardHeight > 0 {
+            self.retweetHeight += self.retweetCardHeight
+            self.retweetHeight += kSeeCellPadding
+        }
     }
     
-    func layoutRetweetedText() {
-        
-        self.retweetHeight = 0
-        self.retweetTextLayout = nil
-        
-        //        let text = self.text(status: self.status, isRetweet: <#T##Bool#>, fontSize: <#T##CGFloat#>, textColor: <#T##UIColor#>)
-        
-    }
-    
-    func layoutPics() {
-        
-    }
-    
-    func layoutCard() {
-        
-    }
     
     /// 文本
     func layoutText() {
@@ -401,6 +400,34 @@ class SeeStatusLayout: NSObject {
         self.textHeight = modifier.heightForLineCount(lineCount: Int(self.textLayout.rowCount))
     }
     
+    func layoutRetweetedText() {
+        
+        self.retweetHeight = 0
+        self.retweetTextLayout = nil
+        
+        let text = self.text(status: self.status.retweeted_status!, isRetweet: true, fontSize: kSeeCellTextFontRetweetSize, textColor: kSeeCellTextSubTitleColor)
+        
+        if text?.length == 0 {
+            return
+        }
+        
+        let modifier = SeeTextLinePositionModifier()
+        modifier.font = UIFont.init(name: "Heiti SC", size: kSeeCellTextFontRetweetSize)
+        modifier.paddingTop = kSeeCellPaddingText
+        modifier.paddingBottom = kSeeCellPaddingText
+        
+        let container = YYTextContainer()
+        container.size = CGSize(width: kSeeCellContentWidth, height: CGFloat(HUGE))
+        container.linePositionModifier = modifier
+        
+        self.retweetTextLayout = YYTextLayout(container: container, text: text!)
+        if self.retweetTextLayout == nil {
+            return
+        }
+        
+        self.retweetTextHeight = modifier.heightForLineCount(lineCount: self.retweetTextLayout.lines.count)
+    }
+    
     func text(status: SeeStatusModel, isRetweet: Bool, fontSize: CGFloat, textColor: UIColor) -> NSMutableAttributedString? {
         
         var string = status.text
@@ -416,8 +443,7 @@ class SeeStatusLayout: NSObject {
             
             if !name.isEmpty {
                 let insert = "@\(name)"
-                let c = insert as! Character
-                string.insert(c, at: string.index(string.startIndex, offsetBy: 0))
+                string = insert + string
             }
         }
         
@@ -429,7 +455,7 @@ class SeeStatusLayout: NSObject {
         highlightBorder.cornerRadius = 3
         highlightBorder.fillColor = kSeeCellTextHighlightBackgroundColor
         
-        let text = NSMutableAttributedString(string: string)
+        let text = NSMutableAttributedString(string: string as String)
         text.font = font
         text.color = textColor
         
@@ -604,6 +630,95 @@ class SeeStatusLayout: NSObject {
         return text
     }
     
+    
+    /// 图片
+    func layoutPics() {
+        self.layoutPics(status: self.status.retweeted_status!, isRetweet: false)
+    }
+    
+    func layoutRetweetPics() {
+        self.layoutPics(status: self.status.retweeted_status!, isRetweet: true)
+    }
+    
+    func layoutPics(status: SeeStatusModel, isRetweet: Bool) {
+        
+        if isRetweet {
+            self.retweetPicSize = CGSize(width: 0, height: 0)
+            self.retweetPicHeight = 0
+        } else {
+            self.picSize = CGSize(width: 0, height: 0)
+            self.picHeight = 0
+        }
+        if status.pics.count == 0 {
+            return
+        }
+        
+        var picSize = CGSize(width: 0, height: 0)
+        var picHeight: CGFloat = 0
+        
+        var len1_3 = (kSeeCellContentWidth + kSeeCellPaddingPic) / 3 - kSeeCellPaddingPic
+        len1_3 = CGFloatPixelRound(len1_3)
+        
+        switch status.pics.count {
+        case 1:
+            let pic = self.status.pics.first
+            let bmiddle = pic?.bmiddle
+            if (pic != nil && pic!.keep_size) || (bmiddle == nil || bmiddle!.width < 1)  || (bmiddle == nil || bmiddle!.height < 1) {
+                var maxLen = kSeeCellContentWidth / 2.0
+                maxLen = CGFloatPixelRound(maxLen)
+                picSize = CGSize(width: maxLen, height: maxLen)
+                picHeight = maxLen
+            } else {
+                let maxLen = len1_3 * 2 + kSeeCellPaddingPic
+                if bmiddle != nil && bmiddle!.width < bmiddle!.height {
+                    picSize.width = CGFloat(bmiddle!.width / bmiddle!.height) * maxLen
+                    picSize.height = maxLen
+                } else if bmiddle != nil {
+                    picSize.width = maxLen
+                    picSize.height = CGFloat(bmiddle!.height / bmiddle!.width) * maxLen
+                }
+                picSize = CGSizePixelRound(picSize)
+                picHeight = picSize.height
+            }
+            break
+        case 2,3:
+            picSize = CGSize(width: len1_3, height: len1_3)
+            picHeight = len1_3
+            break
+        case 4,5,6:
+            picSize = CGSize(width: len1_3, height: len1_3)
+            picHeight = len1_3 * 2 + kSeeCellPaddingPic
+            break
+        default: // 7,8,9
+            picSize = CGSize(width: len1_3, height: len1_3)
+            picHeight = len1_3 * 3 + kSeeCellPaddingPic * 2
+            break
+        }
+        
+        if isRetweet {
+            self.retweetPicSize = picSize
+            self.retweetPicHeight = picHeight
+        } else {
+            self.picSize = picSize
+            self.picHeight = picHeight
+        }
+    }
+    
+    
+    /// 卡片
+    func layoutCard() {
+        self.layoutCard(status: self.status, isRetweet: false)
+    }
+    
+    func layoutRetweetCard() {
+        self.layoutCard(status: self.status.retweeted_status!, isRetweet: true)
+    }
+    
+    func layoutCard(status: SeeStatusModel, isRetweet: Bool) {
+        
+    }
+    
+    
     /// Tag
     func layoutTag() {
         
@@ -651,6 +766,7 @@ class SeeStatusLayout: NSObject {
             self.tagHeight = 0
         }
     }
+    
     
     /// 工具栏
     func layoutToolbar() {
@@ -729,6 +845,7 @@ class SeeStatusLayout: NSObject {
     func layoutSource() {
         
         let sourceText = NSMutableAttributedString()
+        
         let createTime = SeeManager.string(withTimelineDate: self.status.created_at) as String
         
         // 时间

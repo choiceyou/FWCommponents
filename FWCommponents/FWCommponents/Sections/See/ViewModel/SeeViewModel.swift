@@ -51,8 +51,9 @@ extension SeeViewModel {
                     for status: SeeStatusModel in seeIm.statuses {
                         let layout = SeeStatusLayout(status: status, style: SeeLayoutStyle.Timeline)
                         tmpLayouts.append(layout)
+                        break
                     }
-                    
+                    break
                 } catch {
                     
                 }

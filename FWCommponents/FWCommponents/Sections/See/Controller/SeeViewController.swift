@@ -34,7 +34,6 @@ class SeeViewController: FWBaseViewController {
             seeMainView.tableView.contentInsetAdjustmentBehavior = .never
         }
         
-        self.sideMenuPanMode = .defaults
         self.isNeedBlueNav = true
     }
     

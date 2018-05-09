@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import YYKit
+import Kingfisher
 
 // 宽高
 let kSeeCellTopMargin: CGFloat = 8      // cell 顶部灰色留白
@@ -296,7 +297,7 @@ class SeeStatusLayout: NSObject {
         attachment.contentMode = .scaleAspectFit
         attachment.contentInsets = contentInsets
         attachment.size = size
-        attachment.imageURL = URL(string: imageURL)
+        attachment.imageURL = SeeManager.defaultURL(forImageURL: imageURL)
         
         let atr = NSMutableAttributedString(string: YYTextAttachmentToken)
         atr.setTextAttachment(attachment, range: NSMakeRange(0, atr.length))
@@ -442,7 +443,7 @@ class SeeStatusLayout: NSObject {
             }
             
             if !name.isEmpty {
-                let insert = "@\(name)"
+                let insert = "@\(name):"
                 string = insert + string
             }
         }
@@ -504,6 +505,11 @@ class SeeStatusLayout: NSObject {
                         let picURL = SeeManager.defaultURL(forImageURL: seeUrl.url_type_pic)
                         if picURL != nil {
                             let image = YYImageCache.shared().getImageForKey(picURL!.absoluteString)
+                            //                            let image = UIImage()
+                            //
+                            //                            KingfisherManager.shared.downloader.downloadImage(with: picURL!, retrieveImageTask: nil, options: nil, progressBlock: nil) { (image, error, url, data) in
+                            //                                image = image
+                            //                            }
                             let pic = (image != nil && seeUrl.pics.count == 0) ? self.attachment(fontSize: fontSize, image: image!, shrink: true) : self.attachment(fontSize: fontSize, imageURL: seeUrl.url_type_pic, shrink: true)
                             replace.insert(pic, at: 0)
                         }

@@ -633,7 +633,7 @@ class SeeStatusLayout: NSObject {
     
     /// 图片
     func layoutPics() {
-        self.layoutPics(status: self.status.retweeted_status!, isRetweet: false)
+        self.layoutPics(status: self.status, isRetweet: false)
     }
     
     func layoutRetweetPics() {

@@ -251,11 +251,31 @@ class SeeStatusView: UIView {
         
         // 优先级是 转发->图片->卡片
         if layout.retweetHeight > 0 {
+            self.retweetBackgroundView.top = top
+            self.retweetBackgroundView.height = layout.retweetHeight
+            self.retweetBackgroundView.isHidden = false
             
+            self.retweetTextLabel.top = top
+            self.retweetTextLabel.height = layout.retweetTextHeight
+            self.retweetTextLabel.textLayout = layout.retweetTextLayout
+            self.retweetTextLabel.isHidden = false
+            
+            if layout.retweetPicHeight > 0 {
+                self.setImageView(imageTop: self.retweetTextLabel.bottom, isRetweet: true)
+            } else {
+                self.hideImageViews()
+                if layout.retweetCardHeight > 0 {
+                    self.cardView.top = self.retweetTextLabel.bottom
+                    self.cardView.isHidden = false
+                    self.cardView.setWithLayout(layout: layout, isRetweet: true)
+                }
+            }
         } else if layout.picHeight > 0 {
-            self.setImageView(imageTop: self.retweetTextLabel.bottom, isRetweet: false)
+            self.setImageView(imageTop: top, isRetweet: false)
         } else if layout.cardHeight > 0 {
-            
+            self.cardView.top = top
+            self.cardView.isHidden = false
+            self.cardView.setWithLayout(layout: layout, isRetweet: false)
         }
         
         if layout.tagHeight > 0 {
@@ -279,7 +299,7 @@ class SeeStatusView: UIView {
     func setImageView(imageTop: CGFloat, isRetweet: Bool) {
         
         let picSize = isRetweet ? self.layout.retweetPicSize : self.layout.picSize
-        let pics = isRetweet ? self.layout.status.pics : self.layout.status.pics
+        let pics = isRetweet ? self.layout.status.retweeted_status!.pics : self.layout.status.pics
         
         let picsCount = pics.count
         
@@ -287,9 +307,9 @@ class SeeStatusView: UIView {
             return
         }
         
-        for index in 0...9 {
+        for index in 0...8 {
             let imageView = self.picViews[index]
-            if index >= self.picViews.count {
+            if index >= pics.count {
                 imageView.layer.cancelCurrentImageRequest()
                 imageView.isHidden = true
             } else {
@@ -308,34 +328,34 @@ class SeeStatusView: UIView {
                     origin.y = imageTop + CGFloat(index / 3) * (picSize!.height + CGFloat(kSeeCellPaddingPic))
                     break
                 }
-            }
-            imageView.frame = CGRect(x: origin.x, y: origin.y, width: picSize!.width, height: picSize!.height)
-            imageView.isHidden = false
-            imageView.layer.removeAnimation(forKey: "contents")
-            
-            let pic = pics[index]
-            
-            let badge = imageView.subviews.first
-            switch pic.largest.badgeType {
                 
-            case .none:
-                if badge?.layer.contents != nil {
-                    badge?.layer.contents = nil
-                    badge?.isHidden = true
+                imageView.frame = CGRect(x: origin.x, y: origin.y, width: picSize!.width, height: picSize!.height)
+                imageView.isHidden = false
+                imageView.layer.removeAnimation(forKey: "contents")
+                
+                let pic = pics[index]
+                
+                let badge = imageView.subviews.first
+                switch pic.largest.badgeType {
+                    
+                case .none:
+                    if badge?.layer.contents != nil {
+                        badge?.layer.contents = nil
+                        badge?.isHidden = true
+                    }
+                case .long:
+                    badge?.layer.contents = SeeManager.imageNamed("timeline_image_longimage").cgImage
+                    badge?.isHidden = false
+                case .gif:
+                    badge?.layer.contents = SeeManager.imageNamed("timeline_image_gif").cgImage
+                    badge?.isHidden = false
                 }
-            case .long:
-                badge?.layer.contents = SeeManager.imageNamed("timeline_image_longimage").cgImage
-                badge?.isHidden = false
-            case .gif:
-                badge?.layer.contents = SeeManager.imageNamed("timeline_image_gif").cgImage
-                badge?.isHidden = false
-            }
-            
-            imageView.kf.setImage(with: URL(string: pic.bmiddle.url), placeholder: nil, options: nil, progressBlock: nil) { (image, error, type, url) in
                 
+                imageView.kf.setImage(with: URL(string: pic.bmiddle.url), placeholder: nil, options: nil, progressBlock: nil) { (image, error, type, url) in
+                    
+                }
             }
         }
-        
     }
 }
 
@@ -487,6 +507,10 @@ class SeeStatusCardView: UIView {
     }
     
     public func setupLayout(layout: SeeStatusLayout) {
+        
+    }
+    
+    public func setWithLayout(layout: SeeStatusLayout, isRetweet: Bool) {
         
     }
 }

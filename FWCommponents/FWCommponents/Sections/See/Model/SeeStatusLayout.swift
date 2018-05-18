@@ -505,12 +505,7 @@ class SeeStatusLayout: NSObject {
                         let picURL = SeeManager.defaultURL(forImageURL: seeUrl.url_type_pic)
                         if picURL != nil {
                             let image = YYImageCache.shared().getImageForKey(picURL!.absoluteString)
-                            //                            let image = UIImage()
-                            //
-                            //                            KingfisherManager.shared.downloader.downloadImage(with: picURL!, retrieveImageTask: nil, options: nil, progressBlock: nil) { (image, error, url, data) in
-                            //                                image = image
-                            //                            }
-                            let pic = (image != nil && seeUrl.pics.count == 0) ? self.attachment(fontSize: fontSize, image: image!, shrink: true) : self.attachment(fontSize: fontSize, imageURL: seeUrl.url_type_pic, shrink: true)
+                            let pic = (image != nil && seeUrl.pics.count == 0) ? self.attachment(fontSize: fontSize, image: image!, shrink: true) : self.attachment(fontSize: fontSize, imageURL: picURL!.absoluteString, shrink: true)
                             replace.insert(pic, at: 0)
                         }
                     }
@@ -982,22 +977,26 @@ class SeeTextImageViewAttachment: YYTextAttachment {
     var size: CGSize!
     var imageView: UIImageView?
     
-    func setContent(content: Any) {
-        self.imageView = content as? UIImageView
-    }
-    
-    func content() -> Any? {
-        
-        if pthread_main_np() == 0 {
-            return nil
+    override var content: Any? {
+        //        get {
+        //            if pthread_main_np() == 0 {
+        //                return nil
+        //            }
+        //            if self.imageView != nil {
+        //                return self.imageView
+        //            }
+        //
+        //            if self.size == nil {
+        //                return nil
+        //            }
+        //
+        //            self.imageView = UIImageView()
+        //            self.imageView?.size = self.size
+        //            self.imageView?.setImageWith(imageURL, placeholder: nil)
+        //            return self.imageView
+        //        }
+        willSet {
+            self.imageView = newValue as? UIImageView
         }
-        if self.imageView != nil {
-            return self.imageView
-        }
-        
-        self.imageView = UIImageView()
-        self.imageView?.size = self.size
-        self.imageView?.setImageWith(self.imageURL, placeholder: nil)
-        return self.imageView
     }
 }

@@ -26,6 +26,13 @@ class SeeMainView: FWBaseView, UITableViewDelegate, UITableViewDataSource {
         return tableView
     }()
     
+    lazy var fpsLabel: YYFPSLabel = {
+       
+        let fpsLabel = YYFPSLabel()
+        fpsLabel.sizeToFit()
+        return fpsLabel
+    }()
+    
     func fw_setupViewModel(viewModel: FWViewModelProtocol) {
         
         self.seeViewModel = viewModel as! SeeViewModel
@@ -35,6 +42,7 @@ class SeeMainView: FWBaseView, UITableViewDelegate, UITableViewDataSource {
         
         self.backgroundColor = kSeeCellBackgroundColor
         self.addSubview(self.tableView)
+        self.addSubview(self.fpsLabel)
         
         FWMJRefreshManager.refresh(refreshedView: self.tableView, target: self, headerRereshAction: #selector(headerRefreshAction), footerRereshAction: nil)
         
@@ -52,12 +60,15 @@ extension SeeMainView {
     
     override func updateConstraints() {
 
-        self.tableView.snp.makeConstraints { [weak self] (make) in
-            guard let strongSelf = self else {
-                return
-            }
-            make.edges.equalTo(strongSelf)
+        self.tableView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self)
         }
+        
+        self.fpsLabel.snp.makeConstraints { (make) in
+            make.leftMargin.equalTo(kSeeCellPadding)
+            make.top.equalTo(50)
+        }
+        
         super.updateConstraints()
     }
     

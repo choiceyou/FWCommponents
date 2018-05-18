@@ -351,7 +351,7 @@ class SeeStatusView: UIView {
                     badge?.isHidden = false
                 }
                 
-                imageView.kf.setImage(with: URL(string: pic.bmiddle.url), placeholder: nil, options: nil, progressBlock: nil) { (image, error, type, url) in
+                imageView.kf.setImage(with: SeeManager.defaultURL(forImageURL: pic.bmiddle.url) as URL, placeholder: nil, options: nil, progressBlock: nil) { (image, error, type, url) in
                     
                 }
             }

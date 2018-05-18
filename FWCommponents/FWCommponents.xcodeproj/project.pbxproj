@@ -40,6 +40,7 @@
 		49450AFC2084753B00A4B7EA /* FWMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450AFB2084753B00A4B7EA /* FWMacro.swift */; };
 		49450B0220848EC900A4B7EA /* KeyframeAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450B0020848EC900A4B7EA /* KeyframeAnimationViewController.swift */; };
 		49450B0320848EC900A4B7EA /* CommonAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49450B0120848EC900A4B7EA /* CommonAnimationViewController.swift */; };
+		4953038F20AEB21A0036E2E1 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4953038D20AEB21A0036E2E1 /* YYFPSLabel.m */; };
 		49554CA52094490D0016CF64 /* SeeStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49554CA42094490D0016CF64 /* SeeStatusTableViewCell.swift */; };
 		49554CA9209475BB0016CF64 /* SeeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49554CA8209475BB0016CF64 /* SeeManager.m */; };
 		49563CBC208D711600643444 /* SeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49563CB8208D711600643444 /* SeeViewController.swift */; };
@@ -128,8 +129,10 @@
 		49450AFB2084753B00A4B7EA /* FWMacro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWMacro.swift; sourceTree = "<group>"; };
 		49450B0020848EC900A4B7EA /* KeyframeAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyframeAnimationViewController.swift; sourceTree = "<group>"; };
 		49450B0120848EC900A4B7EA /* CommonAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonAnimationViewController.swift; sourceTree = "<group>"; };
+		4953038C20AEB1700036E2E1 /* FWCommponents-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FWCommponents-Bridging-Header.h"; sourceTree = "<group>"; };
+		4953038D20AEB21A0036E2E1 /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
+		4953038E20AEB21A0036E2E1 /* YYFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
 		49554CA42094490D0016CF64 /* SeeStatusTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeStatusTableViewCell.swift; sourceTree = "<group>"; };
-		49554CA6209475BB0016CF64 /* FWCommponents-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FWCommponents-Bridging-Header.h"; sourceTree = "<group>"; };
 		49554CA7209475BB0016CF64 /* SeeManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeeManager.h; sourceTree = "<group>"; };
 		49554CA8209475BB0016CF64 /* SeeManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeeManager.m; sourceTree = "<group>"; };
 		49563CB8208D711600643444 /* SeeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeViewController.swift; sourceTree = "<group>"; };
@@ -214,7 +217,6 @@
 			children = (
 				49554CA7209475BB0016CF64 /* SeeManager.h */,
 				49554CA8209475BB0016CF64 /* SeeManager.m */,
-				49554CA6209475BB0016CF64 /* FWCommponents-Bridging-Header.h */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -244,6 +246,7 @@
 		49229A9E207F4D7F008049D8 /* FWCommponents */ = {
 			isa = PBXGroup;
 			children = (
+				4953038C20AEB1700036E2E1 /* FWCommponents-Bridging-Header.h */,
 				49229AD9207F51D7008049D8 /* QQSideMenu */,
 				49229ACD207F51D6008049D8 /* Sections */,
 				497336FC20803E1300A602A6 /* SectionsEx */,
@@ -388,6 +391,8 @@
 			children = (
 				49735531208EB73E006CB894 /* SeeMainView.swift */,
 				49554CA42094490D0016CF64 /* SeeStatusTableViewCell.swift */,
+				4953038E20AEB21A0036E2E1 /* YYFPSLabel.h */,
+				4953038D20AEB21A0036E2E1 /* YYFPSLabel.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -726,6 +731,7 @@
 				490EA71B2092F5C2000952BF /* FWUtilsManager.swift in Sources */,
 				49229AE8207F51D7008049D8 /* FWNavigationController.swift in Sources */,
 				490EA7192092C746000952BF /* UIImage+fw.swift in Sources */,
+				4953038F20AEB21A0036E2E1 /* YYFPSLabel.m in Sources */,
 				49229B00207F543F008049D8 /* RecentViewController.swift in Sources */,
 				49229AE9207F51D7008049D8 /* FWTabBarController.swift in Sources */,
 				49733707208047C000A602A6 /* FWBaseViewController.swift in Sources */,
@@ -928,7 +934,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xfg.FWCommponents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "FWCommponents/Sections/See/Manager/FWCommponents-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "FWCommponents/FWCommponents-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -947,7 +953,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xfg.FWCommponents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "FWCommponents/Sections/See/Manager/FWCommponents-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "FWCommponents/FWCommponents-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

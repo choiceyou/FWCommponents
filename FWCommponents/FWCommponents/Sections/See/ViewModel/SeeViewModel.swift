@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 import SwiftyJSON
 
-/// 网络请求成功回调
+/// 模拟网络请求成功回调
 typealias NetSuccessBlock = FWVoidBlock
-/// 网络请求失败回调
+/// 模拟网络请求失败回调
 typealias NetFailureBlock = FWVoidBlock
 
 class SeeViewModel: FWBaseViewModel {

@@ -6,6 +6,15 @@
 //  Copyright © 2018年 xfg. All rights reserved.
 //
 
+/** ************************************************
+ 
+ github地址：https://github.com/choiceyou/FWPopupView
+ bug反馈、交流群：670698309
+ 
+ ***************************************************
+ */
+
+
 import Foundation
 import UIKit
 
@@ -15,6 +24,10 @@ let fwBackgroundViewKey: UnsafeRawPointer! = UnsafeRawPointer.init(bitPattern: "
 let fwBackgroundViewColorKey: UnsafeRawPointer! = UnsafeRawPointer.init(bitPattern: "fwBackgroundViewColorKey".hashValue)
 let fwBackgroundAnimatingKey: UnsafeRawPointer! = UnsafeRawPointer.init(bitPattern: "fwBackgroundAnimatingKey".hashValue)
 let fwAnimationDurationKey: UnsafeRawPointer! = UnsafeRawPointer.init(bitPattern: "fwAnimationDurationKey".hashValue)
+
+/// 遮罩层的默认背景色
+let kDefaultMaskViewColor = UIColor(white: 0, alpha: 0.5)
+
 
 extension UIView {
     
@@ -57,11 +70,12 @@ extension UIView {
         }
     }
     
-    var fwBackgroundViewColor: UIColor {
+    /// 遮罩层颜色
+    var fwMaskViewColor: UIColor {
         get {
             let color = objc_getAssociatedObject(self, fwBackgroundViewColorKey) as? UIColor
             guard color != nil else {
-                return UIColor(white: 0, alpha: 0.5)
+                return kDefaultMaskViewColor
             }
             return color!
         }
@@ -70,29 +84,30 @@ extension UIView {
         }
     }
     
-    var fwBackgroundView: UIView {
+    /// 遮罩层
+    var fwMaskView: UIView {
         var tmpView = objc_getAssociatedObject(self, fwBackgroundViewKey) as? UIView
         if tmpView == nil {
             tmpView = UIView(frame: self.bounds)
             self.addSubview(tmpView!)
-            tmpView?.backgroundColor = fwBackgroundViewColor
             
             tmpView?.alpha = 0.0
             tmpView?.layer.zPosition = CGFloat(MAXFLOAT)
-            
-            objc_setAssociatedObject(self, fwBackgroundViewKey, tmpView, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
+        tmpView?.backgroundColor = fwMaskViewColor
+        objc_setAssociatedObject(self, fwBackgroundViewKey, tmpView, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         return tmpView!
     }
     
-    
+    /// 显示遮罩层
     func showFwBackground() {
         
         self.fwReferenceCount += 1
         if self.fwReferenceCount > 1 {
+            self.fwReferenceCount -= 1
             return
         }
-        self.fwBackgroundView.isHidden = false
+        self.fwMaskView.isHidden = false
         self.fwBackgroundAnimating = true
         
         if self == FWPopupWindow.sharedInstance.attachView() {
@@ -103,12 +118,12 @@ extension UIView {
             let aa = self as! UIWindow
             aa.makeKeyAndVisible()
         } else {
-            self.bringSubview(toFront: self.fwBackgroundView)
+            self.bringSubview(toFront: self.fwMaskView)
         }
         
         UIView.animate(withDuration: self.fwAnimationDuration, delay: 0, options: [.curveEaseOut, .beginFromCurrentState], animations: {
             
-            self.fwBackgroundView.alpha = 1.0
+            self.fwMaskView.alpha = 1.0
             
         }) { (finished) in
             
@@ -119,17 +134,17 @@ extension UIView {
         }
     }
     
+    /// 隐藏遮罩层
     func hideFwBackground() {
         
-        self.fwReferenceCount -= 1
-        if self.fwReferenceCount > 0 {
+        if self.fwReferenceCount > 1 {
             return
         }
         self.fwBackgroundAnimating = true
         
         UIView.animate(withDuration: self.fwAnimationDuration, delay: 0, options: [.curveEaseIn, .beginFromCurrentState], animations: {
             
-            self.fwBackgroundView.alpha = 0.0
+            self.fwMaskView.alpha = 0.0
             
         }) { (finished) in
             
@@ -138,14 +153,14 @@ extension UIView {
                 
                 if self == FWPopupWindow.sharedInstance.attachView() {
                     FWPopupWindow.sharedInstance.isHidden = true
-                    FWPopupWindow.sharedInstance.makeKey()
+                    UIApplication.shared.delegate!.window??.makeKey()
                 } else if self.isKind(of: UIWindow.self) {
                     self.isHidden = true
-                    let aa = self as! UIWindow
-                    aa.makeKey()
+                    UIApplication.shared.delegate!.window??.makeKey()
                 }
             }
             
+            self.fwReferenceCount -= 1
         }
     }
 }

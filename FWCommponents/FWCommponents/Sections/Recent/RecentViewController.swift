@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import FWPopupView
 
 class RecentViewController: FWBaseViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -17,11 +18,41 @@ class RecentViewController: FWBaseViewController, UITableViewDelegate, UITableVi
     var timeArray: [String] = []
     
     
+    let menuTitles = ["创建群聊", "加好友/群", "扫一扫", "面对面快传", "付款", "拍摄"]
+    let menuImages = [UIImage(named: "right_menu_multichat"),
+                      UIImage(named: "right_menu_addFri"),
+                      UIImage(named: "right_menu_QR"),
+                      UIImage(named: "right_menu_facetoface"),
+                      UIImage(named: "right_menu_payMoney"),
+                      UIImage(named: "right_menu_sendvideo")]
+    
+    
     lazy var tableView: UITableView = {
         
         let tableview = UITableView()
         tableview.separatorStyle = .none
         return tableview
+    }()
+    
+    lazy var rightMenuView: FWMenuView = {
+        
+        let vProperty = FWMenuViewProperty()
+        vProperty.popupCustomAlignment = .topRight
+        vProperty.popupAnimationType = .scale
+        vProperty.maskViewColor = UIColor(white: 0, alpha: 0.2)
+        vProperty.touchWildToHide = "1"
+        vProperty.popupViewEdgeInsets = UIEdgeInsetsMake(kStatusBarHeight + kNavBarHeight, 0, 0, 8)
+        vProperty.topBottomMargin = 0
+        vProperty.animationDuration = 0.3
+        vProperty.popupArrowStyle = .round
+        vProperty.popupArrowVertexScaleX = 1
+        
+        let menuView = FWMenuView.menu(itemTitles: menuTitles, itemImageNames: menuImages as? [UIImage], itemBlock: { (popupView, index) in
+            print("Menu：点击了第\(index)个按钮")
+        }, property: vProperty)
+        //                menuView.attachedView = self.view
+        
+        return menuView
     }()
     
     override func viewDidLoad() {
@@ -73,7 +104,8 @@ class RecentViewController: FWBaseViewController, UITableViewDelegate, UITableVi
     }
     
     @objc func rightBtnAction() {
-        self.menuContainerViewController.toggleRightSideMenu(completeBolck: nil)
+        //        self.menuContainerViewController.toggleRightSideMenu(completeBolck: nil)
+        self.rightMenuView.show()
     }
     
     func obtainRandomTime(index: Int) -> String {

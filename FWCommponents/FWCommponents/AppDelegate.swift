@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         
-        let menuContrainer = FWSideMenuContainerViewController.container(centerViewController: FWTabBarController(), leftMenuViewController: SideMenuViewController(), rightMenuViewController: SideMenuViewController())
+        let menuContrainer = FWSideMenuContainerViewController.container(centerViewController: FWTabBarController(), centerLeftPanViewWidth: 30, centerRightPanViewWidth: 30, leftMenuViewController: SideMenuViewController(), rightMenuViewController: SideMenuViewController())
         menuContrainer.leftMenuWidth = kMenuWidth
         menuContrainer.rightMenuWidth = kMenuWidth
         

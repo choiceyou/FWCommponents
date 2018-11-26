@@ -6,6 +6,16 @@
 //  Copyright © 2018年 xfg. All rights reserved.
 //
 
+
+/** ************************************************
+ 
+ github地址：https://github.com/choiceyou/FWCycleScrollView
+ bug反馈、交流群：670698309
+ 
+ ***************************************************
+ */
+
+
 import Foundation
 import UIKit
 import QuartzCore
@@ -67,7 +77,7 @@ open class FWSideMenuContainerViewController: UIViewController, UIGestureRecogni
     /// 中间控制器
     @objc public var centerViewController: UIViewController? {
         willSet {
-            // 如果有就的centerVC，则移除
+            // 如果有旧的centerVC，则移除
             self.removeCenterGestureRecognizers()
             self.removeChildViewControllerFromContainer(childViewController: centerViewController)
             
@@ -77,10 +87,12 @@ open class FWSideMenuContainerViewController: UIViewController, UIGestureRecogni
                 
                 newValue?.didMove(toParentViewController: self)
                 
-                if self.sideMenuShadow != nil {
-                    self.sideMenuShadow?.shadowedView = newValue?.view
-                } else {
-                    self.sideMenuShadow = FWSideMenuShadow.shadow(sdView: newValue!.view)
+                if sideMenuShadowEnabled == true {
+                    if self.sideMenuShadow != nil {
+                        self.sideMenuShadow?.shadowedView = newValue?.view
+                    } else {
+                        self.sideMenuShadow = FWSideMenuShadow.shadow(sdView: newValue!.view)
+                    }
                 }
                 
                 self.addCenterGestureRecognizers()
@@ -122,7 +134,7 @@ open class FWSideMenuContainerViewController: UIViewController, UIGestureRecogni
     
     /// 拖动状态
     @objc public var sideMenuPanMode: FWSideMenuPanMode = .defaults
-    /// 当前菜单状态
+    /// 设置当前菜单状态
     @objc public var sideMenuState: FWSideMenuState = .closed
     
     /// 左菜单宽度
@@ -135,6 +147,41 @@ open class FWSideMenuContainerViewController: UIViewController, UIGestureRecogni
     /// 左（右）菜单滑动相对于本身的宽度值的 1/menuSlideAnimationFactor
     @objc public var menuSlideAnimationFactor: CGFloat = 3.0
     
+    /// 打开左（右）菜单时中间视图是否需要遮罩层
+    @objc public var centerMaskViewEnabled: Bool = true
+    /// 打开左（右）菜单时中间视图边上是否需要阴影
+    @objc public var sideMenuShadowEnabled: Bool = false
+    
+    /// 是否开启中间控制器点击事件
+    @objc public var centerTapGestureEnabled: Bool = true
+    
+    /// 中间控制器的灰色遮罩层
+    private var centerMaskView: UIView = {
+        
+        let centerMaskView = UIView(frame: UIScreen.main.bounds)
+        return centerMaskView
+    }()
+    
+    /// 中间控制器左边可拖动的视图
+    private var centerLeftPanView: UIView = {
+        
+        let centerLeftPanView = UIView()
+        centerLeftPanView.backgroundColor = UIColor.clear
+        return centerLeftPanView
+    }()
+    
+    /// 中间控制器右边可拖动的视图
+    private var centerRightPanView: UIView = {
+        
+        let centerRightPanView = UIView()
+        centerRightPanView.backgroundColor = UIColor.clear
+        return centerRightPanView
+    }()
+    
+    /// 中间控制器左边可拖动的视图宽度
+    private var centerLeftPanViewWidth: CGFloat = 0.0
+    /// 中间控制器右边可拖动的视图宽度
+    private var centerRightPanViewWidth: CGFloat = 0.0
     
     /// 侧边菜单容器视图
     private var menuContainerView: UIView = {
@@ -146,15 +193,22 @@ open class FWSideMenuContainerViewController: UIViewController, UIGestureRecogni
     /// 侧滑阴影
     private var sideMenuShadow: FWSideMenuShadow?
     
+    /// 中间控制器单击手势
     private var centerTapGestureRecognizer: UITapGestureRecognizer?
-    private var centerPanGestureRecognizer: UIPanGestureRecognizer?
+    /// 中间控制器拖动手势手势（centerLeftPanViewWidth>0时有效）
+    private var centerLeftPanGestureRecognizer: UIPanGestureRecognizer?
+    /// 中间控制器拖动手势手势（centerRightPanViewWidth>0时有效）
+    private var centerRightPanGestureRecognizer: UIPanGestureRecognizer?
+    /// 中间控制器的灰色遮罩层拖动手势手势
+    private var centerMaskPanGestureRecognizer: UIPanGestureRecognizer?
+    /// 侧边菜单容器视图拖动手势
     private var sideMenuPanGestureRecognizer: UIPanGestureRecognizer?
     
     /// 视图是否被加载过了
     private var isViewHasLoad = false
     
     /// 开始拖动位置
-    private var panGestureOrigin: CGPoint = CGPoint(x: 0, y: 0)
+    private var panGestureOrigin: CGPoint = CGPoint.zero
     private var panGestureVelocity: CGFloat = 0
     /// 拖动位置
     private var panGestureDirection: FWSideMenuPanDirection = .none
@@ -186,17 +240,33 @@ open class FWSideMenuContainerViewController: UIViewController, UIGestureRecogni
 // MARK: - 初始化方法
 extension FWSideMenuContainerViewController {
     
-    /// 类初始化方法
+    /// 类初始化方法1
     ///
     /// - Parameters:
-    ///   - centerViewController: 中间控制器（即当前您的主控制器）
+    ///   - centerViewController: 中间控制器（即当前您的主控制器），此时该控制器视图全局可拖拽，因此可能会出现手势冲突，建议使用 类初始化方法2
     ///   - leftMenuViewController: 左侧菜单控制器，可为nil
     ///   - rightMenuViewController: 右侧菜单控制器，可为nil
     /// - Returns: self
     @objc open class func container(centerViewController: UIViewController?, leftMenuViewController: UIViewController?, rightMenuViewController: UIViewController?) -> FWSideMenuContainerViewController {
         
+        return self.container(centerViewController: centerViewController, centerLeftPanViewWidth: UIScreen.main.bounds.width / 2, centerRightPanViewWidth: UIScreen.main.bounds.width / 2, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
+    }
+    
+    /// 类初始化方法2
+    ///
+    /// - Parameters:
+    ///   - centerViewController: 中间控制器（即当前您的主控制器）
+    ///   - centerLeftPanViewWidth: 中间控制器 左侧可拖动视图的宽度（注意：该视图是不可见的，传入0即表示不可拖动，建议尽量不要传入太大的值，以免页面上手势冲突的区域太大）
+    ///   - centerRightPanViewWidth: 中间控制器 右侧可拖动视图的宽度（注意：该视图是不可见的，传入0即表示不可拖动，建议尽量不要传入太大的值，以免页面上手势冲突的区域太大）
+    ///   - leftMenuViewController: 左侧菜单控制器，可为nil
+    ///   - rightMenuViewController: 右侧菜单控制器，可为nil
+    /// - Returns: self
+    @objc open class func container(centerViewController: UIViewController?, centerLeftPanViewWidth: CGFloat, centerRightPanViewWidth: CGFloat, leftMenuViewController: UIViewController?, rightMenuViewController: UIViewController?) -> FWSideMenuContainerViewController {
+        
         let menuContainerViewController = FWSideMenuContainerViewController()
         menuContainerViewController.centerViewController = centerViewController
+        menuContainerViewController.centerLeftPanViewWidth = centerLeftPanViewWidth
+        menuContainerViewController.centerRightPanViewWidth = centerRightPanViewWidth
         menuContainerViewController.leftMenuViewController = leftMenuViewController
         menuContainerViewController.rightMenuViewController = rightMenuViewController
         menuContainerViewController.setupCommponent()
@@ -208,8 +278,14 @@ extension FWSideMenuContainerViewController {
         self.centerTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(centerVCTapAction(tap:)))
         self.centerTapGestureRecognizer?.delegate = self
         
-        self.centerPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panAction(pan:)))
-        self.centerPanGestureRecognizer?.delegate = self
+        self.centerLeftPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panAction(pan:)))
+        self.centerLeftPanGestureRecognizer?.delegate = self
+        
+        self.centerRightPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panAction(pan:)))
+        self.centerRightPanGestureRecognizer?.delegate = self
+        
+        self.centerMaskPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panAction(pan:)))
+        self.centerMaskPanGestureRecognizer?.delegate = self
         
         self.sideMenuPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panAction(pan:)))
         self.sideMenuPanGestureRecognizer?.delegate = self
@@ -240,24 +316,37 @@ extension FWSideMenuContainerViewController {
 extension FWSideMenuContainerViewController {
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if self.sideMenuPanMode == .defaults {
+        
+        if gestureRecognizer.isMember(of: UITapGestureRecognizer.self) {
+            if (touch.view == self.centerLeftPanView) || touch.view == self.centerRightPanView {
+                return false
+            } else {
+                if self.centerTapGestureEnabled == true {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        } else {
+            if self.sideMenuPanMode == .defaults {
+                return true
+            } else if self.sideMenuPanMode == .none {
+                return false
+            } else if self.sideMenuPanMode == .centerViewController {
+                if (gestureRecognizer == self.centerLeftPanGestureRecognizer) || (gestureRecognizer == self.centerRightPanGestureRecognizer) || (gestureRecognizer == self.centerMaskPanGestureRecognizer) {
+                    return true
+                } else {
+                    return false
+                }
+            } else if self.sideMenuPanMode == .sideMenu {
+                if gestureRecognizer == self.sideMenuPanGestureRecognizer {
+                    return true
+                } else {
+                    return false
+                }
+            }
             return true
-        } else if self.sideMenuPanMode == .none {
-            return false
-        } else if self.sideMenuPanMode == .centerViewController {
-            if gestureRecognizer == self.centerPanGestureRecognizer {
-                return true
-            } else {
-                return false
-            }
-        } else if self.sideMenuPanMode == .sideMenu {
-            if gestureRecognizer == self.sideMenuPanGestureRecognizer {
-                return true
-            } else {
-                return false
-            }
         }
-        return true
     }
     
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -271,17 +360,36 @@ extension FWSideMenuContainerViewController {
     }
     
     private func addCenterGestureRecognizers() {
+        
         if self.centerViewController != nil {
-            self.centerViewController?.view.addGestureRecognizer(self.centerTapGestureRecognizer!)
-            self.centerTapGestureRecognizer?.isEnabled = false
-            self.centerViewController?.view.addGestureRecognizer(self.centerPanGestureRecognizer!)
+            if self.centerLeftPanViewWidth > 0 {
+                self.centerLeftPanView.frame = CGRect(x: 0, y: 0, width: self.centerLeftPanViewWidth, height: UIScreen.main.bounds.height)
+                self.centerViewController?.view.addSubview(self.centerLeftPanView)
+                self.centerLeftPanView.addGestureRecognizer(self.centerLeftPanGestureRecognizer!)
+            }
+            if self.centerRightPanViewWidth > 0 {
+                self.centerRightPanView.frame = CGRect(x: UIScreen.main.bounds.width - self.centerRightPanViewWidth, y: 0, width: self.centerRightPanViewWidth, height: UIScreen.main.bounds.height)
+                self.centerViewController?.view.addSubview(self.centerRightPanView)
+                self.centerRightPanView.addGestureRecognizer(self.centerRightPanGestureRecognizer!)
+            }
+            
+            self.centerMaskView.addGestureRecognizer(self.centerTapGestureRecognizer!)
+            self.centerMaskView.addGestureRecognizer(self.centerMaskPanGestureRecognizer!)
         }
     }
     
     private func removeCenterGestureRecognizers() {
+        
         if self.centerViewController != nil {
-            self.centerViewController?.view.removeGestureRecognizer(self.centerTapGestureRecognizer!)
-            self.centerViewController?.view.removeGestureRecognizer(self.centerPanGestureRecognizer!)
+            self.centerMaskView.removeGestureRecognizer(self.centerTapGestureRecognizer!)
+            self.centerMaskView.removeGestureRecognizer(self.centerMaskPanGestureRecognizer!)
+            
+            if self.centerLeftPanViewWidth > 0 {
+                self.centerLeftPanView.removeGestureRecognizer(self.centerLeftPanGestureRecognizer!)
+            }
+            if self.centerRightPanViewWidth > 0 {
+                self.centerRightPanView.removeGestureRecognizer(self.centerRightPanGestureRecognizer!)
+            }
         }
     }
     
@@ -361,7 +469,6 @@ extension FWSideMenuContainerViewController {
         } else {
             translatedPoint.x = min(translatedPoint.x, 0)
         }
-        self.setCenterViewControllerOffset(offset: translatedPoint.x)
         
         if pan.state == .ended {
             let velocity = pan.velocity(in: view)
@@ -523,11 +630,14 @@ extension FWSideMenuContainerViewController {
         
         let innerCompleteBlock = { [weak self] in
             
-            self?.sideMenuState = state
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.sideMenuState = state
             
-            self?.setUserInteractionStateForCenterViewController()
-            let eventType: FWSideMenuStateEvent = (self?.sideMenuState == .closed) ? .didClose : .didOpen
-            self?.sendStateEventNotification(event: eventType)
+            strongSelf.setUserInteractionStateForCenterViewController()
+            let eventType: FWSideMenuStateEvent = (strongSelf.sideMenuState == .closed) ? .didClose : .didOpen
+            strongSelf.sendStateEventNotification(event: eventType)
             
             if completeBlock != nil {
                 completeBlock!()
@@ -631,6 +741,25 @@ extension FWSideMenuContainerViewController {
         
         self.centerViewController?.view.frame.origin.x = offset
         
+        let foffset = fabsf(Float(offset))
+        var percent = 0.0
+        if offset > 0 {
+            percent = Double(foffset / Float(leftMenuWidth))
+        } else {
+            percent = Double(foffset / Float(rightMenuWidth))
+        }
+        percent = percent * 0.4
+        
+        if foffset > 5 && self.centerMaskView.superview == nil {
+            self.centerViewController?.view.addSubview(self.centerMaskView)
+            self.centerViewController?.view.bringSubview(toFront: self.centerMaskView)
+        } else if foffset <= 5 && self.centerMaskView.superview != nil {
+            self.centerMaskView.removeFromSuperview()
+        }
+        if centerMaskViewEnabled == true {
+            self.centerMaskView.backgroundColor = UIColor.black.withAlphaComponent(CGFloat(percent))
+        }
+        
         if !self.menuSlideAnimationEnabled {
             return
         }
@@ -697,10 +826,12 @@ extension FWSideMenuContainerViewController {
     
     private func sendStateEventNotification(event: FWSideMenuStateEvent) {
         
-        if event == .didClose {
-            self.centerTapGestureRecognizer?.isEnabled = false
-        } else {
-            self.centerTapGestureRecognizer?.isEnabled = true
+        if self.centerTapGestureEnabled == true {
+            if event == .didClose {
+                self.centerTapGestureRecognizer?.isEnabled = false
+            } else {
+                self.centerTapGestureRecognizer?.isEnabled = true
+            }
         }
         
         let userInfo = ["eventType": NSNumber(value: Int8(event.rawValue))]

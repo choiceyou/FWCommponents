@@ -47,10 +47,9 @@ class RecentViewController: FWBaseViewController, UITableViewDelegate, UITableVi
         vProperty.popupArrowStyle = .round
         vProperty.popupArrowVertexScaleX = 1
         
-        let menuView = FWMenuView.menu(itemTitles: menuTitles, itemImageNames: menuImages as? [UIImage], itemBlock: { (popupView, index) in
+        let menuView = FWMenuView.menu(itemTitles: menuTitles, itemImageNames: menuImages as? [UIImage], itemBlock: { (popupView, index, title) in
             print("Menu：点击了第\(index)个按钮")
         }, property: vProperty)
-        //                menuView.attachedView = self.view
         
         return menuView
     }()

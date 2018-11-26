@@ -23,6 +23,7 @@ open class FWSheetView: FWPopupView {
     private var actionItemArray: [FWPopupItem] = []
     
     private var titleLabel: UILabel?
+    private var titleContainerView: UIView?
     
     private var commponenetArray: [UIView] = []
     
@@ -32,7 +33,7 @@ open class FWSheetView: FWPopupView {
     ///   - title: 标题
     ///   - itemTitles: 点击项标题
     ///   - itemBlock: 点击回调
-    ///   - cancenlBlock: 取消按钮回调
+    ///   - cancenlBlock: 取消按钮回调（单词拼错了，将错就错吧，哈哈）
     /// - Returns: self
     @objc open class func sheet(title: String?, itemTitles: [String], itemBlock: FWPopupItemClickedBlock? = nil, cancenlBlock: FWPopupVoidBlock? = nil) -> FWSheetView {
         
@@ -50,8 +51,23 @@ open class FWSheetView: FWPopupView {
     /// - Returns: self
     @objc open class func sheet(title: String?, itemTitles: [String], itemBlock: FWPopupItemClickedBlock? = nil, cancenlBlock: FWPopupVoidBlock? = nil, property: FWSheetViewProperty?) -> FWSheetView {
         
+        return self.sheet(title: title, itemTitles: itemTitles, itemBlock: itemBlock, cancelItemTitle: nil, cancenlBlock: cancenlBlock, property: property)
+    }
+    
+    /// 类初始化方法，可设置Sheet相关属性
+    ///
+    /// - Parameters:
+    ///   - title: 标题
+    ///   - itemTitles: 点击项标题
+    ///   - itemBlock: 点击回调
+    ///   - cancelItemTitle: 取消按钮的名称
+    ///   - cancenlBlock: 取消按钮回调
+    ///   - property: FWSheetView的相关属性
+    /// - Returns: self
+    @objc open class func sheet(title: String?, itemTitles: [String], itemBlock: FWPopupItemClickedBlock? = nil, cancelItemTitle: String?, cancenlBlock: FWPopupVoidBlock? = nil, property: FWSheetViewProperty?) -> FWSheetView {
+        
         let sheetView = FWSheetView()
-        sheetView.setupUI(title: title, itemTitles: itemTitles, itemBlock:itemBlock, cancenlBlock: cancenlBlock, property: property)
+        sheetView.setupUI(title: title, itemTitles: itemTitles, itemBlock:itemBlock, cancelItemTitle: cancelItemTitle, cancenlBlock: cancenlBlock, property: property)
         return sheetView
     }
     
@@ -59,6 +75,7 @@ open class FWSheetView: FWPopupView {
         super.init(frame: frame)
         
         self.vProperty = FWSheetViewProperty()
+        self.backgroundColor = self.vProperty.backgroundColor
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -68,19 +85,15 @@ open class FWSheetView: FWPopupView {
 
 extension FWSheetView {
     
-    private func setupUI(title: String?, itemTitles: [String], itemBlock: FWPopupItemClickedBlock? = nil, cancenlBlock: FWPopupVoidBlock? = nil, property: FWSheetViewProperty?) {
-        
-        if itemTitles.count == 0 {
-            return
-        }
+    private func setupUI(title: String?, itemTitles: [String], itemBlock: FWPopupItemClickedBlock? = nil, cancelItemTitle: String?, cancenlBlock: FWPopupVoidBlock? = nil, property: FWSheetViewProperty?) {
         
         if property != nil {
             self.vProperty = property!
         }
         
-        let itemClickedBlock: FWPopupItemClickedBlock = { (popupView, index) in
+        let itemClickedBlock: FWPopupItemClickedBlock = { (popupView, index, title) in
             if itemBlock != nil {
-                itemBlock!(self, index)
+                itemBlock!(self, index, title)
             }
         }
         for title in itemTitles {
@@ -101,11 +114,13 @@ extension FWSheetView {
         property.popupCustomAlignment = .bottomCenter
         property.popupAnimationType = .position
         
-        var currentMaxY:CGFloat = self.vProperty.topBottomMargin
+        var currentMaxY:CGFloat = 0
         
         if title != nil && !title!.isEmpty {
+            
+            currentMaxY = self.vProperty.topBottomMargin
+            
             self.titleLabel = UILabel(frame: CGRect(x: self.vProperty.letfRigthMargin, y: currentMaxY, width: self.frame.width - self.vProperty.letfRigthMargin * 2, height: CGFloat.greatestFiniteMagnitude))
-            self.addSubview(self.titleLabel!)
             self.titleLabel?.text = title
             self.titleLabel?.textColor = self.vProperty.titleColor
             self.titleLabel?.textAlignment = .center
@@ -117,29 +132,34 @@ extension FWSheetView {
             
             self.titleLabel?.frame = CGRect(x: self.vProperty.letfRigthMargin, y: currentMaxY, width: self.frame.width - self.vProperty.letfRigthMargin * 2, height: self.titleLabel!.frame.height)
             
+            self.titleContainerView = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.titleLabel!.frame.height + self.vProperty.topBottomMargin * 2))
+            self.titleContainerView?.backgroundColor = UIColor.white
+            self.titleContainerView?.addSubview(self.titleLabel!)
+            self.addSubview(self.titleContainerView!)
+            
             currentMaxY = self.titleLabel!.frame.maxY
             
             self.commponenetArray.append(self.titleLabel!)
+            
+            currentMaxY += self.vProperty.topBottomMargin
         }
         
-        currentMaxY += self.vProperty.topBottomMargin
-        
         // 开始配置Item
-        let btnContrainerView = UIScrollView(frame: CGRect(x: 0, y: currentMaxY, width: self.frame.width, height: self.vProperty.buttonHeight))
+        let btnContrainerView = UIScrollView(frame: CGRect(x: 0, y: currentMaxY, width: self.frame.width, height: 0))
         btnContrainerView.bounces = false
         btnContrainerView.backgroundColor = UIColor.clear
         self.addSubview(btnContrainerView)
         
         currentMaxY = btnContrainerView.frame.maxY
         
-        let block: FWPopupItemClickedBlock = { (popupView, index) in
+        let block: FWPopupItemClickedBlock = { (popupView, index, title) in
             if cancenlBlock != nil {
                 cancenlBlock!()
             }
         }
         
         var tmpIndex = 0
-        self.actionItemArray.append(FWPopupItem(title: "取消", itemType: .normal, isCancel: true, canAutoHide: true, itemClickedBlock: block))
+        self.actionItemArray.append(FWPopupItem(title: (cancelItemTitle != nil) ? cancelItemTitle! : property.cancelItemTitle, itemType: .normal, isCancel: true, canAutoHide: true, itemClickedBlock: block))
         
         var cancelBtnTopView: UIView?
         var cancelBtn: UIButton?
@@ -158,7 +178,7 @@ extension FWSheetView {
                 btnY = self.vProperty.buttonHeight * CGFloat(tmpIndex) + property.cancelBtnMarginTop
                 
                 cancelBtnTopView = UIView(frame: CGRect(x: 0, y: btnY - property.cancelBtnMarginTop, width: self.frame.width, height: property.cancelBtnMarginTop))
-                cancelBtnTopView?.backgroundColor = UIColor(white: 0.1, alpha: 0.1)
+                cancelBtnTopView?.backgroundColor = UIColor.clear
                 self.addSubview(cancelBtnTopView!)
                 
                 cancelBtn = btn
@@ -184,8 +204,10 @@ extension FWSheetView {
             if popupItem.itemBackgroundColor != nil {
                 btn.backgroundColor = popupItem.itemBackgroundColor
             } else {
-                btn.backgroundColor = self.backgroundColor
+                btn.backgroundColor = UIColor.white
             }
+            btn.setBackgroundImage(self.getImageWithColor(color: self.vProperty.itemPressedColor), for: .highlighted)
+            
             // 按钮文字颜色
             if popupItem.itemTitleColor != nil {
                 btn.setTitleColor(popupItem.itemTitleColor, for: .normal)
@@ -203,7 +225,11 @@ extension FWSheetView {
             tmpIndex += 1
         }
         
-        self.frame.size.height = btnContrainerView.frame.maxY + self.vProperty.buttonHeight + property.cancelBtnMarginTop
+        if #available(iOS 11.0, *) {
+            self.frame.size.height = btnContrainerView.frame.maxY + self.vProperty.buttonHeight + property.cancelBtnMarginTop + FWPopupWindow.sharedInstance.safeAreaInsets.bottom
+        } else {
+            self.frame.size.height = btnContrainerView.frame.maxY + self.vProperty.buttonHeight + property.cancelBtnMarginTop
+        }
     }
 }
 
@@ -222,7 +248,7 @@ extension FWSheetView {
         }
         
         if item.itemClickedBlock != nil {
-            item.itemClickedBlock!(self, btn.tag)
+            item.itemClickedBlock!(self, btn.tag, item.title)
         }
     }
 }
@@ -231,11 +257,13 @@ extension FWSheetView {
 open class FWSheetViewProperty: FWPopupViewProperty {
     
     // 取消按钮距离头部的距离
-    @objc public var cancelBtnMarginTop: CGFloat = 6
-    
+    @objc public var cancelBtnMarginTop: CGFloat    = 6
+    // 取消按钮名称
+    @objc public var cancelItemTitle                = "取消"
     
     public override func reSetParams() {
         super.reSetParams()
         
+        self.backgroundColor = kPV_RGBA(r: 230, g: 230, b: 230, a: 1)
     }
 }

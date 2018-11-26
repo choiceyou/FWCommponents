@@ -4,7 +4,7 @@
 //
 //  Created by xfg on 2018/5/19.
 //  Copyright © 2018年 xfg. All rights reserved.
-//
+//  仿QQ、微信菜单
 
 /** ************************************************
  
@@ -47,7 +47,9 @@ class FWMenuViewTableViewCell: UITableViewCell {
         
         if title != nil {
             let attributedString = NSAttributedString(string: title!, attributes: property.titleTextAttributes)
+            let selectedAttributedString = NSAttributedString(string: title!, attributes: property.selectedTitleTextAttributes)
             self.itemBtn.setAttributedTitle(attributedString, for: .normal)
+            self.itemBtn.setAttributedTitle(selectedAttributedString, for: .highlighted)
         }
         
         if image != nil && title != nil {
@@ -152,14 +154,19 @@ extension FWMenuView {
         
         self.popupItemClickedBlock = itemBlock
         
+        let property = self.vProperty as! FWMenuViewProperty
+        
         self.maxItemSize = self.measureMaxSize()
+        if property.popupViewItemHeight > 0 {
+            self.maxItemSize.height = property.popupViewItemHeight
+        }
         
         self.tableView.register(FWMenuViewTableViewCell.self, forCellReuseIdentifier: "cellId")
-        self.tableView.separatorInset = UIEdgeInsets.zero
-        self.tableView.layoutMargins = UIEdgeInsets.zero
-        self.tableView.separatorColor = self.vProperty.splitColor
-        
-        let property = self.vProperty as! FWMenuViewProperty
+        self.tableView.separatorInset = property.separatorInset
+        self.tableView.layoutMargins = property.separatorInset
+        self.tableView.separatorColor = property.separatorColor
+        self.tableView.backgroundColor = self.backgroundColor
+        self.tableView.bounces = property.bounces
         
         var selfY: CGFloat = 0
         switch property.popupArrowStyle {
@@ -307,11 +314,7 @@ extension FWMenuView {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! FWMenuViewTableViewCell
         cell.setupContent(title: (self.itemTitleArray != nil) ? self.itemTitleArray![indexPath.row] : nil , image: (self.itemImageNameArray != nil) ? self.itemImageNameArray![indexPath.row] : nil, property: self.vProperty as! FWMenuViewProperty)
-        if indexPath.row >= self.itemsCount()-1 {
-            cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGFloat(MAXFLOAT))
-        } else {
-            cell.separatorInset = UIEdgeInsets.zero
-        }
+        cell.backgroundColor = self.vProperty.backgroundColor
         return cell
     }
     
@@ -320,7 +323,7 @@ extension FWMenuView {
         self.hide()
         
         if self.popupItemClickedBlock != nil {
-            self.popupItemClickedBlock!(self, indexPath.row)
+            self.popupItemClickedBlock!(self, indexPath.row, (self.itemTitleArray != nil) ? self.itemTitleArray![indexPath.row] : nil)
         }
     }
 }
@@ -413,6 +416,9 @@ open class FWMenuViewProperty: FWPopupViewProperty {
     /// 弹窗大小，如果没有设置，将按照统一的计算方式
     @objc public var popupViewSize = CGSize(width: 0, height: 0)
     
+    /// 指定行高优先级 > 自动计算的优先级
+    @objc public var popupViewItemHeight: CGFloat = 0
+    
     /// 未选中时按钮字体属性
     @objc public var titleTextAttributes: [NSAttributedStringKey: Any]!
     /// 选中时按钮字体属性
@@ -422,6 +428,14 @@ open class FWMenuViewProperty: FWPopupViewProperty {
     @objc public var contentHorizontalAlignment: UIControlContentHorizontalAlignment = .left
     /// 选中风格
     @objc public var selectionStyle: UITableViewCellSelectionStyle = .none
+    
+    /// 分割线颜色
+    @objc public var separatorColor: UIColor = kPV_RGBA(r: 231, g: 231, b: 231, a: 1)
+    /// 分割线偏移量
+    @objc public var separatorInset: UIEdgeInsets = UIEdgeInsets.zero
+    
+    /// 是否开启tableview回弹效果
+    @objc public var bounces: Bool = false
     
     public override func reSetParams() {
         super.reSetParams()

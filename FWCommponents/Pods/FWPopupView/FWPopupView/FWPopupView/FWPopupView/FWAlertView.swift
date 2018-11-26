@@ -26,9 +26,6 @@ open class FWAlertView: FWPopupView {
     @objc public var inputBlock: FWPopupInputBlock?
     
     
-    private var titleStr: String?
-    private var detailStr: String?
-    private var inputPlaceholder: String?
     private var actionItemArray: [FWPopupItem] = []
     
     private var titleLabel: UILabel?
@@ -49,7 +46,7 @@ open class FWAlertView: FWPopupView {
     @objc open class func alert(title: String, detail: String, confirmBlock: FWPopupItemClickedBlock? = nil) -> FWAlertView {
         
         let items = [FWPopupItem(title: FWAlertViewProperty().defaultTextOK, itemType: .normal, isCancel: false, canAutoHide: true, itemClickedBlock: confirmBlock)]
-        return self.alert(title: title, detail: detail, inputPlaceholder: nil, keyboardType: .default, customView: nil, items: items, vProperty: nil)
+        return self.alert(title: title, detail: detail, inputPlaceholder: nil, keyboardType: .default, isSecureTextEntry: false, customView: nil, items: items, vProperty: nil)
     }
     
     /// 两个按钮的弹窗
@@ -65,7 +62,7 @@ open class FWAlertView: FWPopupView {
         let property = FWAlertViewProperty()
         let items = [FWPopupItem(title: property.defaultTextCancel, itemType: .normal, isCancel: true, canAutoHide: true, itemClickedBlock: cancelBlock),
                      FWPopupItem(title: property.defaultTextConfirm, itemType: .normal, isCancel: false, canAutoHide: true, itemClickedBlock: confirmBlock)]
-        return self.alert(title: title, detail: detail, inputPlaceholder: nil, keyboardType: .default, customView: nil, items: items, vProperty: nil)
+        return self.alert(title: title, detail: detail, inputPlaceholder: nil, keyboardType: .default, isSecureTextEntry: false, customView: nil, items: items, vProperty: nil)
     }
     
     /// 可带输入框的弹窗
@@ -76,9 +73,9 @@ open class FWAlertView: FWPopupView {
     ///   - inputPlaceholder: 输入框提示文字。注意：没有输入框时该参数必须要为nil，反之为空或者字符串即可
     ///   - items: 点击按钮项
     /// - Returns: self
-    @objc open class func alert(title: String, detail: String, inputPlaceholder: String?, keyboardType: UIKeyboardType, items: [FWPopupItem]) -> FWAlertView {
+    @objc open class func alert(title: String, detail: String, inputPlaceholder: String?, keyboardType: UIKeyboardType, isSecureTextEntry: Bool, items: [FWPopupItem]) -> FWAlertView {
         
-        return self.alert(title: title, detail: detail, inputPlaceholder: inputPlaceholder, keyboardType: keyboardType, customView: nil, items: items, vProperty: nil)
+        return self.alert(title: title, detail: detail, inputPlaceholder: inputPlaceholder, keyboardType: keyboardType, isSecureTextEntry: isSecureTextEntry, customView: nil, items: items, vProperty: nil)
     }
     
     /// 可带输入框、自定义视图的弹窗
@@ -90,9 +87,9 @@ open class FWAlertView: FWPopupView {
     ///   - items: 点击按钮项
     ///   - customView: 自定义UI
     /// - Returns: self
-    @objc open class func alert(title: String, detail: String, inputPlaceholder: String?, keyboardType: UIKeyboardType, customView: UIView?, items: [FWPopupItem]) -> FWAlertView {
+    @objc open class func alert(title: String, detail: String, inputPlaceholder: String?, keyboardType: UIKeyboardType, isSecureTextEntry: Bool, customView: UIView?, items: [FWPopupItem]) -> FWAlertView {
         
-        return self.alert(title: title, detail: detail, inputPlaceholder: inputPlaceholder, keyboardType: keyboardType, customView: customView, items: items, vProperty: nil)
+        return self.alert(title: title, detail: detail, inputPlaceholder: inputPlaceholder, keyboardType: keyboardType, isSecureTextEntry: isSecureTextEntry, customView: customView, items: items, vProperty: nil)
     }
     
     /// 可带输入框、自定义视图的弹窗，可设置Alert相关属性
@@ -105,10 +102,10 @@ open class FWAlertView: FWPopupView {
     ///   - customView: 自定义UI
     ///   - vProperty: FWAlertView的相关属性
     /// - Returns: self
-    @objc open class func alert(title: String?, detail: String?, inputPlaceholder: String?, keyboardType: UIKeyboardType, customView: UIView?, items: [FWPopupItem], vProperty: FWAlertViewProperty?) -> FWAlertView {
+    @objc open class func alert(title: String?, detail: String?, inputPlaceholder: String?, keyboardType: UIKeyboardType, isSecureTextEntry: Bool, customView: UIView?, items: [FWPopupItem], vProperty: FWAlertViewProperty?) -> FWAlertView {
         
         let alertView = FWAlertView()
-        alertView.setupUI(title: title, detail: detail, inputPlaceholder: inputPlaceholder, keyboardType: keyboardType, customView: customView, items: items, vProperty: vProperty)
+        alertView.setupUI(title: title, detail: detail, inputPlaceholder: inputPlaceholder, keyboardType: keyboardType, isSecureTextEntry: isSecureTextEntry, customView: customView, items: items, vProperty: vProperty)
         return alertView
     }
     
@@ -138,7 +135,7 @@ open class FWAlertView: FWPopupView {
 
 extension FWAlertView {
     
-    private func setupUI(title: String?, detail: String?, inputPlaceholder: String?, keyboardType: UIKeyboardType, customView: UIView?, items: [FWPopupItem], vProperty: FWAlertViewProperty?) {
+    private func setupUI(title: String?, detail: String?, inputPlaceholder: String?, keyboardType: UIKeyboardType, isSecureTextEntry: Bool, customView: UIView?, items: [FWPopupItem], vProperty: FWAlertViewProperty?) {
         
         if items.count == 0 {
             return
@@ -220,6 +217,7 @@ extension FWAlertView {
             self.inputTF?.layer.borderWidth = self.vProperty.splitWidth
             self.inputTF?.layer.cornerRadius = self.vProperty.cornerRadius
             self.inputTF?.keyboardType = keyboardType
+            self.inputTF?.isSecureTextEntry = isSecureTextEntry
             
             currentMaxY = self.inputTF!.frame.maxY
             
@@ -337,7 +335,7 @@ extension FWAlertView {
             self.inputBlock!(self.inputTF!.text!)
         } else {
             if item.itemClickedBlock != nil {
-                item.itemClickedBlock!(self, btn.tag)
+                item.itemClickedBlock!(self, btn.tag, item.title)
             }
         }
     }

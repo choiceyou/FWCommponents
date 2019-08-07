@@ -16,7 +16,7 @@ class FWCustomSheetViewTableViewCell: UITableViewCell {
     var secondaryTitleLabel: UILabel!
     var line: CALayer!
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.imgView = UIImageView()
@@ -72,12 +72,20 @@ class FWCustomSheetViewTableViewCell: UITableViewCell {
             
             self.titleLabel.frame = CGRect(x: leftMargin, y: (self.frame.height-titleSize.height)/2, width: self.frame.width-leftMargin-property.letfRigthMargin*2, height: titleSize.height)
             self.titleLabel.attributedText = attributedString
+            
+            // 防止复用产生问题
+            self.secondaryTitleLabel.text = nil
         }
     }
 }
 
 
 open class FWCustomSheetView: FWPopupView, UITableViewDelegate, UITableViewDataSource {
+    
+    /// 当前选中下标
+    @objc open var currentSelectedIndex: Int = 0
+    /// 上一次选中的下标
+    private var lastTimeSelectedIndex: Int = 0
     
     /// 外部传入的标题数组
     private var itemTitleArray: [String]?
@@ -88,8 +96,6 @@ open class FWCustomSheetView: FWPopupView, UITableViewDelegate, UITableViewDataS
     
     /// 头部视图
     private var headerView: UIView?
-    /// 当前选中下标
-    private var currentSelectedIndex: Int = 0
     
     /// 保存点击回调
     private var popupItemClickedBlock: FWPopupItemClickedBlock?
@@ -156,6 +162,7 @@ extension FWCustomSheetView {
         let property = self.vProperty as! FWCustomSheetViewProperty
         var selfSize: CGSize = CGSize(width: UIScreen.main.bounds.width, height: 0)
         self.currentSelectedIndex = property.selectedIndex
+        self.lastTimeSelectedIndex = property.selectedIndex
         
         // 绘制头部视图
         if headerTitle != nil {
@@ -200,8 +207,8 @@ extension FWCustomSheetView {
         self.tableView.backgroundColor = self.backgroundColor
         self.tableView.bounces = property.bounces
         
-        if property.popupViewMaxHeight > 0 && property.popupViewItemHeight * CGFloat(self.itemsCount()) > property.popupViewMaxHeight {
-            selfSize.height = self.vProperty.popupViewMaxHeight
+        if property.popupViewMaxHeightRate > 0 && property.popupViewItemHeight * CGFloat(self.itemsCount()) > property.popupViewMaxHeightRate*self.superview!.frame.size.height  {
+            selfSize.height = property.popupViewMaxHeightRate*self.superview!.frame.size.height
         } else if property.popupViewMinHeight > 0 && property.popupViewItemHeight * CGFloat(self.itemsCount()) < property.popupViewMinHeight {
             selfSize.height = property.popupViewMinHeight
         } else {
@@ -264,20 +271,33 @@ extension FWCustomSheetView {
         
         self.hide()
         
-        if self.popupItemClickedBlock != nil {
-            self.popupItemClickedBlock!(self, indexPath.row, (self.itemTitleArray != nil) ? self.itemTitleArray![indexPath.row] : nil)
-        }
-        
         let property = self.vProperty as! FWCustomSheetViewProperty
         if !(property.lastNeedAccessoryView == true && indexPath.row == (self.itemsCount()-1)) {
+            self.lastTimeSelectedIndex = self.currentSelectedIndex
             self.currentSelectedIndex = indexPath.row
         }
         
         self.tableView.reloadData()
+        
+        if self.popupItemClickedBlock != nil {
+            self.popupItemClickedBlock!(self, indexPath.row, (self.itemTitleArray != nil) ? self.itemTitleArray![indexPath.row] : nil)
+        }
     }
 }
 
 extension FWCustomSheetView {
+    
+    /// 更改当前选中的下标
+    ///
+    /// - Parameter backToLastChoice: true：回到上一次选择的下标 false：-1，表示没有选中的了
+    @objc open func changeSelectedIndex(backToLastChoice: Bool) {
+        if backToLastChoice {
+            self.currentSelectedIndex = self.lastTimeSelectedIndex
+        } else {
+            self.currentSelectedIndex = -1
+        }
+        self.tableView.reloadData()
+    }
     
     /// 计算总计行数
     ///
@@ -321,7 +341,7 @@ open class FWCustomSheetViewProperty: FWPopupViewProperty {
     /// 头部视图高度
     @objc public var headerViewHeight: CGFloat = 40
     
-    /// 默认选中下标
+    /// 默认选中下标，如果传入小于0或者大于当前数据源的数值，则不会有对应的行选中，如：传入-1则表示当前表格中没有默认选中的
     @objc public var selectedIndex: NSInteger = 0
     
     /// 最后一项是否需要AccessoryView
@@ -333,14 +353,14 @@ open class FWCustomSheetViewProperty: FWPopupViewProperty {
     @objc public var choiceImage: UIImage?
     
     /// 标题字体属性
-    @objc public var titleTextAttributes: [NSAttributedStringKey: Any]!
+    @objc public var titleTextAttributes: [NSAttributedString.Key: Any]!
     /// 副标题字体属性
-    @objc public var secondaryTitleTextAttributes: [NSAttributedStringKey: Any]!
+    @objc public var secondaryTitleTextAttributes: [NSAttributedString.Key: Any]!
     
     /// 内容位置
-    @objc public var contentHorizontalAlignment: UIControlContentHorizontalAlignment = .left
+    @objc public var contentHorizontalAlignment: UIControl.ContentHorizontalAlignment = .left
     /// 选中风格
-    @objc public var selectionStyle: UITableViewCellSelectionStyle = .none
+    @objc public var selectionStyle: UITableViewCell.SelectionStyle = .none
     
     /// 分割线颜色
     @objc public var separatorColor: UIColor = kPV_RGBA(r: 231, g: 231, b: 231, a: 1)
@@ -355,14 +375,14 @@ open class FWCustomSheetViewProperty: FWPopupViewProperty {
         
         self.buttonFontSize = 15
         
-        self.titleTextAttributes = [NSAttributedStringKey.foregroundColor: self.itemNormalColor, NSAttributedStringKey.backgroundColor: UIColor.clear, NSAttributedStringKey.font: UIFont.systemFont(ofSize: self.buttonFontSize)]
+        self.titleTextAttributes = [NSAttributedString.Key.foregroundColor: self.itemNormalColor, NSAttributedString.Key.backgroundColor: UIColor.clear, NSAttributedString.Key.font: UIFont.systemFont(ofSize: self.buttonFontSize)]
         
         let tmpColor = kPV_RGBA(r: 138, g: 146, b: 165, a: 1)
-        self.secondaryTitleTextAttributes = [NSAttributedStringKey.foregroundColor: tmpColor, NSAttributedStringKey.backgroundColor: UIColor.clear, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12)]
+        self.secondaryTitleTextAttributes = [NSAttributedString.Key.foregroundColor: tmpColor, NSAttributedString.Key.backgroundColor: UIColor.clear, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]
         
         self.letfRigthMargin = 20
         
-        self.popupViewMaxHeight = UIScreen.main.bounds.height * CGFloat(0.7)
+        self.popupViewMaxHeightRate = 0.7
         
         self.touchWildToHide = "1"
     }
